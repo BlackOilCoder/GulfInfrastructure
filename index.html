@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#071722" />
+  <title>Bluewater — Gulf infrastructure atlas</title>
+  <link rel="preconnect" href="https://js.arcgis.com" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/dark/main.css" />
+  <script src="https://js.arcgis.com/4.31/"></script>
+  <script src="./platform-structures.js"></script>
+  <style>
+    :root{color-scheme:dark;--bg:#071722;--panel:#0b202d;--panel2:#102936;--line:#1d3a48;--muted:#7893a0;--text:#e8f2f4;--mint:#66e2c2;--gold:#e9b977;--blue:#71a9ff}
+    *{box-sizing:border-box}html,body,#app{height:100%;margin:0}body{background:var(--bg);color:var(--text);font:14px/1.4 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+    #app{display:grid;grid-template-rows:64px 1fr}.topbar{display:flex;align-items:center;gap:16px;padding:0 24px;border-bottom:1px solid var(--line);background:#081a25;z-index:4}.brand{display:flex;align-items:center;gap:11px;min-width:250px}.brandmark{width:31px;height:31px;border-radius:10px;background:linear-gradient(145deg,#78eed1,#298f95);display:grid;place-items:center;color:#072229;font-size:17px;font-weight:900}.brandname{font-size:15px;font-weight:750;letter-spacing:.01em}.brandname span{display:block;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-top:1px}.search{width:min(480px,42vw);height:38px;border:1px solid var(--line);border-radius:9px;background:#0d222e;display:flex;align-items:center;gap:10px;padding:0 12px}.search svg{color:#86a6b2;flex:none}.search input{background:none;border:0;outline:0;color:var(--text);width:100%;font:inherit}.search input::placeholder{color:#67818d}.topspacer{flex:1}.badge{font-size:11px;color:#9db5bc;border:1px solid var(--line);padding:6px 10px;border-radius:99px;white-space:nowrap}.badge i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:7px;box-shadow:0 0 10px #66e2c288}
+    .workspace{min-height:0;display:grid;grid-template-columns:300px 1fr}.sidebar{background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:20px 16px 24px;z-index:2}.eyebrow{color:#71909d;text-transform:uppercase;font-size:10px;letter-spacing:.13em;font-weight:700}.section-title{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;font-size:13px;font-weight:700}.section{margin-bottom:24px}.switch-row{display:flex;align-items:center;gap:10px;padding:10px 9px;border-radius:8px;transition:background .2s}.switch-row:hover{background:#102936}.switch-row input{appearance:none;width:32px;height:18px;background:#26404b;border-radius:99px;position:relative;cursor:pointer;flex:none;margin:0;transition:.2s}.switch-row input:checked{background:#168c7a}.switch-row input:after{content:"";position:absolute;width:12px;height:12px;left:3px;top:3px;border-radius:50%;background:#d5e5e7;transition:.2s}.switch-row input:checked:after{left:17px;background:white}.layer-dot{width:9px;height:9px;border-radius:50%;flex:none}.layer-label{font-size:12px;flex:1}.layer-meta{font-size:10px;color:#718c98}.layer-meta strong{color:#bed0d4;font-weight:600}.divider{height:1px;background:var(--line);margin:18px 0}.legend{display:grid;gap:10px;padding:4px 2px 2px}.legend-item{display:flex;align-items:center;gap:10px;font-size:11px;color:#acc0c5}.legend-line{height:3px;width:20px;border-radius:4px;background:var(--mint)}.legend-line.pipe{background:var(--gold)}.legend-dot{width:8px;height:8px;background:#fff;border:2px solid var(--blue);border-radius:50%}.legend-diamond{height:9px;width:9px;background:var(--mint);transform:rotate(45deg);border:1px solid #082a2c}.info-card{border:1px solid var(--line);border-radius:10px;background:#0a1b25;padding:13px;margin-top:22px}.info-card h3{font-size:11px;margin:0 0 6px}.info-card p{font-size:10px;line-height:1.55;color:#8ba2aa;margin:0}.info-card a,.source-link{color:#83d9cc;text-decoration:none}.info-card a:hover,.source-link:hover{text-decoration:underline}.attribution{font-size:9px;color:#647f8b;margin-top:13px;line-height:1.6}
+    .scale-control{padding:4px 9px 10px}.scale-control label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px;color:#b7c9cd}.scale-control output{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}.scale-control input{width:100%;margin:12px 0 5px;accent-color:#66e2c2;cursor:pointer}.scale-range{display:flex;justify-content:space-between;color:#718b96;font-size:9px}.scale-hint{font-size:10px;line-height:1.5;color:#7f99a3;margin-top:8px}
+    .map-wrap{position:relative;min-width:0;min-height:0;background:#09212e}.map{height:100%;width:100%}.map-tools{position:absolute;top:18px;right:18px;z-index:3;display:flex;gap:8px}.map-button{border:1px solid #31515e;background:#0b202d;color:#d7e6e8;border-radius:8px;padding:9px 12px;font:inherit;font-size:11px;cursor:pointer;box-shadow:0 5px 18px #0004}.map-button:hover{border-color:#68bba9;color:white}.scale-card{position:absolute;left:18px;bottom:24px;z-index:2;background:#071923d9;border:1px solid #24414d;border-radius:8px;padding:9px 12px;font-size:10px;color:#abc0c5;backdrop-filter:blur(8px)}.status{position:absolute;right:18px;bottom:18px;z-index:2;background:#071923d9;border:1px solid #24414d;border-radius:8px;padding:8px 11px;font-size:10px;color:#abc0c5;backdrop-filter:blur(8px)}.status span{color:var(--mint)}.esri-view .esri-view-surface--inset-outline:focus:after{outline:none}.esri-widget,.esri-widget--button{background:#0b202d!important;color:#d8e7e9!important}.esri-widget--button:hover{background:#153240!important}.esri-popup__main-container{background:#0c202b!important;color:var(--text)!important}.esri-popup__header-title{color:var(--text)!important}.esri-popup__content{color:#c0d1d5!important}.esri-ui .esri-attribution{background:#071923b8!important;color:#90a7ad!important}.esri-attribution__sources a{color:#85cfc4!important}
+    .profile-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#020a10bb;backdrop-filter:blur(5px)}.profile-backdrop[hidden]{display:none}.profile-dialog{width:min(980px,96vw);max-height:min(760px,92vh);overflow:auto;border:1px solid #31515e;border-radius:14px;background:#0b202d;box-shadow:0 24px 80px #0009;padding:20px}.profile-header{display:flex;align-items:flex-start;gap:16px}.profile-heading{flex:1;min-width:0}.profile-heading h2{font-size:17px;margin:0 0 4px}.profile-heading p{font-size:11px;color:#8ba2aa;margin:0}.profile-close{border:1px solid #31515e;border-radius:8px;background:#102936;color:#d7e6e8;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer}.profile-close:hover{border-color:#68bba9;color:white}.profile-status{font-size:12px;color:#9db5bc;padding:18px 2px}.profile-summary{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.profile-stat{border:1px solid #24414d;border-radius:8px;background:#0a1b25;padding:8px 11px;color:#9db5bc;font-size:10px}.profile-stat strong{color:#dce9eb;font-size:12px;margin-left:5px}.profile-chart{border:1px solid #203943;border-radius:10px;background:#081a25;padding:8px;overflow:hidden}.profile-chart svg{display:block;width:100%;height:auto;min-height:250px}.profile-note{font-size:10px;line-height:1.5;color:#78939c;margin:12px 2px 0}.profile-axis{fill:#9db5bc;font:11px ui-sans-serif,system-ui,sans-serif}.profile-grid{stroke:#29414b;stroke-width:1}.profile-line{fill:none;stroke:#d4a36d;stroke-width:2.5;vector-effect:non-scaling-stroke}.profile-area{fill:#b9834c33;stroke:none}
+    @media(max-width:760px){#app{grid-template-rows:58px 1fr}.topbar{padding:0 12px;gap:9px}.brand{min-width:0}.brandname{font-size:13px}.brandname span{display:none}.brandmark{width:29px;height:29px}.search{width:auto;flex:1}.badge{display:none}.workspace{grid-template-columns:1fr;grid-template-rows:1fr auto}.sidebar{grid-row:2;max-height:34vh;border-right:0;border-top:1px solid var(--line);padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.section{margin:0}.section:first-child{grid-row:span 2}.section-title{margin-bottom:5px}.switch-row{padding:6px}.info-card,.attribution{display:none}.map-wrap{grid-row:1}.map-tools{top:10px;right:10px}.map-button{padding:7px 9px}.scale-card{bottom:10px;left:10px}.profile-backdrop{padding:10px}.profile-dialog{padding:14px;max-height:96vh}.profile-chart svg{min-height:210px}}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><div class="brandmark">⌁</div><div class="brandname">Bluewater<span>Gulf infrastructure atlas</span></div></div>
+      <label class="search" aria-label="Search offshore data"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="searchInput" placeholder="Search platforms, wells, and pipelines" /><kbd style="font:10px inherit;color:#607985;white-space:nowrap">↵</kbd></label>
+      <div class="topspacer"></div><div class="badge"><i></i>Live agency layers</div>
+    </header>
+    <main class="workspace">
+      <aside class="sidebar">
+        <section class="section"><div class="eyebrow" style="margin:0 0 7px 9px">Map contents</div><h2 class="section-title" style="padding:0 9px">Layers <span class="layer-meta">4 sources</span></h2>
+          <label class="switch-row"><input id="bathymetryToggle" type="checkbox"><span class="layer-dot" style="background:#508c94"></span><span class="layer-label">Seafloor bathymetry</span><span class="layer-meta">BOEM</span></label>
+          <label class="switch-row"><input id="hillshadeToggle" type="checkbox" checked><span class="layer-dot" style="background:#718b98"></span><span class="layer-label">Relief shading</span><span class="layer-meta">BOEM</span></label>
+          <label class="switch-row"><input id="pipelinesToggle" type="checkbox" checked><span class="layer-dot" style="background:#e9b977"></span><span class="layer-label">Pipelines</span><span class="layer-meta" id="pipelineCount">BSEE</span></label>
+          <label class="switch-row"><input id="platformsToggle" type="checkbox" checked><span class="layer-dot" style="background:#66e2c2"></span><span class="layer-label">Platforms</span><span class="layer-meta" id="platformCount">BSEE</span></label>
+          <label class="switch-row"><input id="wellsToggle" type="checkbox"><span class="layer-dot" style="background:#71a9ff"></span><span class="layer-label">Oil &amp; gas wells</span><span class="layer-meta" id="wellCount">BSEE</span></label>
+        </section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Pipeline data quality</h2><label class="switch-row"><input id="hideBadDataToggle" type="checkbox" checked><span class="layer-label">Hide Bad Data</span></label><div class="layer-meta" style="padding:0 9px">Bad Data list: pipeline segment 21562</div></section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Bathymetry detail threshold</h2><div class="scale-control"><label for="scaleThreshold"><span>Render at this scale and closer</span><output id="scaleThresholdValue">1:650,000</output></label><input id="scaleThreshold" type="range" min="0" max="100" value="40.6457" step="0.0001" aria-describedby="scaleHint"><div class="scale-range"><span>1:100,000</span><span>1:10,000,000</span></div><div class="scale-hint" id="scaleHint">BOEM depth and relief turn on only after you zoom in past the selected scale.</div></div></section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Legend</h2><div class="legend"><div class="legend-item"><span class="legend-line" style="background:#006400"></span>Pipeline · Gas</div><div class="legend-item"><span class="legend-line" style="background:#000000"></span>Pipeline · Oil</div><div class="legend-item"><span class="legend-line" style="background:#ff00ff"></span>Communication Cable</div><div class="legend-item"><span class="legend-line" style="background:#ff8c00"></span>Power Cable</div><div class="legend-item"><span class="legend-line" style="background:#ffb45f"></span>Umbilical</div><div class="legend-item"><span class="legend-line" style="background:#d9dee3"></span>Pipeline · CO₂</div><div class="legend-item"><span class="legend-line" style="background:#87cefa"></span>Pipeline · Water</div><div class="legend-item"><span class="legend-diamond"></span>Platform / structure</div><div class="legend-item"><span class="legend-dot"></span>Oil &amp; gas well</div><div class="layer-meta" style="padding-left:30px">Ignore codes are hidden. Unlisted codes appear gray.</div></div></section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Data notes</h2><div class="info-card" style="margin:0"><h3>Bathymetry coverage</h3><p>BOEM’s deepwater grid covers over 90,000 sq mi. Depths are in feet; native cells are 40 × 40 ft. The hillshade uses 5× vertical exaggeration. The source grid does not cover the entire Gulf.</p></div>
+          <div class="info-card"><h3>Platform details</h3><p>Structure names, business associates, coordinates, water depth and related records are joined to map points by Complex ID. This local BSEE dataset snapshot is dated October 19, 2026.</p></div>
+          <div class="info-card"><h3>Infrastructure detail</h3><p>BSEE’s pipeline service provides oil &amp; gas pipeline segments. The source schema does not identify a separate umbilical layer; umbilical coverage may therefore be incomplete. GIS locations are approximate, not official records.</p></div>
+          <div class="attribution">Sources: <a class="source-link" href="https://www.boem.gov/oil-gas-energy/mapping-and-data/map-gallery/northern-goa-deepwater-bathymetry-grid-3d-seismic" target="_blank" rel="noreferrer">BOEM bathymetry</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Platform.aspx" target="_blank" rel="noreferrer">BSEE platforms</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Pipeline.aspx" target="_blank" rel="noreferrer">BSEE pipelines</a></div>
+        </section>
+      </aside>
+      <section class="map-wrap"><div id="map" class="map"></div><div class="map-tools"><button id="gulfButton" class="map-button">⌖ &nbsp;Gulf overview</button><button id="layersButton" class="map-button">◫ &nbsp;Basemap</button></div><div class="scale-card">Gulf of America <span style="color:#587480;margin:0 5px">/</span> WGS 84</div><div class="status" id="status">Connecting to agency services…</div></section>
+    </main>
+  </div>
+  <div id="elevationDialog" class="profile-backdrop" hidden>
+    <section class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="elevationTitle">
+      <header class="profile-header"><div class="profile-heading"><h2 id="elevationTitle">Pipeline elevation profile</h2><p id="elevationSubtitle">Bathymetry sampled along the selected route</p></div><button id="closeElevation" class="profile-close" type="button" aria-label="Close elevation profile">Close</button></header>
+      <div id="elevationStatus" class="profile-status" role="status" aria-live="polite">Preparing profile…</div>
+      <div id="elevationSummary" class="profile-summary" hidden></div>
+      <div id="elevationChart" class="profile-chart" hidden></div>
+      <p class="profile-note">This profile assumes the pipeline follows the seafloor. It is not measured pipe elevation and does not show burial, unsupported spans, or as-built conditions. BOEM bathymetry coverage is limited; gaps indicate locations without a returned depth sample.</p>
+    </section>
+  </div>
+  <script>
+    (()=>{
+      const status=document.getElementById("status");
+      const searchInput=document.getElementById("searchInput");
+      window.offshoreMapStarted=false;
+      window.offshoreStartupStage="loading ArcGIS modules";
+      searchInput.addEventListener("keydown",event=>{
+        if(event.key!=="Enter"||!event.target.value.trim())return;
+        if(typeof window.offshoreSearchData==="function")window.offshoreSearchData(event.target.value.trim());
+        else status.textContent="Map services are still initializing · try the search again in a moment.";
+      });
+      window.addEventListener("error",event=>{
+        if(window.offshoreMapStarted)return;
+        const message=event.message&&event.message!=="Script error."?` · ${event.message}`:" · see browser console for the script error";
+        const location=event.lineno?` (line ${event.lineno}${event.colno?`, column ${event.colno}`:""})`:"";
+        status.textContent=`Map startup failed during ${window.offshoreStartupStage}${location}${message}.`;
+      });
+      window.addEventListener("unhandledrejection",event=>{
+        if(window.offshoreMapStarted)return;
+        const reason=event.reason;
+        const message=reason?.message?` · ${reason.message}`:"";
+        status.textContent=`Map startup failed during ${window.offshoreStartupStage}${message}.`;
+      });
+      status.textContent="Loading map framework…";
+    })();
+  </script>
+  <script>
+    require(["esri/Map","esri/views/MapView","esri/layers/MapImageLayer","esri/layers/FeatureLayer","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/geometry/Extent","esri/widgets/Popup","esri/core/reactiveUtils"], function(Map,MapView,MapImageLayer,FeatureLayer,BasemapGallery,Expand,Extent,Popup,reactiveUtils){
+      try{
+      const status=document.getElementById("status");
+      status.textContent="Building offshore map…";
+      window.offshoreStartupStage="creating offshore layers";
+      const extent=new Extent({xmin:-101.8,ymin:22.2,xmax:-79.1,ymax:31.8,spatialReference:{wkid:4326}});
+      let platformByComplex;
+      const platformFields=window.BSEE_PLATFORM_FIELDS||[];
+      const getPlatformByComplex=()=>{
+        if(platformByComplex)return platformByComplex;
+        platformByComplex=new window.Map();
+        (window.BSEE_PLATFORM_STRUCTURES||[]).forEach(values=>{
+          const record=Object.fromEntries(platformFields.map((field,index)=>[field,values[index]]));
+          const complexId=String(record.COMPLEX_ID_NUM||"").trim();
+          if(!complexId)return;
+          if(!platformByComplex.has(complexId))platformByComplex.set(complexId,[]);
+          platformByComplex.get(complexId).push(record);
+        });
+        return platformByComplex;
+      };
+      const popupAttributeCache=new Map();
+      const attributePopup=async({graphic})=>{
+        let attributes=graphic.attributes||{};
+        const layer=graphic.layer;
+        const objectId=attributes[layer.objectIdField]??attributes.OBJECTID??attributes.FID;
+        if(objectId!==null&&objectId!==undefined){
+          const cacheKey=`${layer.uid}:${objectId}`;
+          let fullAttributes=popupAttributeCache.get(cacheKey);
+          if(!fullAttributes){
+            try{
+              const result=await layer.queryFeatures({objectIds:[objectId],outFields:["*"],returnGeometry:false});
+              fullAttributes=result.features[0]?.attributes;
+              if(fullAttributes)popupAttributeCache.set(cacheKey,fullAttributes);
+            }catch(error){console.warn(`Could not load full ${layer.title} popup attributes`,error);}
+          }
+          if(fullAttributes)attributes=fullAttributes;
+        }
+        const table=document.createElement("table");
+        table.style.cssText="width:100%;border-collapse:collapse;font-size:12px";
+        const fields=layer.fields||[];
+        const excluded=new Set(["OBJECTID","Shape__Area","Shape__Length"]);
+        const rows=fields.filter(field=>!excluded.has(field.name)&&attributes[field.name]!==null&&attributes[field.name]!==undefined&&String(attributes[field.name]).trim()!=="");
+        rows.forEach(field=>{
+          const tr=document.createElement("tr");
+          tr.style.borderBottom="1px solid #29414b";
+          const name=document.createElement("th");name.textContent=field.alias||field.name;name.style.cssText="text-align:left;vertical-align:top;padding:7px 10px 7px 0;color:#8fa9b1;font-weight:500;width:42%";
+          const value=document.createElement("td");value.style.cssText="padding:7px 0;color:#e2edef;overflow-wrap:anywhere";
+          const raw=attributes[field.name];
+          value.textContent=field.type==="date"&&raw?new Date(raw).toLocaleDateString():String(raw);
+          tr.append(name,value);table.append(tr);
+        });
+        if(graphic.layer.title==="Platforms"){
+          const complexId=String(attributes.COMPLEX_ID_NUM||"").trim();
+          const structures=getPlatformByComplex().get(complexId)||[];
+          const section=table.insertRow();section.style.borderBottom="1px solid #39535d";
+          const heading=section.insertCell();heading.colSpan=2;heading.textContent=`BSEE platform structure details · Complex ${complexId}`;heading.style.cssText="padding:12px 0 7px;color:#77d9c4;font-size:11px;font-weight:700";
+          const detailFields=[
+            ["AREA_CODE","Area code"],["BLOCK_NUMBER","Block number"],["FIELD_NAME_CODE","Field name code"],["STRUCTURE_NAME","Structure name"],["STRUCTURE_NUMBER","Structure number"],["STRUC_TYPE_CODE","Structure type"],["BUS_ASC_NAME","Business associated name"],["COMPLEX_ID_NUM","Complex ID"],["MAJ_STRUC_FLAG","Major structure"],["INSTALL_DATE","Install date"],["REMOVAL_DATE","Removal date"],["DISTRICT_CODE","District code"],["HELIPORT_FLAG","Heliport"],["LEASE_NUMBER","Lease number"],["WATER_DEPTH","Water depth (ft)"],["LATITUDE","Latitude"],["LONGITUDE","Longitude"],["NAD_YEAR_CD","NAD year code"],["PROJ_CODE","Projection code"],["PTFRM_X_LOCATION","Platform X location"],["PTFRM_Y_LOCATION","Platform Y location"],["SURF_N_S_DIST","Surface N/S distance"],["SURF_N_S_CODE","Surface N/S direction"],["SURF_E_W_DIST","Surface E/W distance"],["SURF_E_W_CODE","Surface E/W direction"],["ATTENDED_8_HR_FL","Attended 8 hours"],["MANNED_24_HR_FL","Manned 24 hours"],["STE_CLRNCE_DATE","Site clearance date"]
+          ];
+          if(structures.length){
+            structures.forEach((record,index)=>{
+              const tr=table.insertRow();tr.style.borderBottom="1px solid #29414b";
+              const name=tr.insertCell();name.colSpan=2;name.textContent=`Structure ${index+1}${record.STRUCTURE_NAME?` · ${record.STRUCTURE_NAME}`:""}${record.STRUCTURE_NUMBER?` · No. ${record.STRUCTURE_NUMBER}`:""}`;name.style.cssText="padding:9px 0 4px;color:#dfecee;font-weight:700";
+              detailFields.forEach(([field,label])=>{
+                const raw=record[field];if(raw===null||raw===undefined||String(raw).trim()==="")return;
+                const detail=table.insertRow();detail.style.borderBottom="1px solid #203943";
+                const key=detail.insertCell();key.textContent=label;key.style.cssText="text-align:left;vertical-align:top;padding:6px 10px 6px 0;color:#8fa9b1;font-weight:500;width:42%";
+                const value=detail.insertCell();value.textContent=String(raw).trim();value.style.cssText="padding:6px 0;color:#e2edef;overflow-wrap:anywhere";
+              });
+            });
+          }else{
+            const row=table.insertRow();row.insertCell().colSpan=2;row.cells[0].textContent="No matching record in the bundled BSEE Platform Structures data.";
+          }
+          const source=table.insertRow().insertCell();source.colSpan=2;source.style.cssText="padding:9px 0 2px;font-size:10px;color:#78939c";source.innerHTML='BSEE Platform Structures snapshot: 2026-10-19 · <a href="https://www.data.bsee.gov/Platform/PlatformStructures/Default.aspx" target="_blank" rel="noreferrer" style="color:#83d9cc">official query</a> · <a href="https://www.data.bsee.gov/Platform/PlatformStructures/FieldDefinitions.aspx" target="_blank" rel="noreferrer" style="color:#83d9cc">field definitions</a>';
+        }
+        if(!rows.length){const row=table.insertRow();row.insertCell().textContent="No attribute values returned for this feature.";}
+        return table;
+      };
+      const bathymetryUrl="https://gis.boem.gov/arcgis/rest/services/BOEM_BSEE/GOA_Deepwater_Bathymetry_and_Hillshade_Tiled/MapServer";
+      const bathy=new MapImageLayer({url:bathymetryUrl,title:"BOEM deepwater bathymetry",opacity:.9,visible:false,sublayers:[{id:0,visible:true}]});
+      const hillshade=new MapImageLayer({url:bathymetryUrl,title:"BOEM hillshade (brown tone)",effect:"grayscale(100%) sepia(80%)",visible:false,sublayers:[{id:1,visible:true}]});
+      const pipelineGroups=[
+        {name:"Gas",color:"#006400",codes:["BLGH","BLKG","COND","CSNG","FLG","G/C","G/CH","G/O","G/OH","GAS","GASH","INJ","LIFT","NGER","NGL","SPLY"]},
+        {name:"Oil",color:"#000000",codes:["BLKO","BLOH","O/W","OIL","OILH","SERV"]},
+        {name:"Comms",color:"#ff00ff",codes:["CBLC"]},
+        {name:"Cable",color:"#ff8c00",codes:["CBLP","CBLR"]},
+        {name:"Umbilical",color:"#ffb45f",codes:["CHEM","UBEH","UMB","UMBC","UMBE","UMBH"]},
+        {name:"CO2",color:"#d9dee3",codes:["CO2"]},
+        {name:"Water",color:"#87cefa",codes:["H2O","PWTR"]}
+      ];
+      const ignoredPipelineCodes=["ACID","AIR","LGER","LPRO","METH","SPRE","SULF","TEST","TOW"];
+      const badPipelineSegments=[21562];
+      const rgba=hex=>[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16),255];
+      const pipelineRenderer={type:"unique-value",field:"PROD_CODE",uniqueValueInfos:pipelineGroups.flatMap(group=>group.codes.map(code=>({value:code,label:group.name,symbol:{type:"simple-line",color:rgba(group.color),width:2}}))),defaultSymbol:{type:"simple-line",color:[112,128,144,255],width:1.5},defaultLabel:"Other / unlisted code"};
+      const getPipelineDefinitionExpression=()=>{
+        const filters=["PROD_CODE IS NOT NULL","PROD_CODE NOT IN ("+ignoredPipelineCodes.map(code=>"'"+code+"'").join(",")+")"];
+        if(document.getElementById("hideBadDataToggle").checked&&badPipelineSegments.length)filters.push("SEGMENT_NUM NOT IN ("+badPipelineSegments.join(",")+")");
+        return filters.join(" AND ");
+      };
+      let definitionExpression=getPipelineDefinitionExpression();
+      const pipes=new FeatureLayer({url:"https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer/2",title:"Offshore pipelines",visible:document.getElementById("pipelinesToggle").checked,outFields:["SEGMENT_NUM","STATUS_CODE","PPL_SIZE_CODE","PROD_CODE","SDE_COMPANY_DESG","ORIG_ID_NAME","ORIG_BLK_NUM"],definitionExpression,renderer:pipelineRenderer,popupTemplate:{title:"Pipeline segment {SEGMENT_NUM}",content:[{type:"fields",fieldInfos:[{fieldName:"STATUS_CODE",label:"Status"},{fieldName:"PROD_CODE",label:"Product code"},{fieldName:"PPL_SIZE_CODE",label:"Size"},{fieldName:"SDE_COMPANY_DESG",label:"Company"},{fieldName:"ORIG_ID_NAME",label:"Origin"},{fieldName:"ORIG_BLK_NUM",label:"Origin block"}]}],actions:[{title:"Show Elevation",id:"show-elevation",className:"esri-icon-line-chart"}]}});
+      const platforms=new FeatureLayer({url:"https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer/0",title:"Platforms",visible:document.getElementById("platformsToggle").checked,outFields:["COMPLEX_ID_NUM"],renderer:{type:"simple",symbol:{type:"simple-marker",style:"diamond",size:8,color:[102,226,194,235],outline:{color:[7,30,39,255],width:1}}},popupTemplate:{title:"Platform / structure",content:attributePopup}});
+      const wells=new FeatureLayer({url:"https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer/1",title:"Oil and gas wells",visible:document.getElementById("wellsToggle").checked,outFields:["OBJECTID"],renderer:{type:"simple",symbol:{type:"simple-marker",size:5,color:[113,169,255,180],outline:{color:[12,32,43,220],width:.6}}},popupTemplate:{title:"Oil & gas well",content:attributePopup}});
+      window.offshoreStartupStage="creating map view";
+      const map=new Map({basemap:"dark-gray-vector",layers:[bathy,hillshade,pipes,platforms,wells]});
+      const popup=new Popup({dockEnabled:true,dockOptions:{position:"bottom-right",breakpoint:false}});
+      const view=new MapView({container:"map",map,extent,constraints:{minZoom:4},popup});
+      window.offshoreStartupStage="setting up map controls";
+      const gallery=new BasemapGallery({view});const galleryExpand=new Expand({view,content:gallery,expandIcon:"basemap",group:"top-right"});view.ui.add(galleryExpand,"top-right");
+      const elevationDialog=document.getElementById("elevationDialog");
+      const elevationStatus=document.getElementById("elevationStatus");
+      const elevationSubtitle=document.getElementById("elevationSubtitle");
+      const elevationSummary=document.getElementById("elevationSummary");
+      const elevationChart=document.getElementById("elevationChart");
+      const elevationProfileCache=new Map();
+      const profileSampleLimit=500;
+      const profileBatchSize=10;
+      let elevationModulesPromise;
+      const getElevationModules=()=>{
+        if(!elevationModulesPromise)elevationModulesPromise=new Promise((resolve,reject)=>require(["esri/geometry/Multipoint","esri/geometry/Polyline","esri/geometry/SpatialReference","esri/geometry/geometryEngine","esri/geometry/projection","esri/rest/identify","esri/rest/support/IdentifyParameters"],(...modules)=>resolve({Multipoint:modules[0],Polyline:modules[1],SpatialReference:modules[2],geometryEngine:modules[3],projection:modules[4],identify:modules[5]?.identify,IdentifyParameters:modules[6]}),reject));
+        return elevationModulesPromise;
+      };
+      let previousFocus=null;
+      const closeElevation=()=>{elevationDialog.hidden=true;if(previousFocus?.focus)previousFocus.focus();};
+      document.getElementById("closeElevation").onclick=closeElevation;
+      elevationDialog.addEventListener("click",event=>{if(event.target===elevationDialog)closeElevation();});
+      document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!elevationDialog.hidden)closeElevation();});
+      const sampleRouteGeometry=async route=>{
+        const {Polyline,SpatialReference,geometryEngine,projection}=await getElevationModules();
+        await projection.load();
+        const geographicRoute=projection.project(route,new SpatialReference({wkid:4326}));
+        if(!geographicRoute||geographicRoute.type!=="polyline")throw new Error("The selected pipeline has no usable line geometry.");
+        const routeLengthFt=geometryEngine.geodesicLength(geographicRoute,"feet");
+        if(!Number.isFinite(routeLengthFt)||routeLengthFt<=0)throw new Error("The selected pipeline has no measurable route length.");
+        const spacingFt=Math.max(40,routeLengthFt/(profileSampleLimit-1));
+        const densified=geometryEngine.geodesicDensify(geographicRoute,spacingFt,"feet");
+        const samples=[];let distanceFt=0;
+        (densified.paths||[]).forEach((path,pathIndex)=>path.forEach((coordinate,index)=>{
+          if(index>0){
+            const segment=new Polyline({paths:[[path[index-1],coordinate]],spatialReference:densified.spatialReference});
+            distanceFt+=geometryEngine.geodesicLength(segment,"feet");
+          }
+          samples.push({point:[coordinate[0],coordinate[1]],distanceFt,pathIndex,depthFt:null});
+        }));
+        if(samples.length>profileSampleLimit){
+          const capped=Array.from({length:profileSampleLimit},(_,index)=>samples[Math.round(index*(samples.length-1)/(profileSampleLimit-1))]);
+          return {samples:capped,routeLengthFt,sampleSpacingFt:routeLengthFt/(capped.length-1)};
+        }
+        return {samples,routeLengthFt,sampleSpacingFt:spacingFt};
+      };
+      const identifyProfileBatch=async(batch,mapExtent)=>{
+        const {Multipoint,IdentifyParameters,identify}=await getElevationModules();
+        if(typeof identify!=="function")throw new Error("ArcGIS identify operation did not load from esri/rest/identify.");
+        const multipoint=new Multipoint({points:batch.map(sample=>sample.point),spatialReference:{wkid:4326}});
+        const parameters=new IdentifyParameters({geometry:multipoint,mapExtent,width:1024,height:1024,tolerance:1,layerOption:"all",layerIds:[0],returnGeometry:true});
+        const response=await identify(bathymetryUrl,parameters);
+        const unmatched=new Set(batch.map((_,index)=>index));
+        (response.results||[]).forEach((result,resultIndex)=>{
+          // ArcGIS SDK IdentifyResult stores service attributes on its feature Graphic;
+          // raw REST responses instead put them directly on result.attributes.
+          const attrs=result.feature?.attributes||result.attributes||{};
+          const valueField=Object.keys(attrs).find(field=>/pixel value/i.test(field));
+          const value=Number(valueField?attrs[valueField]:result.value);
+          if(!Number.isFinite(value))return;
+          let nearest=-1,nearestDistance=Infinity;
+          const resultGeometry=result.feature?.geometry||result.geometry;
+          if(resultGeometry&&Number.isFinite(resultGeometry.x)&&Number.isFinite(resultGeometry.y)){
+            batch.forEach((sample,index)=>{const dx=sample.point[0]-resultGeometry.x,dy=sample.point[1]-resultGeometry.y,distance=dx*dx+dy*dy;if(unmatched.has(index)&&distance<nearestDistance){nearest=index;nearestDistance=distance;}});
+          }
+          if(nearest<0&&unmatched.has(resultIndex))nearest=resultIndex;
+          if(nearest>=0){batch[nearest].depthFt=Math.abs(value);unmatched.delete(nearest);}
+        });
+      };
+      const fetchProfileDepths=async samples=>{
+        const batches=[];
+        for(let index=0;index<samples.length;index+=profileBatchSize)batches.push(samples.slice(index,index+profileBatchSize));
+        const xs=samples.map(sample=>sample.point[0]),ys=samples.map(sample=>sample.point[1]);
+        // Keep at least 0.2 degrees of map extent in either axis so one identify pixel
+        // is not much smaller than the native bathymetry cell when routes are short.
+        const padX=Math.max((Math.max(...xs)-Math.min(...xs))*.08,.1),padY=Math.max((Math.max(...ys)-Math.min(...ys))*.08,.1);
+        const routeMapExtent=new Extent({xmin:Math.min(...xs)-padX,ymin:Math.min(...ys)-padY,xmax:Math.max(...xs)+padX,ymax:Math.max(...ys)+padY,spatialReference:{wkid:4326}});
+        let nextBatch=0,completed=0,firstError=null;
+        await Promise.all(Array.from({length:Math.min(4,batches.length)},async()=>{
+          while(nextBatch<batches.length){
+            const current=batches[nextBatch++];
+            try{await identifyProfileBatch(current,routeMapExtent);}catch(error){firstError??=error;console.warn("Bathymetry sample batch failed",error);}
+            completed+=current.length;
+            elevationStatus.textContent=`Sampling seafloor depth… ${Math.min(completed,samples.length).toLocaleString()} of ${samples.length.toLocaleString()} points`;
+          }
+        }));
+        if(!samples.some(sample=>Number.isFinite(sample.depthFt))&&firstError)throw new Error(`BOEM depth identify failed: ${firstError.message||firstError}`);
+      };
+      const renderElevationChart=(samples,routeLengthFt)=>{
+        const valid=samples.filter(sample=>Number.isFinite(sample.depthFt));
+        if(!valid.length)throw new Error("No BOEM depth samples were returned. This route may be outside the bathymetry coverage.");
+        const depths=valid.map(sample=>sample.depthFt),minValue=Math.min(...depths),maxValue=Math.max(...depths);
+        const pad=Math.max(10,(maxValue-minValue)*.12),minDepth=Math.max(0,minValue-pad),maxDepth=maxValue+pad;
+        const width=900,height=390,left=78,right=24,top=24,bottom=58,plotWidth=width-left-right,plotHeight=height-top-bottom;
+        const totalMiles=routeLengthFt/5280;
+        const xFor=distance=>left+(distance/Math.max(routeLengthFt,1))*plotWidth;
+        const yFor=depth=>top+((depth-minDepth)/Math.max(maxDepth-minDepth,1))*plotHeight;
+        let path="",part=null,hasLine=false;
+        samples.forEach(sample=>{
+          if(!Number.isFinite(sample.depthFt)){part=null;return;}
+          const x=xFor(sample.distanceFt),y=yFor(sample.depthFt);
+          if(part!==sample.pathIndex||!hasLine){path+=`M${x.toFixed(2)},${y.toFixed(2)}`;part=sample.pathIndex;hasLine=true;}
+          else path+=` L${x.toFixed(2)},${y.toFixed(2)}`;
+        });
+        const grid=[];
+        for(let tick=0;tick<=4;tick++){
+          const ratio=tick/4,y=top+ratio*plotHeight,depth=minDepth+ratio*(maxDepth-minDepth),distance=totalMiles*ratio,x=left+ratio*plotWidth;
+          grid.push(`<line class="profile-grid" x1="${left}" y1="${y.toFixed(2)}" x2="${width-right}" y2="${y.toFixed(2)}"/><text class="profile-axis" x="${left-10}" y="${(y+4).toFixed(2)}" text-anchor="end">${Math.round(depth).toLocaleString()}</text><text class="profile-axis" x="${x.toFixed(2)}" y="${height-30}" text-anchor="middle">${distance.toFixed(totalMiles<10?2:1)}</text>`);
+        }
+        elevationChart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Pipeline route seafloor depth profile"><text class="profile-axis" x="${left}" y="15">Depth (ft)</text>${grid.join("")}<path class="profile-line" d="${path}"/><line class="profile-grid" x1="${left}" y1="${top}" x2="${left}" y2="${top+plotHeight}"/><text class="profile-axis" x="${left+plotWidth/2}" y="${height-6}" text-anchor="middle">Distance along pipeline (mi)</text></svg>`;
+        const coverage=valid.length/samples.length*100;
+        elevationSummary.replaceChildren();
+        [["Route length",`${totalMiles.toFixed(totalMiles<10?2:1)} mi`],["Shallowest sampled",`${Math.round(minValue).toLocaleString()} ft`],["Deepest sampled",`${Math.round(maxValue).toLocaleString()} ft`],["Bathymetry coverage",`${coverage.toFixed(0)}%`]].forEach(([label,value])=>{
+          const stat=document.createElement("div");stat.className="profile-stat";const key=document.createElement("span");key.textContent=label;const val=document.createElement("strong");val.textContent=value;stat.append(key,val);elevationSummary.append(stat);
+        });
+        elevationSummary.hidden=false;elevationChart.hidden=false;
+        elevationStatus.textContent=`Profile sampled at up to ${Math.round(routeLengthFt/Math.max(samples.length-1,1)).toLocaleString()} ft intervals. Missing samples appear as gaps.`;
+      };
+      const showElevationProfile=async feature=>{
+        const segment=feature?.attributes?.SEGMENT_NUM??"Unknown";
+        previousFocus=document.activeElement;
+        elevationDialog.hidden=false;elevationSummary.hidden=true;elevationChart.hidden=true;elevationSummary.replaceChildren();elevationChart.replaceChildren();
+        elevationSubtitle.textContent=`Pipeline segment ${segment} · BOEM seafloor bathymetry`;
+        elevationStatus.textContent="Preparing profile…";
+        document.getElementById("closeElevation").focus();
+        try{
+          const key=String(segment),cached=elevationProfileCache.get(key);
+          const profile=cached||await sampleRouteGeometry(feature.geometry);
+          if(!cached){
+            await fetchProfileDepths(profile.samples);
+          }
+          if(!profile.samples.some(sample=>Number.isFinite(sample.depthFt)))throw new Error("No BOEM depth samples were returned. This route may be outside the bathymetry coverage.");
+          if(!cached)elevationProfileCache.set(key,profile);
+          renderElevationChart(profile.samples,profile.routeLengthFt);
+        }catch(error){elevationStatus.textContent=error.message||"Could not retrieve bathymetry for this pipeline route.";console.warn("Elevation profile failed",error);}
+      };
+      reactiveUtils.on(()=>view.popup?.viewModel,"trigger-action",event=>{if(event.action?.id==="show-elevation")showElevationProfile(view.popup.selectedFeature);});
+      const scaleSlider=document.getElementById("scaleThreshold");
+      const scaleOutput=document.getElementById("scaleThresholdValue");
+      const formatScale=value=>`1:${(Math.round(value/1000)*1000).toLocaleString("en-US")}`;
+      const thresholdFromSlider=value=>100000*Math.pow(100,Number(value)/100);
+      const updateInfrastructureVisibility=()=>{
+        pipes.visible=document.getElementById("pipelinesToggle").checked;
+        platforms.visible=document.getElementById("platformsToggle").checked;
+        wells.visible=document.getElementById("wellsToggle").checked;
+      };
+      const updateBathymetry=()=>{
+        const threshold=thresholdFromSlider(scaleSlider.value);
+        const inRange=view.scale<=threshold;
+        bathy.visible=document.getElementById("bathymetryToggle").checked&&inRange;
+        hillshade.visible=document.getElementById("hillshadeToggle").checked&&inRange;
+        scaleOutput.textContent=formatScale(threshold);
+        document.getElementById("scaleHint").textContent=inRange?`BOEM depth and relief are active at ${formatScale(view.scale)}. Drag the slider to tune when they switch on.`:`Zoom in past ${formatScale(threshold)} to load BOEM depth and relief. Infrastructure layers remain available.`;
+      };
+      view.when(async()=>{
+        updateBathymetry();updateInfrastructureVisibility();
+        const visibleLayers=[pipes,platforms,wells].filter(layer=>layer.visible);
+        status.textContent=`Map view ready · loading ${visibleLayers.length} visible BSEE layers…`;
+        const outcomes=await Promise.all(visibleLayers.map(async layer=>{
+          try{
+            const layerView=await view.whenLayerView(layer);
+            if(layerView.updating)await reactiveUtils.whenOnce(()=>!layerView.updating);
+            return {title:layer.title,error:null};
+          }catch(error){return {title:layer.title,error};}
+        }));
+        const failed=outcomes.filter(outcome=>outcome.error);
+        if(failed.length){
+          status.textContent=`Map ready · ${failed.length} BSEE layer${failed.length===1?"":"s"} failed: ${failed.map(outcome=>outcome.title).join(", ")}`;
+          failed.forEach(outcome=>console.warn(`Could not create ${outcome.title} layer view`,outcome.error));
+        }else status.innerHTML=`<span>●</span> &nbsp;Map ready · ${outcomes.length} visible BSEE layer views loaded`;
+      });
+      view.watch("scale",updateBathymetry);
+      scaleSlider.addEventListener("input",updateBathymetry);
+      [pipes,platforms,wells].forEach((layer)=>layer.when().then(()=>{const id=layer===pipes?"pipelineCount":layer===platforms?"platformCount":"wellCount";document.getElementById(id).textContent="Connected";}).catch(()=>{}));
+      document.getElementById("bathymetryToggle").onchange=updateBathymetry;
+      document.getElementById("hillshadeToggle").onchange=updateBathymetry;
+      document.getElementById("pipelinesToggle").onchange=updateInfrastructureVisibility;
+      document.getElementById("platformsToggle").onchange=updateInfrastructureVisibility;
+      document.getElementById("wellsToggle").onchange=updateInfrastructureVisibility;
+      document.getElementById("hideBadDataToggle").onchange=()=>{definitionExpression=getPipelineDefinitionExpression();pipes.definitionExpression=definitionExpression;};
+      document.getElementById("gulfButton").onclick=()=>view.goTo({target:extent,zoom:5});
+      document.getElementById("layersButton").onclick=()=>galleryExpand.expanded=!galleryExpand.expanded;
+      const escapeSql=value=>value.replace(/'/g,"''");
+      const searchFields={
+        pipelines:{layer:pipes,strings:["ORIG_ID_NAME","ORIG_BLK_NUM","STATUS_CODE","PPL_SIZE_CODE","ROW_NUMBER","PROD_CODE","SDE_COMPANY_DESG","COMGL_SYS_IDS"],numbers:["SEGMENT_NUM"]},
+        platforms:{layer:platforms,strings:[],numbers:["COMPLEX_ID_NUM"]},
+        wells:{layer:wells,strings:["API_NUMBER","OPERATOR","WELL_NAME","SPUD_DATE","TYPE_CODE","TYPE_CODE_DESC","STATUS","DEPTH","STATUS_DESCRIPTION"],numbers:[]}
+      };
+      const queryLayer=async(config,term)=>{
+        const escaped=escapeSql(term.trim().toUpperCase());
+        const clauses=config.strings.map(field=>`UPPER(${field}) LIKE '%${escaped}%'`);
+        if(/^\d+$/.test(term.trim()))config.numbers.forEach(field=>clauses.push(`${field} = ${Number(term.trim())}`));
+        if(!clauses.length)return {source:config.layer.title,features:[],error:null};
+        const searchWhere=`(${clauses.join(" OR ")})${config.layer===pipes?` AND (${definitionExpression})`:""}`;
+        try{
+          const result=await config.layer.queryFeatures({where:searchWhere,outFields:["*"],returnGeometry:true,num:8});
+          return {source:config.layer.title,features:result.features,error:null};
+        }catch(error){
+          console.warn(`Search failed for ${config.layer.title}`,error);
+          return {source:config.layer.title,features:[],error};
+        }
+      };
+      const waitForSearchMatch=(tasks,timeoutMs=15000)=>new Promise(resolve=>{
+        let pending=tasks.length,settled=false;
+        const timer=setTimeout(()=>{settled=true;resolve({timeout:true,pending:tasks.filter(task=>!task.done).map(task=>task.name)});},timeoutMs);
+        tasks.forEach(task=>task.promise.then(result=>{
+          task.done=true;
+          task.result=result;
+          if(settled)return;
+          if(result.features.length){settled=true;clearTimeout(timer);resolve({result});return;}
+          pending--;
+          if(pending===0){settled=true;clearTimeout(timer);resolve({results:tasks.map(item=>item.result)});}
+        }));
+      });
+      const searchOffshoreData=async term=>{
+        status.textContent="Searching offshore records…";
+        const localMatches=[];
+        (window.BSEE_PLATFORM_STRUCTURES||[]).forEach(values=>{
+          if(values.some(value=>String(value??"").toUpperCase().includes(term.toUpperCase())))localMatches.push(String(values[7]||"").trim());
+        });
+        const complexIds=[...new Set(localMatches.filter(Boolean))].slice(0,5);
+        status.textContent="Searching BSEE platform, pipeline, and well records…";
+        const platformPromise=complexIds.length?platforms.queryFeatures({where:`COMPLEX_ID_NUM IN (${complexIds.map(Number).join(",")})`,outFields:["*"],returnGeometry:true,num:8}).then(result=>({source:"platforms",features:result.features,error:null})).catch(error=>{console.warn("Platform structure lookup failed",error);return {source:"platforms",features:[],error};}):Promise.resolve({source:"platforms",features:[],error:null});
+        const tasks=[
+          {name:"platforms",promise:platformPromise},
+          {name:"pipelines",promise:queryLayer(searchFields.pipelines,term)},
+          {name:"wells",promise:queryLayer(searchFields.wells,term)}
+        ];
+        const outcome=await waitForSearchMatch(tasks);
+        if(outcome.timeout){status.textContent=`Search timed out waiting for ${outcome.pending.join(", ")} data.`;return;}
+        if(!outcome.result){
+          const errors=(outcome.results||[]).filter(result=>result?.error).map(result=>result.source);
+          status.textContent=errors.length?`No match found · unable to reach ${errors.join(", ")}.`:`No offshore data matched “${term}”.`;
+          return;
+        }
+        const matches=outcome.result.features;
+        if(!matches.length){status.textContent=`No offshore data matched “${term}”.`;return;}
+        const feature=matches[0];
+        try{
+          const geometry=feature.geometry;
+          status.textContent=`Found ${matches.length} offshore record${matches.length===1?"":"s"} · moving to the first match…`;
+          if(geometry.type==="point")await view.goTo({target:geometry,zoom:14});
+          else if(geometry.extent)await view.goTo({target:geometry.extent.expand(1.5)});
+          view.openPopup({features:[feature],location:geometry.type==="point"?geometry:geometry.extent?.center});
+          status.textContent=`Found ${matches.length} offshore record${matches.length===1?"":"s"} · showing the first match.`;
+        }catch(error){status.textContent="The matching record was found, but the map could not move to it.";console.warn(error);}
+      };
+      window.offshoreSearchData=searchOffshoreData;
+      window.offshoreMapStarted=true;
+      view.on("layerview-create-error",e=>{status.textContent="Some agency data could not load · check network access";console.warn(e.error)});
+      }catch(error){
+        console.error("Offshore map setup failed",error);
+        const status=document.getElementById("status");
+        window.offshoreMapStarted=false;
+        status.textContent=`Map startup failed during ${window.offshoreStartupStage} · ${error.message||error}`;
+      }
+    },error=>{
+      console.error("Offshore map initialization failed",error);
+      const status=document.getElementById("status");
+      if(status)status.textContent="Offshore map services failed to initialize · refresh the page or check network access.";
+    });
+  </script>
+</body>
+</html>
