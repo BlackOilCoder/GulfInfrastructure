@@ -1,0 +1,60 @@
+{
+  "datasets": {
+    "platformStructures": {
+      "file": "platform-structures.json",
+      "sha256": "e158361d5007c0391924cf876be76f9965e0ba5f7ce3a5830b91ddf31ed2a448",
+      "bytes": 1567462,
+      "gzipBytes": 378850,
+      "count": 7091,
+      "captured": "2026-10-19"
+    },
+    "talosAssets": {
+      "file": "talos-active-assets.json",
+      "sha256": "dfe788b6a0495d93b23cf7dd00429eddfa03d948dbae926ce006bd288354166d",
+      "bytes": 8553,
+      "count": 707,
+      "captured": "2026-10-20"
+    },
+    "platforms": {
+      "file": "platforms.json",
+      "sha256": "65922fdfa25c844d3738e7eb76646c2e50a92dc77c3f9a66afe59eb2f619ab56",
+      "bytes": 68681,
+      "gzipBytes": 20862,
+      "count": 1297,
+      "captured": "2026-10-20T14:28:10+00:00"
+    },
+    "wells": {
+      "file": "wells.json",
+      "sha256": "946b35153c511068ae53325ddf4d8b2b45d392b9cb7c32c4bb98336d7d7b7c59",
+      "bytes": 8393300,
+      "gzipBytes": 1850443,
+      "count": 54578,
+      "captured": "2026-10-20T14:29:24+00:00"
+    },
+    "pipelines": {
+      "file": "pipelines.json",
+      "sha256": "2c98b730bcb49a5b2dffdda00d6b41f5415efb9498b5f72e9640a6312ef67a94",
+      "bytes": 16172327,
+      "gzipBytes": 4204752,
+      "count": 16838,
+      "captured": "2026-10-20T14:30:16+00:00"
+    },
+    "contours1000": {
+      "file": "contours1000.json",
+      "sha256": "7b8525c3694ec410ca761c5586b19d65b7b916bc93a1f2a30b08ad9778519629",
+      "bytes": 95163384,
+      "gzipBytes": 20402779,
+      "count": 2505,
+      "captured": "2026-10-20T14:31:30+00:00"
+    },
+    "contours500": {
+      "file": "contours500.json",
+      "sha256": "8423fd06a82e0c41f65c40a0cd6e3f8463151ca3c885ce11ee46c4cbca29ce10",
+      "bytes": 190407132,
+      "gzipBytes": 40804445,
+      "count": 6663,
+      "captured": "2026-10-20T14:34:12+00:00"
+    }
+  },
+  "generated": "2026-10-20T14:34:31+00:00"
+}

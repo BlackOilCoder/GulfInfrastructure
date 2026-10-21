@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#071722" />
   <title>Bluewater — Gulf infrastructure atlas</title>
   <link rel="preconnect" href="https://js.arcgis.com" />
+  <link rel="preconnect" href="https://gis.boem.gov" crossorigin />
   <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/dark/main.css" />
   <script src="https://js.arcgis.com/4.31/"></script>
-  <script src="./platform-structures.js"></script>
   <style>
     :root{color-scheme:dark;--bg:#071722;--panel:#0b202d;--panel2:#102936;--line:#1d3a48;--muted:#7893a0;--text:#e8f2f4;--mint:#66e2c2;--gold:#e9b977;--blue:#71a9ff}
     *{box-sizing:border-box}html,body,#app{height:100%;margin:0}body{background:var(--bg);color:var(--text);font:14px/1.4 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
@@ -16,41 +16,57 @@
     .workspace{min-height:0;display:grid;grid-template-columns:300px 1fr}.sidebar{background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:20px 16px 24px;z-index:2}.eyebrow{color:#71909d;text-transform:uppercase;font-size:10px;letter-spacing:.13em;font-weight:700}.section-title{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;font-size:13px;font-weight:700}.section{margin-bottom:24px}.switch-row{display:flex;align-items:center;gap:10px;padding:10px 9px;border-radius:8px;transition:background .2s}.switch-row:hover{background:#102936}.switch-row input{appearance:none;width:32px;height:18px;background:#26404b;border-radius:99px;position:relative;cursor:pointer;flex:none;margin:0;transition:.2s}.switch-row input:checked{background:#168c7a}.switch-row input:after{content:"";position:absolute;width:12px;height:12px;left:3px;top:3px;border-radius:50%;background:#d5e5e7;transition:.2s}.switch-row input:checked:after{left:17px;background:white}.layer-dot{width:9px;height:9px;border-radius:50%;flex:none}.layer-label{font-size:12px;flex:1}.layer-meta{font-size:10px;color:#718c98}.layer-meta strong{color:#bed0d4;font-weight:600}.divider{height:1px;background:var(--line);margin:18px 0}.legend{display:grid;gap:10px;padding:4px 2px 2px}.legend-item{display:flex;align-items:center;gap:10px;font-size:11px;color:#acc0c5}.legend-line{height:3px;width:20px;border-radius:4px;background:var(--mint)}.legend-line.pipe{background:var(--gold)}.legend-dot{width:8px;height:8px;background:#fff;border:2px solid var(--blue);border-radius:50%}.legend-diamond{height:9px;width:9px;background:var(--mint);transform:rotate(45deg);border:1px solid #082a2c}.info-card{border:1px solid var(--line);border-radius:10px;background:#0a1b25;padding:13px;margin-top:22px}.info-card h3{font-size:11px;margin:0 0 6px}.info-card p{font-size:10px;line-height:1.55;color:#8ba2aa;margin:0}.info-card a,.source-link{color:#83d9cc;text-decoration:none}.info-card a:hover,.source-link:hover{text-decoration:underline}.attribution{font-size:9px;color:#647f8b;margin-top:13px;line-height:1.6}
     .scale-control{padding:4px 9px 10px}.scale-control label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px;color:#b7c9cd}.scale-control output{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}.scale-control input{width:100%;margin:12px 0 5px;accent-color:#66e2c2;cursor:pointer}.scale-range{display:flex;justify-content:space-between;color:#718b96;font-size:9px}.scale-hint{font-size:10px;line-height:1.5;color:#7f99a3;margin-top:8px}
     .map-wrap{position:relative;min-width:0;min-height:0;background:#09212e}.map{height:100%;width:100%}.map-tools{position:absolute;top:18px;right:18px;z-index:3;display:flex;gap:8px}.map-button{border:1px solid #31515e;background:#0b202d;color:#d7e6e8;border-radius:8px;padding:9px 12px;font:inherit;font-size:11px;cursor:pointer;box-shadow:0 5px 18px #0004}.map-button:hover{border-color:#68bba9;color:white}.scale-card{position:absolute;left:18px;bottom:24px;z-index:2;background:#071923d9;border:1px solid #24414d;border-radius:8px;padding:9px 12px;font-size:10px;color:#abc0c5;backdrop-filter:blur(8px)}.status{position:absolute;right:18px;bottom:18px;z-index:2;background:#071923d9;border:1px solid #24414d;border-radius:8px;padding:8px 11px;font-size:10px;color:#abc0c5;backdrop-filter:blur(8px)}.status span{color:var(--mint)}.esri-view .esri-view-surface--inset-outline:focus:after{outline:none}.esri-widget,.esri-widget--button{background:#0b202d!important;color:#d8e7e9!important}.esri-widget--button:hover{background:#153240!important}.esri-popup__main-container{background:#0c202b!important;color:var(--text)!important}.esri-popup__header-title{color:var(--text)!important}.esri-popup__content{color:#c0d1d5!important}.esri-ui .esri-attribution{background:#071923b8!important;color:#90a7ad!important}.esri-attribution__sources a{color:#85cfc4!important}
-    .profile-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#020a10bb;backdrop-filter:blur(5px)}.profile-backdrop[hidden]{display:none}.profile-dialog{width:min(980px,96vw);max-height:min(760px,92vh);overflow:auto;border:1px solid #31515e;border-radius:14px;background:#0b202d;box-shadow:0 24px 80px #0009;padding:20px}.profile-header{display:flex;align-items:flex-start;gap:16px}.profile-heading{flex:1;min-width:0}.profile-heading h2{font-size:17px;margin:0 0 4px}.profile-heading p{font-size:11px;color:#8ba2aa;margin:0}.profile-close{border:1px solid #31515e;border-radius:8px;background:#102936;color:#d7e6e8;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer}.profile-close:hover{border-color:#68bba9;color:white}.profile-status{font-size:12px;color:#9db5bc;padding:18px 2px}.profile-summary{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.profile-stat{border:1px solid #24414d;border-radius:8px;background:#0a1b25;padding:8px 11px;color:#9db5bc;font-size:10px}.profile-stat strong{color:#dce9eb;font-size:12px;margin-left:5px}.profile-chart{border:1px solid #203943;border-radius:10px;background:#081a25;padding:8px;overflow:hidden}.profile-chart svg{display:block;width:100%;height:auto;min-height:250px}.profile-note{font-size:10px;line-height:1.5;color:#78939c;margin:12px 2px 0}.profile-axis{fill:#9db5bc;font:11px ui-sans-serif,system-ui,sans-serif}.profile-grid{stroke:#29414b;stroke-width:1}.profile-line{fill:none;stroke:#d4a36d;stroke-width:2.5;vector-effect:non-scaling-stroke}.profile-area{fill:#b9834c33;stroke:none}
-    @media(max-width:760px){#app{grid-template-rows:58px 1fr}.topbar{padding:0 12px;gap:9px}.brand{min-width:0}.brandname{font-size:13px}.brandname span{display:none}.brandmark{width:29px;height:29px}.search{width:auto;flex:1}.badge{display:none}.workspace{grid-template-columns:1fr;grid-template-rows:1fr auto}.sidebar{grid-row:2;max-height:34vh;border-right:0;border-top:1px solid var(--line);padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.section{margin:0}.section:first-child{grid-row:span 2}.section-title{margin-bottom:5px}.switch-row{padding:6px}.info-card,.attribution{display:none}.map-wrap{grid-row:1}.map-tools{top:10px;right:10px}.map-button{padding:7px 9px}.scale-card{bottom:10px;left:10px}.profile-backdrop{padding:10px}.profile-dialog{padding:14px;max-height:96vh}.profile-chart svg{min-height:210px}}
+    .profile-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#020a10bb;backdrop-filter:blur(5px)}.profile-backdrop[hidden]{display:none}.profile-dialog{width:min(980px,96vw);max-height:min(760px,92vh);overflow:auto;border:1px solid #31515e;border-radius:14px;background:#0b202d;box-shadow:0 24px 80px #0009;padding:20px}.profile-header{display:flex;align-items:flex-start;gap:16px}.profile-heading{flex:1;min-width:0}.profile-heading h2{font-size:17px;margin:0 0 4px}.profile-heading p{font-size:11px;color:#8ba2aa;margin:0}.profile-close{border:1px solid #31515e;border-radius:8px;background:#102936;color:#d7e6e8;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer}.profile-close:disabled{opacity:.45;cursor:default}.profile-header .profile-close+.profile-close{margin-left:-8px}.profile-close:hover:not(:disabled){border-color:#68bba9;color:white}.profile-status{font-size:12px;color:#9db5bc;padding:18px 2px}.profile-summary{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.profile-stat{border:1px solid #24414d;border-radius:8px;background:#0a1b25;padding:8px 11px;color:#9db5bc;font-size:10px}.profile-stat strong{color:#dce9eb;font-size:12px;margin-left:5px}.profile-chart{border:1px solid #203943;border-radius:10px;background:#081a25;padding:8px;overflow:hidden}.profile-chart svg{display:block;width:100%;height:auto;min-height:250px}.profile-note{font-size:10px;line-height:1.5;color:#78939c;margin:12px 2px 0}.profile-axis{fill:#9db5bc;font:11px ui-sans-serif,system-ui,sans-serif}.profile-grid{stroke:#29414b;stroke-width:1}.profile-line{fill:none;stroke:#d4a36d;stroke-width:2.5;vector-effect:non-scaling-stroke}.profile-area{fill:#b9834c33;stroke:none}.profile-origin-marker{fill:#fff4d6;stroke:#152a32;stroke-width:2;vector-effect:non-scaling-stroke}.profile-origin-label-bg{fill:#142a34;stroke:#d4a36d;stroke-width:1;vector-effect:non-scaling-stroke}.profile-origin-label{fill:#f3e5ce;font:600 11px ui-sans-serif,system-ui,sans-serif}
+    .search{position:relative}.search-results{position:absolute;top:calc(100% + 8px);left:0;width:min(590px,88vw);max-height:min(480px,70vh);overflow:auto;background:#0b202d;border:1px solid #31515e;border-radius:10px;box-shadow:0 15px 45px #0009;z-index:10;padding:8px}.search-results[hidden]{display:none}.search-result-heading{font-size:10px;color:#83a5af;padding:9px 10px 5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.search-result{display:block;width:100%;text-align:left;background:transparent;color:#dce9eb;border:0;border-radius:7px;padding:9px 10px;cursor:pointer;font:inherit}.search-result:hover,.search-result:focus{background:#173744;outline:none}.search-result small{display:block;color:#8ba2aa;margin-top:3px;font-size:10px}.search-empty{padding:12px;color:#9db5bc;font-size:12px}.search-results-close{float:right;color:#9db5bc;background:none;border:0;font:inherit;cursor:pointer;padding:5px 9px}
+    .currents-panel[hidden],#thresholdSection[hidden]{display:none}.currents-body{padding:0 9px;display:grid;gap:11px}.currents-field{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:#b7c9cd}.currents-field select{background:#0d222e;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 6px;font:inherit;font-size:11px;max-width:180px}.currents-time{display:flex;align-items:center;gap:10px}.currents-btn{width:30px;height:30px;border-radius:50%;border:1px solid #31515e;background:#102936;color:#d7e6e8;cursor:pointer;font-size:11px;flex:none}.currents-btn:hover:not(:disabled){border-color:#68bba9;color:#fff}.currents-btn:disabled{opacity:.4;cursor:default}.currents-time-text{display:grid;font-size:11px;color:#b7c9cd;min-width:0}.currents-time-text strong{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}.currents-time-text span{font-size:10px;color:#718b96}#currentsSlider{width:100%;accent-color:#66e2c2;cursor:pointer;margin:0}.currents-ramp{height:8px;border-radius:4px;margin-bottom:4px;background:linear-gradient(90deg,rgb(12,40,70) 0%,rgb(27,94,140) 8.3%,rgb(37,140,170) 16.7%,rgb(56,186,150) 33.3%,rgb(190,210,80) 50%,rgb(245,170,60) 66.7%,rgb(232,95,60) 83.3%,rgb(190,35,140) 100%)}.currents-readout{position:absolute;left:18px;bottom:64px;z-index:2;background:#071923e6;border:1px solid #24414d;border-radius:8px;padding:7px 10px;font-size:11px;color:#dce9eb;backdrop-filter:blur(8px);font-variant-numeric:tabular-nums;pointer-events:none}.currents-readout[hidden]{display:none}
+    @media(max-width:760px){#app{grid-template-rows:58px 1fr}.topbar{padding:0 12px;gap:9px}.brand{min-width:0}.brandname{font-size:13px}.brandname span{display:none}.brandmark{width:29px;height:29px}.search{width:auto;flex:1}.badge{display:none}.workspace{grid-template-columns:1fr;grid-template-rows:1fr auto}.sidebar{grid-row:2;max-height:34vh;border-right:0;border-top:1px solid var(--line);padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.section{margin:0}.section:first-child{grid-row:span 2}.section-title{margin-bottom:5px}.switch-row{padding:6px}.info-card,.attribution{display:none}.map-wrap{grid-row:1}.map-tools{top:10px;right:10px}.map-button{padding:7px 9px}.scale-card{bottom:10px;left:10px}.currents-readout{bottom:48px;left:10px}.profile-backdrop{padding:10px}.profile-dialog{padding:14px;max-height:96vh}.profile-chart svg{min-height:210px}}
   </style>
 </head>
 <body>
   <div id="app">
     <header class="topbar">
       <div class="brand"><div class="brandmark">⌁</div><div class="brandname">Bluewater<span>Gulf infrastructure atlas</span></div></div>
-      <label class="search" aria-label="Search offshore data"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="searchInput" placeholder="Search platforms, wells, and pipelines" /><kbd style="font:10px inherit;color:#607985;white-space:nowrap">↵</kbd></label>
-      <div class="topspacer"></div><div class="badge"><i></i>Live agency layers</div>
+      <div class="search" role="search" aria-label="Search offshore data"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="searchInput" aria-label="Search platforms, wells, and pipelines" placeholder="Search platforms, wells, and pipelines" /><kbd style="font:10px inherit;color:#607985;white-space:nowrap">↵</kbd><div id="searchResults" class="search-results" hidden role="region" aria-label="Search results"></div></div>
+      <div class="topspacer"></div><div class="badge" id="dataBadge"><i></i>Loading data…</div>
     </header>
     <main class="workspace">
       <aside class="sidebar">
-        <section class="section"><div class="eyebrow" style="margin:0 0 7px 9px">Map contents</div><h2 class="section-title" style="padding:0 9px">Layers <span class="layer-meta">4 sources</span></h2>
-          <label class="switch-row"><input id="bathymetryToggle" type="checkbox"><span class="layer-dot" style="background:#508c94"></span><span class="layer-label">Seafloor bathymetry</span><span class="layer-meta">BOEM</span></label>
-          <label class="switch-row"><input id="hillshadeToggle" type="checkbox" checked><span class="layer-dot" style="background:#718b98"></span><span class="layer-label">Relief shading</span><span class="layer-meta">BOEM</span></label>
-          <label class="switch-row"><input id="pipelinesToggle" type="checkbox" checked><span class="layer-dot" style="background:#e9b977"></span><span class="layer-label">Pipelines</span><span class="layer-meta" id="pipelineCount">BSEE</span></label>
-          <label class="switch-row"><input id="platformsToggle" type="checkbox" checked><span class="layer-dot" style="background:#66e2c2"></span><span class="layer-label">Platforms</span><span class="layer-meta" id="platformCount">BSEE</span></label>
+        <section class="section"><div class="eyebrow" style="margin:0 0 7px 9px">Map contents</div><h2 class="section-title" style="padding:0 9px">Layers <span class="layer-meta">7 layers</span></h2>
+          <label class="switch-row"><input id="hillshadeToggle" type="checkbox"><span class="layer-dot" style="background:#718b98"></span><span class="layer-label">Bathymetry hillshade</span><span class="layer-meta">BOEM</span></label>
+          <label class="switch-row"><input id="contoursToggle" type="checkbox"><span class="layer-dot" style="background:#78c8dc"></span><span class="layer-label">Depth contours (ft)</span><span class="layer-meta" id="contourMeta">BOEM</span></label>
+          <label class="switch-row"><input id="currentsToggle" type="checkbox"><span class="layer-dot" style="background:linear-gradient(135deg,#258caa,#f5aa3c)"></span><span class="layer-label">Ocean currents</span><span class="layer-meta" id="currentsMeta">CMEMS</span></label>
+          <label class="switch-row"><input id="talosAssetsToggle" type="checkbox" checked><span class="layer-dot" style="background:#f3bb69"></span><span class="layer-label">Talos Active Assets</span><span class="layer-meta" id="talosAssetsCount">Workbook</span></label>
+          <label class="switch-row"><input id="pipelinesToggle" type="checkbox"><span class="layer-dot" style="background:#e9b977"></span><span class="layer-label">Pipelines</span><span class="layer-meta" id="pipelineCount">BSEE</span></label>
+          <label class="switch-row"><input id="platformsToggle" type="checkbox"><span class="layer-dot" style="background:#66e2c2"></span><span class="layer-label">Platforms</span><span class="layer-meta" id="platformCount">BSEE</span></label>
           <label class="switch-row"><input id="wellsToggle" type="checkbox"><span class="layer-dot" style="background:#71a9ff"></span><span class="layer-label">Oil &amp; gas wells</span><span class="layer-meta" id="wellCount">BSEE</span></label>
         </section>
-        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Pipeline data quality</h2><label class="switch-row"><input id="hideBadDataToggle" type="checkbox" checked><span class="layer-label">Hide Bad Data</span></label><div class="layer-meta" style="padding:0 9px">Bad Data list: pipeline segment 21562</div></section>
-        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Bathymetry detail threshold</h2><div class="scale-control"><label for="scaleThreshold"><span>Render at this scale and closer</span><output id="scaleThresholdValue">1:650,000</output></label><input id="scaleThreshold" type="range" min="0" max="100" value="40.6457" step="0.0001" aria-describedby="scaleHint"><div class="scale-range"><span>1:100,000</span><span>1:10,000,000</span></div><div class="scale-hint" id="scaleHint">BOEM depth and relief turn on only after you zoom in past the selected scale.</div></div></section>
-        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Legend</h2><div class="legend"><div class="legend-item"><span class="legend-line" style="background:#006400"></span>Pipeline · Gas</div><div class="legend-item"><span class="legend-line" style="background:#000000"></span>Pipeline · Oil</div><div class="legend-item"><span class="legend-line" style="background:#ff00ff"></span>Communication Cable</div><div class="legend-item"><span class="legend-line" style="background:#ff8c00"></span>Power Cable</div><div class="legend-item"><span class="legend-line" style="background:#ffb45f"></span>Umbilical</div><div class="legend-item"><span class="legend-line" style="background:#d9dee3"></span>Pipeline · CO₂</div><div class="legend-item"><span class="legend-line" style="background:#87cefa"></span>Pipeline · Water</div><div class="legend-item"><span class="legend-diamond"></span>Platform / structure</div><div class="legend-item"><span class="legend-dot"></span>Oil &amp; gas well</div><div class="layer-meta" style="padding-left:30px">Ignore codes are hidden. Unlisted codes appear gray.</div></div></section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Legend</h2><div class="legend"><div class="legend-item"><span class="legend-line" style="background:#78c8dc;height:2px"></span>Depth contour · index (labeled)</div><div class="legend-item"><span class="legend-line" style="background:rgba(120,200,220,.45);height:1px"></span>Depth contour · intermediate</div><div class="legend-item"><span class="legend-line" style="background:#006400"></span>Pipeline · Gas</div><div class="legend-item"><span class="legend-line" style="background:#000000"></span>Pipeline · Oil</div><div class="legend-item"><span class="legend-line" style="background:#ff00ff"></span>Communication Cable</div><div class="legend-item"><span class="legend-line" style="background:#ff8c00"></span>Power Cable</div><div class="legend-item"><span class="legend-line" style="background:#ffb45f"></span>Umbilical</div><div class="legend-item"><span class="legend-line" style="background:#d9dee3"></span>Pipeline · CO₂</div><div class="legend-item"><span class="legend-line" style="background:#87cefa"></span>Pipeline · Water</div><div class="legend-item"><span class="legend-diamond"></span>Platform / structure</div><div class="legend-item"><span class="legend-dot"></span>Oil &amp; gas well</div><div class="layer-meta" style="padding-left:30px">Ignore codes are hidden. Unlisted codes appear gray.</div></div></section>
+        <section class="section currents-panel" id="currentsPanel" hidden><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Ocean currents <span class="layer-meta" id="currentsRun"></span></h2>
+          <div class="currents-body">
+            <label class="currents-field"><span>Level</span><select id="currentsSet" aria-label="Current level"></select></label>
+            <div class="currents-time"><button id="currentsPlay" class="currents-btn" type="button" aria-label="Play forecast">▶</button><div class="currents-time-text"><strong id="currentsTime">—</strong><span id="currentsRel"></span></div></div>
+            <input id="currentsSlider" type="range" min="0" max="0" value="0" step="1" aria-label="Forecast time">
+            <div><div class="layer-meta" style="margin-bottom:5px">Speed shading</div><div class="currents-ramp"></div><div class="scale-range"><span>0</span><span>0.5</span><span>1</span><span>1.5</span><span>2</span><span>2.5</span><span>3+ kn</span></div></div>
+            <div class="scale-hint" id="currentsInfo" style="margin:0">Hover over the sea for speed and direction.</div>
+          </div>
+        </section>
+        <section class="section" id="thresholdSection" hidden><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Bathymetry detail threshold</h2><div class="scale-control"><label for="scaleThreshold"><span>Render at this scale and closer</span><output id="scaleThresholdValue">1:650,000</output></label><input id="scaleThreshold" type="range" min="0" max="100" value="40.6457" step="0.0001" aria-describedby="scaleHint"><div class="scale-range"><span>1:100,000</span><span>1:10,000,000</span></div><div class="scale-hint" id="scaleHint">The BOEM hillshade turns on only after you zoom in past the selected scale.</div></div></section>
         <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Data notes</h2><div class="info-card" style="margin:0"><h3>Bathymetry coverage</h3><p>BOEM’s deepwater grid covers over 90,000 sq mi. Depths are in feet; native cells are 40 × 40 ft. The hillshade uses 5× vertical exaggeration. The source grid does not cover the entire Gulf.</p></div>
+          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as local tiles. The interval follows map scale: 1,000 ft zoomed out, 500 ft at regional scale, 100 ft zoomed in (heavier, labeled index lines every 5,000 / 2,500 / 500 ft; every 100 ft line is labeled closer than 1:100,000).</p></div>
+          <div class="info-card"><h3>Ocean currents</h3><p>Copernicus Marine Service Global Ocean Physics Analysis and Forecast (GLOBAL_ANALYSISFORECAST_PHY_001_024, 1/12° ≈ 9 km, DOI 10.48670/moi-00016). Modelled values for situational awareness only, not for operational or design use. Generated using E.U. Copernicus Marine Service Information.</p></div>
           <div class="info-card"><h3>Platform details</h3><p>Structure names, business associates, coordinates, water depth and related records are joined to map points by Complex ID. This local BSEE dataset snapshot is dated October 19, 2026.</p></div>
           <div class="info-card"><h3>Infrastructure detail</h3><p>BSEE’s pipeline service provides oil &amp; gas pipeline segments. The source schema does not identify a separate umbilical layer; umbilical coverage may therefore be incomplete. GIS locations are approximate, not official records.</p></div>
-          <div class="attribution">Sources: <a class="source-link" href="https://www.boem.gov/oil-gas-energy/mapping-and-data/map-gallery/northern-goa-deepwater-bathymetry-grid-3d-seismic" target="_blank" rel="noreferrer">BOEM bathymetry</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Platform.aspx" target="_blank" rel="noreferrer">BSEE platforms</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Pipeline.aspx" target="_blank" rel="noreferrer">BSEE pipelines</a></div>
+          <div class="info-card"><h3>Talos Active Assets</h3><p>Matches workbook platform Complex IDs, pipeline Segment Numbers and well API numbers to BSEE map features. Turning this layer off also switches off the three full BSEE infrastructure layers; reenable any of them to show the broader BSEE data.</p></div>
+          <div class="attribution">Sources: <a class="source-link" href="https://www.boem.gov/oil-gas-energy/mapping-and-data/map-gallery/northern-goa-deepwater-bathymetry-grid-3d-seismic" target="_blank" rel="noreferrer">BOEM bathymetry</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Platform.aspx" target="_blank" rel="noreferrer">BSEE platforms</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Pipeline.aspx" target="_blank" rel="noreferrer">BSEE pipelines</a> · <a class="source-link" href="https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_PHY_001_024/description" target="_blank" rel="noreferrer">Copernicus Marine currents</a></div>
         </section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Pipeline data quality</h2><label class="switch-row"><input id="hideBadDataToggle" type="checkbox" checked><span class="layer-label">Hide Bad Data</span></label><div class="layer-meta" style="padding:0 9px">Bad Data list: pipeline segment 21562</div></section>
       </aside>
-      <section class="map-wrap"><div id="map" class="map"></div><div class="map-tools"><button id="gulfButton" class="map-button">⌖ &nbsp;Gulf overview</button><button id="layersButton" class="map-button">◫ &nbsp;Basemap</button></div><div class="scale-card">Gulf of America <span style="color:#587480;margin:0 5px">/</span> WGS 84</div><div class="status" id="status">Connecting to agency services…</div></section>
+      <section class="map-wrap"><div id="map" class="map"></div><div class="map-tools"><button id="exportDataButton" class="map-button">⇩ &nbsp;Export Data</button><button id="gulfButton" class="map-button">⌖ &nbsp;Gulf overview</button><button id="layersButton" class="map-button">◫ &nbsp;Basemap</button></div><div class="scale-card">Gulf of America <span style="color:#587480;margin:0 5px">/</span> WGS 84</div><div id="currentsReadout" class="currents-readout" hidden aria-live="off"></div><div class="status" id="status">Connecting to agency services…</div></section>
     </main>
   </div>
   <div id="elevationDialog" class="profile-backdrop" hidden>
     <section class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="elevationTitle">
-      <header class="profile-header"><div class="profile-heading"><h2 id="elevationTitle">Pipeline elevation profile</h2><p id="elevationSubtitle">Bathymetry sampled along the selected route</p></div><button id="closeElevation" class="profile-close" type="button" aria-label="Close elevation profile">Close</button></header>
+      <header class="profile-header"><div class="profile-heading"><h2 id="elevationTitle">Pipeline elevation profile</h2><p id="elevationSubtitle">Bathymetry sampled along the selected route</p></div><button id="exportElevation" class="profile-close" type="button" aria-label="Download elevation profile as Excel" disabled>⤓ Excel</button><button id="closeElevation" class="profile-close" type="button" aria-label="Close elevation profile">Close</button></header>
       <div id="elevationStatus" class="profile-status" role="status" aria-live="polite">Preparing profile…</div>
       <div id="elevationSummary" class="profile-summary" hidden></div>
       <div id="elevationChart" class="profile-chart" hidden></div>
@@ -84,16 +100,68 @@
     })();
   </script>
   <script>
-    require(["esri/Map","esri/views/MapView","esri/layers/MapImageLayer","esri/layers/FeatureLayer","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/geometry/Extent","esri/widgets/Popup","esri/core/reactiveUtils"], function(Map,MapView,MapImageLayer,FeatureLayer,BasemapGallery,Expand,Extent,Popup,reactiveUtils){
+    // Local snapshot loader: data/manifest.json + versioned JSON files, cached in IndexedDB.
+    // Falls back to the last cached copy when the snapshot files cannot be fetched.
+    window.BluewaterSnapshots=(()=>{
+      const DB_NAME="bluewater-snapshots",STORE="datasets";
+      let dbPromise,manifestPromise;
+      const openDb=()=>dbPromise??=new Promise((resolve,reject)=>{
+        if(!window.indexedDB)return reject(new Error("IndexedDB unavailable"));
+        const request=indexedDB.open(DB_NAME,1);
+        request.onupgradeneeded=()=>request.result.createObjectStore(STORE);
+        request.onsuccess=()=>resolve(request.result);
+        request.onerror=()=>reject(request.error);
+      });
+      const idb=async(mode,action)=>{
+        const db=await openDb();
+        return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode);const request=action(tx.objectStore(STORE));tx.oncomplete=()=>resolve(request.result);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});
+      };
+      const getCached=key=>idb("readonly",store=>store.get(key)).catch(()=>null);
+      const putCached=(key,value)=>idb("readwrite",store=>store.put(value,key)).catch(error=>console.warn(`Could not cache ${key} snapshot`,error));
+      const getManifest=()=>manifestPromise??=fetch("./data/manifest.json",{cache:"no-cache"}).then(response=>response.ok?response.json():null).catch(()=>null);
+      // Resolves {data, origin:"snapshot"|"cache"|"stale-cache", captured} or null when nothing is available.
+      const load=async key=>{
+        const [manifest,cached]=await Promise.all([getManifest(),getCached(key)]);
+        const entry=manifest?.datasets?.[key];
+        if(entry&&cached?.sha256===entry.sha256)return {data:cached.data,origin:"cache",captured:entry.captured};
+        if(entry){
+          try{
+            const response=await fetch(`./data/${entry.file}?v=${entry.sha256.slice(0,16)}`);
+            if(!response.ok)throw new Error(`HTTP ${response.status}`);
+            const data=await response.json();
+            putCached(key,{sha256:entry.sha256,data});
+            return {data,origin:"snapshot",captured:entry.captured};
+          }catch(error){console.warn(`Snapshot ${entry.file} could not be fetched`,error);}
+        }
+        if(cached?.data)return {data:cached.data,origin:"stale-cache",captured:cached.data.captured};
+        return null;
+      };
+      return {load,getManifest};
+    })();
+  </script>
+  <script>
+    require(["esri/Map","esri/views/MapView","esri/layers/MapImageLayer","esri/layers/FeatureLayer","esri/layers/GroupLayer","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/geometry/Extent","esri/widgets/Popup","esri/core/reactiveUtils","esri/Graphic","esri/layers/Layer","esri/views/2d/layers/BaseLayerView2D"], function(Map,MapView,MapImageLayer,FeatureLayer,GroupLayer,BasemapGallery,Expand,Extent,Popup,reactiveUtils,Graphic,Layer,BaseLayerView2D){
       try{
       const status=document.getElementById("status");
       status.textContent="Building offshore map…";
       window.offshoreStartupStage="creating offshore layers";
       const extent=new Extent({xmin:-101.8,ymin:22.2,xmax:-79.1,ymax:31.8,spatialReference:{wkid:4326}});
-      let platformByComplex;
-      const platformFields=window.BSEE_PLATFORM_FIELDS||[];
+      let platformByComplex,platformStructuresPromise,platformSnapshotDate="2026-10-19";
+      // Platform Structures records load after the map draws (data/platform-structures.json,
+      // falling back to the legacy platform-structures.js script).
+      const ensurePlatformStructures=()=>platformStructuresPromise??=(async()=>{
+        const result=await window.BluewaterSnapshots.load("platformStructures");
+        if(result?.data?.rows){
+          window.BSEE_PLATFORM_FIELDS=result.data.fields;window.BSEE_PLATFORM_STRUCTURES=result.data.rows;
+          if(result.data.captured)platformSnapshotDate=result.data.captured;
+          return;
+        }
+        await new Promise((resolve,reject)=>{const script=document.createElement("script");script.src="./platform-structures.js";script.onload=resolve;script.onerror=()=>reject(new Error("platform-structures.js not found"));document.head.append(script);});
+      })().catch(error=>{console.warn("Platform Structures data unavailable",error);platformStructuresPromise=null;});
       const getPlatformByComplex=()=>{
         if(platformByComplex)return platformByComplex;
+        if(!window.BSEE_PLATFORM_STRUCTURES)return new window.Map();
+        const platformFields=window.BSEE_PLATFORM_FIELDS||[];
         platformByComplex=new window.Map();
         (window.BSEE_PLATFORM_STRUCTURES||[]).forEach(values=>{
           const record=Object.fromEntries(platformFields.map((field,index)=>[field,values[index]]));
@@ -104,12 +172,13 @@
         });
         return platformByComplex;
       };
-      const popupAttributeCache=new Map();
+      const popupAttributeCache=new window.Map();
       const attributePopup=async({graphic})=>{
         let attributes=graphic.attributes||{};
-        const layer=graphic.layer;
+        const layer=graphic.layer||graphic.sourceLayer;
         const objectId=attributes[layer.objectIdField]??attributes.OBJECTID??attributes.FID;
-        if(objectId!==null&&objectId!==undefined){
+        // Snapshot (client-side) layers already hold every attribute; only live layers need a query.
+        if(!layer.bluewaterSnapshot&&objectId!==null&&objectId!==undefined){
           const cacheKey=`${layer.uid}:${objectId}`;
           let fullAttributes=popupAttributeCache.get(cacheKey);
           if(!fullAttributes){
@@ -135,7 +204,8 @@
           value.textContent=field.type==="date"&&raw?new Date(raw).toLocaleDateString():String(raw);
           tr.append(name,value);table.append(tr);
         });
-        if(graphic.layer.title==="Platforms"){
+        if(layer.title==="Platforms"){
+          await ensurePlatformStructures();
           const complexId=String(attributes.COMPLEX_ID_NUM||"").trim();
           const structures=getPlatformByComplex().get(complexId)||[];
           const section=table.insertRow();section.style.borderBottom="1px solid #39535d";
@@ -157,13 +227,12 @@
           }else{
             const row=table.insertRow();row.insertCell().colSpan=2;row.cells[0].textContent="No matching record in the bundled BSEE Platform Structures data.";
           }
-          const source=table.insertRow().insertCell();source.colSpan=2;source.style.cssText="padding:9px 0 2px;font-size:10px;color:#78939c";source.innerHTML='BSEE Platform Structures snapshot: 2026-10-19 · <a href="https://www.data.bsee.gov/Platform/PlatformStructures/Default.aspx" target="_blank" rel="noreferrer" style="color:#83d9cc">official query</a> · <a href="https://www.data.bsee.gov/Platform/PlatformStructures/FieldDefinitions.aspx" target="_blank" rel="noreferrer" style="color:#83d9cc">field definitions</a>';
+          const source=table.insertRow().insertCell();source.colSpan=2;source.style.cssText="padding:9px 0 2px;font-size:10px;color:#78939c";source.innerHTML=`BSEE Platform Structures snapshot: ${escapeXml(platformSnapshotDate)} · `+'<a href="https://www.data.bsee.gov/Platform/PlatformStructures/Default.aspx" target="_blank" rel="noreferrer" style="color:#83d9cc">official query</a> · <a href="https://www.data.bsee.gov/Platform/PlatformStructures/FieldDefinitions.aspx" target="_blank" rel="noreferrer" style="color:#83d9cc">field definitions</a>';
         }
         if(!rows.length){const row=table.insertRow();row.insertCell().textContent="No attribute values returned for this feature.";}
         return table;
       };
       const bathymetryUrl="https://gis.boem.gov/arcgis/rest/services/BOEM_BSEE/GOA_Deepwater_Bathymetry_and_Hillshade_Tiled/MapServer";
-      const bathy=new MapImageLayer({url:bathymetryUrl,title:"BOEM deepwater bathymetry",opacity:.9,visible:false,sublayers:[{id:0,visible:true}]});
       const hillshade=new MapImageLayer({url:bathymetryUrl,title:"BOEM hillshade (brown tone)",effect:"grayscale(100%) sepia(80%)",visible:false,sublayers:[{id:1,visible:true}]});
       const pipelineGroups=[
         {name:"Gas",color:"#006400",codes:["BLGH","BLKG","COND","CSNG","FLG","G/C","G/CH","G/O","G/OH","GAS","GASH","INJ","LIFT","NGER","NGL","SPLY"]},
@@ -177,35 +246,292 @@
       const ignoredPipelineCodes=["ACID","AIR","LGER","LPRO","METH","SPRE","SULF","TEST","TOW"];
       const badPipelineSegments=[21562];
       const rgba=hex=>[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16),255];
-      const pipelineRenderer={type:"unique-value",field:"PROD_CODE",uniqueValueInfos:pipelineGroups.flatMap(group=>group.codes.map(code=>({value:code,label:group.name,symbol:{type:"simple-line",color:rgba(group.color),width:2}}))),defaultSymbol:{type:"simple-line",color:[112,128,144,255],width:1.5},defaultLabel:"Other / unlisted code"};
+      // Symbols keep their full size at 1:300,000 and closer, then shrink as the map zooms out,
+      // reaching the minimum at 1:5,000,000 (about the Gulf-wide view). Interpolated between stops.
+      const FULL_SIZE_SCALE=300000,MIN_SIZE_SCALE=5000000;
+      const scaledSize=(full,min)=>({type:"size",valueExpression:"$view.scale",stops:[
+        {value:FULL_SIZE_SCALE,size:full},
+        {value:1200000,size:+(min+(full-min)*.55).toFixed(2)},
+        {value:MIN_SIZE_SCALE,size:min}]});
+      const pipelineRenderer={visualVariables:[scaledSize(2,.6)],type:"unique-value",field:"PROD_CODE",uniqueValueInfos:pipelineGroups.flatMap(group=>group.codes.map(code=>({value:code,label:group.name,symbol:{type:"simple-line",color:rgba(group.color),width:2}}))),defaultSymbol:{type:"simple-line",color:[112,128,144,255],width:1.5},defaultLabel:"Other / unlisted code"};
       const getPipelineDefinitionExpression=()=>{
         const filters=["PROD_CODE IS NOT NULL","PROD_CODE NOT IN ("+ignoredPipelineCodes.map(code=>"'"+code+"'").join(",")+")"];
         if(document.getElementById("hideBadDataToggle").checked&&badPipelineSegments.length)filters.push("SEGMENT_NUM NOT IN ("+badPipelineSegments.join(",")+")");
         return filters.join(" AND ");
       };
       let definitionExpression=getPipelineDefinitionExpression();
-      const pipes=new FeatureLayer({url:"https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer/2",title:"Offshore pipelines",visible:document.getElementById("pipelinesToggle").checked,outFields:["SEGMENT_NUM","STATUS_CODE","PPL_SIZE_CODE","PROD_CODE","SDE_COMPANY_DESG","ORIG_ID_NAME","ORIG_BLK_NUM"],definitionExpression,renderer:pipelineRenderer,popupTemplate:{title:"Pipeline segment {SEGMENT_NUM}",content:[{type:"fields",fieldInfos:[{fieldName:"STATUS_CODE",label:"Status"},{fieldName:"PROD_CODE",label:"Product code"},{fieldName:"PPL_SIZE_CODE",label:"Size"},{fieldName:"SDE_COMPANY_DESG",label:"Company"},{fieldName:"ORIG_ID_NAME",label:"Origin"},{fieldName:"ORIG_BLK_NUM",label:"Origin block"}]}],actions:[{title:"Show Elevation",id:"show-elevation",className:"esri-icon-line-chart"}]}});
-      const platforms=new FeatureLayer({url:"https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer/0",title:"Platforms",visible:document.getElementById("platformsToggle").checked,outFields:["COMPLEX_ID_NUM"],renderer:{type:"simple",symbol:{type:"simple-marker",style:"diamond",size:8,color:[102,226,194,235],outline:{color:[7,30,39,255],width:1}}},popupTemplate:{title:"Platform / structure",content:attributePopup}});
-      const wells=new FeatureLayer({url:"https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer/1",title:"Oil and gas wells",visible:document.getElementById("wellsToggle").checked,outFields:["OBJECTID"],renderer:{type:"simple",symbol:{type:"simple-marker",size:5,color:[113,169,255,180],outline:{color:[12,32,43,220],width:.6}}},popupTemplate:{title:"Oil & gas well",content:attributePopup}});
+      const serviceUrl="https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer";
+      const pipelineOptions={title:"Offshore pipelines",definitionExpression,renderer:pipelineRenderer,popupTemplate:{title:"Pipeline segment {SEGMENT_NUM}",content:[{type:"fields",fieldInfos:[{fieldName:"STATUS_CODE",label:"Status"},{fieldName:"PROD_CODE",label:"Product code"},{fieldName:"PPL_SIZE_CODE",label:"Size"},{fieldName:"SDE_COMPANY_DESG",label:"Company"},{fieldName:"ORIG_ID_NAME",label:"Origin"},{fieldName:"ORIG_BLK_NUM",label:"Origin block"}]}],actions:[{title:"Show Elevation",id:"show-elevation",className:"esri-icon-line-chart"}]}};
+      const platformOptions={title:"Platforms",renderer:{type:"simple",visualVariables:[scaledSize(8,3.5)],symbol:{type:"simple-marker",style:"diamond",size:8,color:[102,226,194,235],outline:{color:[7,30,39,255],width:1}}},popupTemplate:{title:"Platform / structure",content:attributePopup}};
+      const wellOptions={title:"Oil and gas wells",renderer:{type:"simple",visualVariables:[scaledSize(5,2)],symbol:{type:"simple-marker",size:5,color:[113,169,255,180],outline:{color:[12,32,43,220],width:.6}}},popupTemplate:{title:"Oil & gas well",content:attributePopup}};
+      // Infrastructure datasets: local snapshot first (client-side FeatureLayer, no service calls),
+      // live BOEM feature service as fallback. Wells load on first use.
+      const infra={
+        pipelines:{key:"pipelines",layerId:2,toggle:"pipelinesToggle",count:"pipelineCount",rank:10,options:pipelineOptions,liveOutFields:["SEGMENT_NUM","STATUS_CODE","PPL_SIZE_CODE","PROD_CODE","SDE_COMPANY_DESG","ORIG_ID_NAME","ORIG_BLK_NUM"]},
+        platforms:{key:"platforms",layerId:0,toggle:"platformsToggle",count:"platformCount",rank:20,options:platformOptions,liveOutFields:["COMPLEX_ID_NUM"]},
+        wells:{key:"wells",layerId:1,toggle:"wellsToggle",count:"wellCount",rank:30,options:wellOptions,liveOutFields:["OBJECTID"]}
+      };
+      let pipes=null,platforms=null,wells=null;
+      const snapshotOrigins={};
+      // Keeps pipelines, platforms and wells above every other layer (in that order).
+      const raiseInfrastructure=()=>map.layers.toArray().filter(item=>item.bluewaterRank).sort((a,b)=>a.bluewaterRank-b.bluewaterRank).forEach(item=>map.reorder(item,map.layers.length-1));
+      const buildSnapshotLayer=(config,data)=>{
+        const point=data.geometryType==="point",names=data.fields.map(field=>field.name),spatialReference=data.spatialReference||{wkid:4326};
+        const graphics=new Array(data.rows.length);
+        for(let i=0;i<data.rows.length;i++){
+          const row=data.rows[i],attributes={};
+          for(let j=0;j<names.length;j++)attributes[names[j]]=row[j];
+          const g=data.geoms[i];
+          graphics[i]=new Graphic({attributes,geometry:point?{type:"point",x:g[0],y:g[1],spatialReference}:{type:"polyline",paths:g,spatialReference}});
+        }
+        config.index={graphics,fields:data.fields};
+        return new FeatureLayer({...config.options,source:graphics,fields:data.fields,objectIdField:data.objectIdField,geometryType:data.geometryType,spatialReference,outFields:["*"]});
+      };
+      const addInfrastructureLayer=(config,layer)=>{
+        layer.visible=document.getElementById(config.toggle).checked;
+        layer.bluewaterRank=config.rank;
+        map.add(layer);
+        raiseInfrastructure();
+        if(config.key==="pipelines")pipes=layer;else if(config.key==="platforms")platforms=layer;else wells=layer;
+      };
+      const ensureInfrastructure=config=>config.promise??=(async()=>{
+        document.getElementById(config.count).textContent="Loading…";
+        let layer=null,label="Live";
+        try{
+          const snapshot=await window.BluewaterSnapshots.load(config.key);
+          if(snapshot?.data?.rows){
+            layer=buildSnapshotLayer(config,snapshot.data);
+            snapshotOrigins[config.key]=snapshot;
+            label=snapshot.data.rows.length.toLocaleString();
+          }
+        }catch(error){console.warn(`${config.key} snapshot could not be used; falling back to live service`,error);}
+        if(layer)layer.bluewaterSnapshot=true;
+        else layer=new FeatureLayer({...config.options,url:`${serviceUrl}/${config.layerId}`,outFields:config.liveOutFields});
+        addInfrastructureLayer(config,layer);
+        document.getElementById(config.count).textContent=label;
+        document.getElementById(config.count).title=layer.bluewaterSnapshot?`Local snapshot${snapshotOrigins[config.key]?.captured?` captured ${snapshotOrigins[config.key].captured}`:""}`:"Live BOEM feature service";
+        updateDataBadge();
+        return layer;
+      })();
+      let talosAssetsData=null,talosAssetsLayer=null,talosAssetsPromise=null;
+      const infrastructureToggleIds=Object.values(infra).map(config=>config.toggle);
+      const ensureTalosAssetsLayer=()=>talosAssetsPromise??=(async()=>{
+        const snapshot=await window.BluewaterSnapshots.load("talosAssets");
+        if(!snapshot?.data?.keys)throw new Error("Talos asset list is unavailable. Check data/talos-active-assets.json and data/manifest.json.");
+        talosAssetsData=snapshot.data;
+        const childLayers=[],missing={};
+        let totalFeatures=0;
+        for(const config of Object.values(infra)){
+          const baseLayer=await ensureInfrastructure(config);
+          const fieldName=config.key==="platforms"?"COMPLEX_ID_NUM":config.key==="pipelines"?"SEGMENT_NUM":"API_NUMBER";
+          const keys=talosAssetsData.keys[config.key]||[];
+          const field=baseLayer.fields.find(item=>item.name===fieldName);
+          if(!field)throw new Error(`BSEE ${config.key} data does not contain ${fieldName}.`);
+          const values=field.type==="string"?keys.map(value=>`'${String(value).replace(/'/g,"''")}'`):keys.map(value=>String(value)).filter(value=>/^\d+$/.test(value));
+          if(!values.length){missing[config.key]=keys.length;continue;}
+          const result=await baseLayer.queryFeatures({where:`${fieldName} IN (${values.join(",")})`,outFields:["*"],returnGeometry:true});
+          missing[config.key]=Math.max(0,keys.length-result.features.length);
+          totalFeatures+=result.features.length;
+          const source=result.features.map(feature=>new Graphic({geometry:feature.geometry,attributes:{...feature.attributes}}));
+          childLayers.push(new FeatureLayer({...config.options,title:config.options.title,source,fields:baseLayer.fields,objectIdField:baseLayer.objectIdField,geometryType:baseLayer.geometryType,spatialReference:baseLayer.spatialReference,outFields:["*"]}));
+        }
+        talosAssetsLayer=new GroupLayer({title:"Talos Active Assets",visibilityMode:"independent",visible:document.getElementById("talosAssetsToggle").checked,layers:childLayers});
+        talosAssetsLayer.bluewaterRank=40;
+        map.add(talosAssetsLayer);
+        raiseInfrastructure();
+        const listed=talosAssetsData.listedCounts||{};
+        const countText=`${totalFeatures.toLocaleString()} features`;
+        const countDetails=`Workbook lists ${listed.platformComplexes??talosAssetsData.keys.platforms.length} platform complexes, ${talosAssetsData.keys.pipelines.length} pipeline segments and ${talosAssetsData.keys.wells.length} well APIs. ${missing.pipelines||0} listed pipeline segment IDs are absent or excluded by the current BSEE pipeline layer filters.`;
+        const countNode=document.getElementById("talosAssetsCount");
+        countNode.textContent=countText;
+        countNode.title=countDetails;
+        if(missing.pipelines)console.warn(countDetails);
+        return talosAssetsLayer;
+      })().catch(error=>{talosAssetsPromise=null;throw error;});
+      const updateDataBadge=()=>{
+        const origins=Object.values(snapshotOrigins);
+        const badge=document.getElementById("dataBadge");
+        if(!origins.length){badge.innerHTML="<i></i>Live agency layers";return;}
+        const dates=origins.map(item=>String(item.captured||"").slice(0,10)).filter(Boolean).sort();
+        badge.innerHTML=`<i></i>Local snapshot${dates.length?` · ${dates[0]}`:""}${origins.some(item=>item.origin==="stale-cache")?" (offline cache)":""}`;
+      };
       window.offshoreStartupStage="creating map view";
-      const map=new Map({basemap:"dark-gray-vector",layers:[bathy,hillshade,pipes,platforms,wells]});
+      const map=new Map({basemap:"dark-gray-vector",layers:[hillshade]});
       const popup=new Popup({dockEnabled:true,dockOptions:{position:"bottom-right",breakpoint:false}});
       const view=new MapView({container:"map",map,extent,constraints:{minZoom:4},popup});
       window.offshoreStartupStage="setting up map controls";
-      const gallery=new BasemapGallery({view});const galleryExpand=new Expand({view,content:gallery,expandIcon:"basemap",group:"top-right"});view.ui.add(galleryExpand,"top-right");
+      // Basemap gallery is created on first open (it fetches a portal basemap group and thumbnails).
+      const galleryContainer=document.createElement("div");let gallery=null;
+      const galleryExpand=new Expand({view,content:galleryContainer,expandIcon:"basemap",group:"top-right"});view.ui.add(galleryExpand,"top-right");
+      reactiveUtils.when(()=>galleryExpand.expanded,()=>{if(!gallery)gallery=new BasemapGallery({view,container:galleryContainer});});
       const elevationDialog=document.getElementById("elevationDialog");
       const elevationStatus=document.getElementById("elevationStatus");
       const elevationSubtitle=document.getElementById("elevationSubtitle");
       const elevationSummary=document.getElementById("elevationSummary");
       const elevationChart=document.getElementById("elevationChart");
-      const elevationProfileCache=new Map();
+      const elevationProfileCache=new window.Map();
       const profileSampleLimit=500;
-      const profileBatchSize=10;
+      const profileBatchSize=25;
+      const profileConcurrency=6;
       let elevationModulesPromise;
       const getElevationModules=()=>{
-        if(!elevationModulesPromise)elevationModulesPromise=new Promise((resolve,reject)=>require(["esri/geometry/Multipoint","esri/geometry/Polyline","esri/geometry/SpatialReference","esri/geometry/geometryEngine","esri/geometry/projection","esri/rest/identify","esri/rest/support/IdentifyParameters"],(...modules)=>resolve({Multipoint:modules[0],Polyline:modules[1],SpatialReference:modules[2],geometryEngine:modules[3],projection:modules[4],identify:modules[5]?.identify,IdentifyParameters:modules[6]}),reject));
+        if(!elevationModulesPromise)elevationModulesPromise=new Promise((resolve,reject)=>require(["esri/geometry/Multipoint","esri/geometry/Polyline","esri/geometry/SpatialReference","esri/geometry/geometryEngine","esri/geometry/projection","esri/rest/identify","esri/rest/support/IdentifyParameters","esri/geometry/Polygon"],(...modules)=>resolve({Multipoint:modules[0],Polyline:modules[1],SpatialReference:modules[2],geometryEngine:modules[3],projection:modules[4],identify:modules[5]?.identify,IdentifyParameters:modules[6],Polygon:modules[7]}),reject));
         return elevationModulesPromise;
       };
+      // ---- Minimal XLSX writer (no external library): stored ZIP + SpreadsheetML parts.
+      const crcTable=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+      const crc32=bytes=>{let c=0xFFFFFFFF;for(let i=0;i<bytes.length;i++)c=crcTable[(c^bytes[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;};
+      const zipStore=files=>{
+        const enc=new TextEncoder(),chunks=[],central=[];let offset=0;
+        const now=new Date(),dosTime=(now.getHours()<<11)|(now.getMinutes()<<5)|(now.getSeconds()>>1),dosDate=((now.getFullYear()-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+        files.forEach(({name,text})=>{
+          const nameBytes=enc.encode(name),data=enc.encode(text),crc=crc32(data);
+          const local=new DataView(new ArrayBuffer(30));
+          [[0,0x04034b50,4],[4,20,2],[6,0x0800,2],[8,0,2],[10,dosTime,2],[12,dosDate,2],[14,crc,4],[18,data.length,4],[22,data.length,4],[26,nameBytes.length,2],[28,0,2]].forEach(([o,v,n])=>n===4?local.setUint32(o,v,true):local.setUint16(o,v,true));
+          const header=new DataView(new ArrayBuffer(46));
+          [[0,0x02014b50,4],[4,20,2],[6,20,2],[8,0x0800,2],[10,0,2],[12,dosTime,2],[14,dosDate,2],[16,crc,4],[20,data.length,4],[24,data.length,4],[28,nameBytes.length,2],[30,0,2],[32,0,2],[34,0,2],[36,0,2],[38,0,4],[42,offset,4]].forEach(([o,v,n])=>n===4?header.setUint32(o,v,true):header.setUint16(o,v,true));
+          chunks.push(new Uint8Array(local.buffer),nameBytes,data);
+          central.push(new Uint8Array(header.buffer),nameBytes);
+          offset+=30+nameBytes.length+data.length;
+        });
+        const centralSize=central.reduce((sum,part)=>sum+part.length,0);
+        const end=new DataView(new ArrayBuffer(22));
+        [[0,0x06054b50,4],[4,0,2],[6,0,2],[8,files.length,2],[10,files.length,2],[12,centralSize,4],[16,offset,4],[20,0,2]].forEach(([o,v,n])=>n===4?end.setUint32(o,v,true):end.setUint16(o,v,true));
+        return new Blob([...chunks,...central,new Uint8Array(end.buffer)],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      };
+      const colName=index=>{let name="";index++;while(index>0){const m=(index-1)%26;name=String.fromCharCode(65+m)+name;index=Math.floor((index-1)/26);}return name;};
+      // rows: arrays of {v, s} where s is a style index (0 normal, 1 bold, 2 title, 3 number 0.0, 4 bold header with border, 5 number #,##0).
+      const buildXlsx=({sheetName,rows,colWidths,freezeRow,sheets})=>{
+        const workbookSheets=sheets||[{sheetName,rows,colWidths,freezeRow}];
+        const ns='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"';
+        const cell=(value,ref)=>{
+          const v=value&&typeof value==="object"?value.v:value,style=value&&typeof value==="object"&&value.s?` s="${value.s}"`:"";
+          if(v===null||v===undefined||v==="")return style?`<c r="${ref}"${style}/>`:"";
+          if(typeof v==="number"&&Number.isFinite(v))return `<c r="${ref}"${style}><v>${v}</v></c>`;
+          return `<c r="${ref}"${style} t="inlineStr"><is><t xml:space="preserve">${escapeXml(v)}</t></is></c>`;
+        };
+        const worksheetFiles=workbookSheets.map((sheet,index)=>{
+          const sheetRows=(sheet.rows||[]).map((row,r)=>`<row r="${r+1}">${row.map((value,c)=>cell(value,`${colName(c)}${r+1}`)).join("")}</row>`).join("");
+          const pane=sheet.freezeRow?`<sheetViews><sheetView workbookViewId="0"><pane ySplit="${sheet.freezeRow}" topLeftCell="A${sheet.freezeRow+1}" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>`:"";
+          const cols=sheet.colWidths?`<cols>${sheet.colWidths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join("")}</cols>`:"";
+          return {name:`xl/worksheets/sheet${index+1}.xml`,text:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet ${ns}>${pane}${cols}<sheetData>${sheetRows}</sheetData></worksheet>`};
+        });
+        const sheetOverrides=workbookSheets.map((_,index)=>`<Override PartName="/xl/worksheets/sheet${index+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("");
+        const workbookSheetXml=workbookSheets.map((sheet,index)=>`<sheet name="${escapeXml(String(sheet.sheetName||`Sheet${index+1}`).slice(0,31))}" sheetId="${index+1}" r:id="rId${index+1}"/>`).join("");
+        const worksheetRels=workbookSheets.map((_,index)=>`<Relationship Id="rId${index+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${index+1}.xml"/>`).join("");
+        const stylesRelId=workbookSheets.length+1;
+        return zipStore([
+          {name:"[Content_Types].xml",text:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>${sheetOverrides}<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>`},
+          {name:"_rels/.rels",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+          {name:"xl/workbook.xml",text:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook ${ns}><sheets>${workbookSheetXml}</sheets></workbook>`},
+          {name:"xl/_rels/workbook.xml.rels",text:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${worksheetRels}<Relationship Id="rId${stylesRelId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+          {name:"xl/styles.xml",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="#,##0.0"/></numFmts><fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFDDEBF7"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left/><right/><top/><bottom style="thin"><color auto="1"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="6"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"><alignment horizontal="center" wrapText="1"/></xf><xf numFmtId="3" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'},
+          ...worksheetFiles
+        ]);
+      };
+      let currentProfileExport=null;
+      const exportButton=document.getElementById("exportElevation");
+      const fieldLabel=(layer,name)=>layer?.fields?.find(field=>field.name===name)?.alias||name;
+      const exportElevationProfile=()=>{
+        if(!currentProfileExport)return;
+        const {profile,attributes,segment}=currentProfileExport;
+        // Origin header: every ORIG_* attribute the pipeline record carries (name, block, area, etc.).
+        const originRows=Object.keys(attributes).filter(key=>/^ORIG/i.test(key)&&attributes[key]!==null&&attributes[key]!==undefined&&String(attributes[key]).trim()!=="")
+          .map(key=>[{v:fieldLabel(pipes,key),s:1},String(attributes[key]).trim()]);
+        const valid=profile.samples.filter(sample=>Number.isFinite(sample.depthFt));
+        const first=profile.samples[0]?.point;
+        const rows=[
+          [{v:`Pipeline segment ${segment} — seafloor depth profile`,s:2}],
+          [],
+          [{v:"Origin",s:1}],
+          ...(originRows.length?originRows:[["(no origin attributes on this record)"]]),
+          [{v:"Origin coordinates (WGS 84)",s:1},first?`${first[1].toFixed(6)}, ${first[0].toFixed(6)}`:""],
+          [],
+          [{v:"Route length (ft)",s:1},{v:Math.round(profile.routeLengthFt),s:5}],
+          [{v:"Sample spacing (ft, approx.)",s:1},{v:Math.round(profile.sampleSpacingFt),s:5}],
+          [{v:"Samples with depth",s:1},`${valid.length} of ${profile.samples.length}`],
+          [{v:"Depth source",s:1},"BOEM Gulf deepwater bathymetry (3D seismic grid)"],
+          [{v:"Generated",s:1},new Date().toLocaleString()],
+          ["Depth assumes the pipeline follows the seafloor; not measured pipe elevation. Blank depth = no bathymetry coverage."],
+          []
+        ];
+        const headerRow=rows.length+1;
+        rows.push([{v:"Distance along route (ft)",s:4},{v:"Depth (ft)",s:4}]);
+        profile.samples.forEach(sample=>rows.push([{v:Math.round(sample.distanceFt*10)/10,s:3},Number.isFinite(sample.depthFt)?{v:Math.round(sample.depthFt*10)/10,s:3}:""]));
+        const blob=buildXlsx({sheetName:`Segment ${segment}`,rows,colWidths:[32,46],freezeRow:headerRow});
+        const link=document.createElement("a");
+        link.href=URL.createObjectURL(blob);
+        link.download=`Pipeline_${String(segment).replace(/[^\w-]+/g,"_")}_depth_profile.xlsx`;
+        document.body.append(link);link.click();link.remove();
+        setTimeout(()=>URL.revokeObjectURL(link.href),10000);
+      };
+      exportButton.onclick=exportElevationProfile;
+      const exportViewportData=async()=>{
+        const button=document.getElementById("exportDataButton");
+        const selected=Object.values(infra).filter(config=>document.getElementById(config.toggle).checked);
+        if(!selected.length){status.textContent="Turn on at least one infrastructure layer before exporting.";return;}
+        button.disabled=true;
+        status.textContent="Collecting visible platform, pipeline, and well data…";
+        try{
+          const {Polygon,geometryEngine}=await getElevationModules();
+          const screenCorners=[[0,0],[view.width,0],[view.width,view.height],[0,view.height]].map(([x,y])=>view.toMap({x,y}));
+          if(screenCorners.some(point=>!point))throw new Error("Could not determine the current map viewport.");
+          const first=screenCorners[0],viewport=new Polygon({rings:[[...screenCorners.map(point=>[point.x,point.y]),[first.x,first.y]]],spatialReference:view.spatialReference});
+          const queryVisibleFeatures=async(layer,fields)=>{
+            await layer.load();
+            const objectIds=await layer.queryObjectIds({geometry:viewport,spatialRelationship:"intersects"});
+            const chunks=[];
+            for(let i=0;i<objectIds.length;i+=500)chunks.push(objectIds.slice(i,i+500));
+            const visible=[];let next=0;
+            await Promise.all(Array.from({length:Math.min(4,chunks.length)},async()=>{
+              while(next<chunks.length){
+                const objectIds=chunks[next++];
+                const result=await layer.queryFeatures({objectIds,outFields:fields,returnGeometry:true,outSpatialReference:view.spatialReference});
+                result.features.forEach(feature=>{if(feature.geometry&&geometryEngine.contains(viewport,feature.geometry))visible.push(feature);});
+              }
+            }));
+            return visible;
+          };
+          if(selected.some(config=>config.key==="platforms"))await ensurePlatformStructures();
+          const [platformData,pipelineData,wellData]=await Promise.all(["platforms","pipelines","wells"].map(async key=>{
+              const config=infra[key];
+              if(!selected.includes(config))return [];
+              const layer=await ensureInfrastructure(config);
+              const fields=key==="platforms"?["COMPLEX_ID_NUM"]:key==="pipelines"?["SEGMENT_NUM","SDE_COMPANY_DESG"]:["API_NUMBER","OPERATOR"];
+              return queryVisibleFeatures(layer,fields);
+            }));
+          const platformRows=[],platformSeen=new Set(),structuresByComplex=getPlatformByComplex();
+          platformData.forEach(feature=>{
+            const complexId=String(feature.attributes.COMPLEX_ID_NUM??"").trim();
+            const records=structuresByComplex.get(complexId)||[];
+            const names=[...new Set(records.map(record=>String(record.STRUCTURE_NAME??"").trim()).filter(Boolean))];
+            (names.length?names:[""]).forEach(name=>{
+              const key=`${complexId}\u0000${name}`;
+              if(platformSeen.has(key))return;
+              platformSeen.add(key);platformRows.push([complexId,name]);
+            });
+          });
+          const pipelineRows=pipelineData.map(feature=>[feature.attributes.SEGMENT_NUM??"",feature.attributes.SDE_COMPANY_DESG??""]);
+          const wellRows=wellData.map(feature=>[feature.attributes.API_NUMBER??"",feature.attributes.OPERATOR??""]);
+          const compareRows=(a,b)=>String(a[0]).localeCompare(String(b[0]),undefined,{numeric:true,sensitivity:"base"});
+          platformRows.sort(compareRows);pipelineRows.sort(compareRows);wellRows.sort(compareRows);
+          const header=(a,b)=>[[{v:a,s:4},{v:b,s:4}]];
+          const workbookSheets=[
+            {sheetName:"Platforms",rows:[...header("Complex ID","Structure name"),...platformRows],colWidths:[18,42],freezeRow:1},
+            {sheetName:"Pipelines",rows:[...header("Segment Number","Company"),...pipelineRows],colWidths:[20,46],freezeRow:1},
+            {sheetName:"Wells",rows:[...header("API number","Operator"),...wellRows],colWidths:[24,46],freezeRow:1}
+          ];
+          const blob=buildXlsx({sheets:workbookSheets});
+          const link=document.createElement("a"),stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z$/,"Z");
+          link.href=URL.createObjectURL(blob);link.download=`Bluewater_Viewport_Data_${stamp}.xlsx`;
+          document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(link.href),10000);
+          status.textContent=`Viewport export ready · ${platformRows.length.toLocaleString()} platforms, ${pipelineRows.length.toLocaleString()} pipelines, ${wellRows.length.toLocaleString()} wells.`;
+        }catch(error){
+          console.warn("Viewport data export failed",error);
+          status.textContent=`Export failed · ${error.message||error}`;
+        }finally{button.disabled=false;}
+      };
+      document.getElementById("exportDataButton").onclick=exportViewportData;
       let previousFocus=null;
       const closeElevation=()=>{elevationDialog.hidden=true;if(previousFocus?.focus)previousFocus.focus();};
       document.getElementById("closeElevation").onclick=closeElevation;
@@ -266,7 +592,7 @@
         const padX=Math.max((Math.max(...xs)-Math.min(...xs))*.08,.1),padY=Math.max((Math.max(...ys)-Math.min(...ys))*.08,.1);
         const routeMapExtent=new Extent({xmin:Math.min(...xs)-padX,ymin:Math.min(...ys)-padY,xmax:Math.max(...xs)+padX,ymax:Math.max(...ys)+padY,spatialReference:{wkid:4326}});
         let nextBatch=0,completed=0,firstError=null;
-        await Promise.all(Array.from({length:Math.min(4,batches.length)},async()=>{
+        await Promise.all(Array.from({length:Math.min(profileConcurrency,batches.length)},async()=>{
           while(nextBatch<batches.length){
             const current=batches[nextBatch++];
             try{await identifyProfileBatch(current,routeMapExtent);}catch(error){firstError??=error;console.warn("Bathymetry sample batch failed",error);}
@@ -276,7 +602,7 @@
         }));
         if(!samples.some(sample=>Number.isFinite(sample.depthFt))&&firstError)throw new Error(`BOEM depth identify failed: ${firstError.message||firstError}`);
       };
-      const renderElevationChart=(samples,routeLengthFt)=>{
+      const renderElevationChart=(samples,routeLengthFt,originMetadata)=>{
         const valid=samples.filter(sample=>Number.isFinite(sample.depthFt));
         if(!valid.length)throw new Error("No BOEM depth samples were returned. This route may be outside the bathymetry coverage.");
         const depths=valid.map(sample=>sample.depthFt),minValue=Math.min(...depths),maxValue=Math.max(...depths);
@@ -297,7 +623,8 @@
           const ratio=tick/4,y=top+ratio*plotHeight,depth=minDepth+ratio*(maxDepth-minDepth),distance=totalMiles*ratio,x=left+ratio*plotWidth;
           grid.push(`<line class="profile-grid" x1="${left}" y1="${y.toFixed(2)}" x2="${width-right}" y2="${y.toFixed(2)}"/><text class="profile-axis" x="${left-10}" y="${(y+4).toFixed(2)}" text-anchor="end">${Math.round(depth).toLocaleString()}</text><text class="profile-axis" x="${x.toFixed(2)}" y="${height-30}" text-anchor="middle">${distance.toFixed(totalMiles<10?2:1)}</text>`);
         }
-        elevationChart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Pipeline route seafloor depth profile"><text class="profile-axis" x="${left}" y="15">Depth (ft)</text>${grid.join("")}<path class="profile-line" d="${path}"/><line class="profile-grid" x1="${left}" y1="${top}" x2="${left}" y2="${top+plotHeight}"/><text class="profile-axis" x="${left+plotWidth/2}" y="${height-6}" text-anchor="middle">Distance along pipeline (mi)</text></svg>`;
+        const originSample=samples.find(sample=>Number.isFinite(sample.depthFt)); const originX=originSample?xFor(originSample.distanceFt):left,originY=originSample?yFor(originSample.depthFt):top+plotHeight/2; const labelWidth=Math.min(Math.max(originMetadata.length*6.4+16,96),330),labelX=Math.min(originX+9,width-right-labelWidth),labelY=Math.max(top+4,originY-30); const originAnnotation=originMetadata?`<circle class="profile-origin-marker" cx="${originX.toFixed(2)}" cy="${originY.toFixed(2)}" r="5"/><rect class="profile-origin-label-bg" x="${labelX.toFixed(2)}" y="${labelY.toFixed(2)}" width="${labelWidth.toFixed(2)}" height="22" rx="5"/><text class="profile-origin-label" x="${(labelX+8).toFixed(2)}" y="${(labelY+15).toFixed(2)}">${escapeXml(originMetadata)}</text>`:"";
+        elevationChart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Pipeline route seafloor depth profile"><text class="profile-axis" x="${left}" y="15">Depth (ft)</text>${grid.join("")}<path class="profile-line" d="${path}"/><line class="profile-grid" x1="${left}" y1="${top}" x2="${left}" y2="${top+plotHeight}"/>${originAnnotation}<text class="profile-axis" x="${left+plotWidth/2}" y="${height-6}" text-anchor="middle">Distance along pipeline (mi)</text></svg>`;
         const coverage=valid.length/samples.length*100;
         elevationSummary.replaceChildren();
         [["Route length",`${totalMiles.toFixed(totalMiles<10?2:1)} mi`],["Shallowest sampled",`${Math.round(minValue).toLocaleString()} ft`],["Deepest sampled",`${Math.round(maxValue).toLocaleString()} ft`],["Bathymetry coverage",`${coverage.toFixed(0)}%`]].forEach(([label,value])=>{
@@ -306,134 +633,754 @@
         elevationSummary.hidden=false;elevationChart.hidden=false;
         elevationStatus.textContent=`Profile sampled at up to ${Math.round(routeLengthFt/Math.max(samples.length-1,1)).toLocaleString()} ft intervals. Missing samples appear as gaps.`;
       };
+      // Popup graphics can carry display-generalized geometry; re-query the full-resolution route.
+      const fullRouteAttributes=new window.Map();
+      const getFullRouteGeometry=async feature=>{
+        const layer=pipes,objectId=feature?.attributes?.[layer?.objectIdField];
+        if(layer&&objectId!==null&&objectId!==undefined){
+          try{
+            const result=await layer.queryFeatures({objectIds:[objectId],returnGeometry:true,outFields:["*"],outSpatialReference:{wkid:4326}});
+            if(result.features[0]?.geometry){fullRouteAttributes.set(String(objectId),result.features[0].attributes||{});return result.features[0].geometry;}
+          }catch(error){console.warn("Full-resolution route query failed; using popup geometry",error);}
+        }
+        return feature.geometry;
+      };
       const showElevationProfile=async feature=>{
         const segment=feature?.attributes?.SEGMENT_NUM??"Unknown";
         previousFocus=document.activeElement;
+        currentProfileExport=null;exportButton.disabled=true;
         elevationDialog.hidden=false;elevationSummary.hidden=true;elevationChart.hidden=true;elevationSummary.replaceChildren();elevationChart.replaceChildren();
         elevationSubtitle.textContent=`Pipeline segment ${segment} · BOEM seafloor bathymetry`;
         elevationStatus.textContent="Preparing profile…";
         document.getElementById("closeElevation").focus();
         try{
           const key=String(segment),cached=elevationProfileCache.get(key);
-          const profile=cached||await sampleRouteGeometry(feature.geometry);
+          const profile=cached||await sampleRouteGeometry(await getFullRouteGeometry(feature));
           if(!cached){
             await fetchProfileDepths(profile.samples);
           }
           if(!profile.samples.some(sample=>Number.isFinite(sample.depthFt)))throw new Error("No BOEM depth samples were returned. This route may be outside the bathymetry coverage.");
           if(!cached)elevationProfileCache.set(key,profile);
-          renderElevationChart(profile.samples,profile.routeLengthFt);
+          const objectKey=String(feature?.attributes?.[pipes?.objectIdField]??""); const attributes={...(feature?.attributes||{}),...(fullRouteAttributes.get(objectKey)||{})}; const originName=String(attributes.ORIG_ID_NAME??"").trim(); const originBlock=String(attributes.ORIG_BLK_NUM??"").trim(); const originMetadata=[originName,originBlock?`Block ${originBlock}`:""].filter(Boolean).join(" · "); renderElevationChart(profile.samples,profile.routeLengthFt,originMetadata?`Origin: ${originMetadata}`:"Origin"); currentProfileExport={profile,attributes,segment}; exportButton.disabled=false;
         }catch(error){elevationStatus.textContent=error.message||"Could not retrieve bathymetry for this pipeline route.";console.warn("Elevation profile failed",error);}
       };
       reactiveUtils.on(()=>view.popup?.viewModel,"trigger-action",event=>{if(event.action?.id==="show-elevation")showElevationProfile(view.popup.selectedFeature);});
       const scaleSlider=document.getElementById("scaleThreshold");
+      // ---- Depth contours: pre-built local tiles (tools/build_contours.py) drawn on a Canvas 2D layer.
+      // Only tiles in view are fetched (bounded cache), lines are cached as Path2D per tile, and labels
+      // are placed once the map stops moving. Nothing is requested from BOEM at run time.
+      const depthContours=(()=>{
+        const ORIGIN=20037508.342789244,WORLD=2*ORIGIN,DEG=Math.PI/180;
+        const MAX_TILES=260,MAX_INFLIGHT=6,LABEL_SPACING=420,MAX_LABELS=350;
+        const COLOR="120,200,220",LABEL_FONT="600 10px Inter,ui-sans-serif,system-ui,'Segoe UI',sans-serif";
+        const toggle=document.getElementById("contoursToggle"),meta=document.getElementById("contourMeta");
+        let index=null,layer=null,loadPromise=null,layerView=null;
+        const cache=new window.Map(),inflight=new window.Map(),missing=new Set();
+        let labelCache={key:"",labels:[]},textWidths=new window.Map();
+        const tierFor=scale=>index.tiers.find(t=>(t.minScale===0||scale<=t.minScale)&&(t.maxScale===0||scale>t.maxScale))||null;
+        const tileKey=(tier,key)=>`${tier.id}/${key}`;
+        const decodeTile=(tier,json)=>{
+          const lines=json.l.map((coords,i)=>{
+            const pts=new Int32Array(coords.length);let x=0,y=0;
+            for(let k=0;k<coords.length;k+=2){x=k?x+coords[k]:coords[k];y=k?y+coords[k+1]:coords[k+1];pts[k]=x;pts[k+1]=y;}
+            return {depth:json.d[i],pts};
+          });
+          const minor=new Path2D(),major=new Path2D();
+          lines.forEach(line=>{
+            line.index=line.depth%tier.indexEvery===0;
+            const path=line.index?major:minor,p=line.pts;
+            path.moveTo(p[0],p[1]);for(let k=2;k<p.length;k+=2)path.lineTo(p[k],p[k+1]);
+          });
+          return {lines,minor,major,used:performance.now()};
+        };
+        const fetchTile=(tier,key)=>{
+          const id=tileKey(tier,key);
+          if(cache.has(id)||inflight.has(id)||missing.has(id)||inflight.size>=MAX_INFLIGHT)return;
+          const promise=fetch(`./data/contours/${tier.id}/${tier.z}/${key}.json?v=${encodeURIComponent(index.version||"")}`)
+            .then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();})
+            .then(json=>{cache.set(id,decodeTile(tier,json));evict();})
+            .catch(error=>{missing.add(id);console.warn(`Contour tile ${id} failed`,error);})
+            .finally(()=>{inflight.delete(id);labelCache.key="";layerView?.requestRender();});
+          inflight.set(id,promise);
+        };
+        const evict=()=>{
+          if(cache.size<=MAX_TILES)return;
+          [...cache.entries()].sort((a,b)=>a[1].used-b[1].used).slice(0,cache.size-MAX_TILES).forEach(([id])=>cache.delete(id));
+        };
+        // Map (Web Mercator) <-> screen, from the layer view state.
+        const screenOf=(state,x,y)=>{const out=[0,0];state.toScreen(out,x,y);return out;};
+        const visibleTiles=(state,tier)=>{
+          const [w,h]=state.size,corners=[[0,0],[w,0],[0,h],[w,h]].map(([sx,sy])=>{const out=[0,0];state.toMap(out,sx,sy);return out;});
+          const size=WORLD/2**tier.z,xs=corners.map(c=>c[0]),ys=corners.map(c=>c[1]);
+          const x0=Math.floor((Math.min(...xs)+ORIGIN)/size),x1=Math.floor((Math.max(...xs)+ORIGIN)/size);
+          const y0=Math.floor((ORIGIN-Math.max(...ys))/size),y1=Math.floor((ORIGIN-Math.min(...ys))/size);
+          const out=[];
+          if((x1-x0+1)*(y1-y0+1)>400)return out; // safety: scale ranges keep this small
+          for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++){const key=`${x}/${y}`;if(tier.tileSet.has(key))out.push({key,x,y,size});}
+          return out;
+        };
+        // Affine transform from tile units (0..extent, y down) to screen pixels.
+        const tileTransform=(state,tier,tile)=>{
+          const minX=tile.x*tile.size-ORIGIN,maxY=ORIGIN-tile.y*tile.size,k=tile.size/tier.extent;
+          const o=screenOf(state,minX,maxY),px=screenOf(state,minX+tile.size,maxY),py=screenOf(state,minX,maxY-tile.size);
+          return {a:(px[0]-o[0])/tier.extent,b:(px[1]-o[1])/tier.extent,c:(py[0]-o[0])/tier.extent,d:(py[1]-o[1])/tier.extent,e:o[0],f:o[1],k};
+        };
+        const measure=(ctx,text)=>{let w=textWidths.get(text);if(w===undefined){w=ctx.measureText(text).width;textWidths.set(text,w);}return w;};
+        const placeLabels=(ctx,state,tier,tiles)=>{
+          const [w,h]=state.size,labels=[],boxes=[];
+          ctx.font=LABEL_FONT;
+          const free=(x0,y0,x1,y1)=>!boxes.some(b=>x0<b[2]&&x1>b[0]&&y0<b[3]&&y1>b[1]);
+          for(const tile of tiles){
+            const data=cache.get(tileKey(tier,tile.key));if(!data)continue;
+            const t=tileTransform(state,tier,tile);
+            for(const line of data.lines){
+              if(!tier.labelAll&&!line.index)continue;
+              const text=`${line.depth.toLocaleString()} ft`,tw=measure(ctx,text),p=line.pts,n=p.length/2;
+              if(n<2)continue;
+              const sx=new Float32Array(n),sy=new Float32Array(n),cum=new Float32Array(n);
+              for(let i=0;i<n;i++){const X=p[i*2],Y=p[i*2+1];sx[i]=t.a*X+t.c*Y+t.e;sy[i]=t.b*X+t.d*Y+t.f;if(i)cum[i]=cum[i-1]+Math.hypot(sx[i]-sx[i-1],sy[i]-sy[i-1]);}
+              const total=cum[n-1];if(total<tw*1.6)continue;
+              const at=d=>{let i=1;while(i<n-1&&cum[i]<d)i++;const seg=cum[i]-cum[i-1]||1,f=(d-cum[i-1])/seg;return [sx[i-1]+(sx[i]-sx[i-1])*f,sy[i-1]+(sy[i]-sy[i-1])*f];};
+              for(let d=Math.min(LABEL_SPACING/2,total/2);d+tw/2<=total;d+=LABEL_SPACING){
+                if(d<tw/2)continue;
+                const [cx,cy]=at(d),[ax,ay]=at(d-tw/2),[bx,by]=at(d+tw/2);
+                if(cx<0||cy<0||cx>w||cy>h)continue;
+                if(Math.hypot(bx-ax,by-ay)<tw*.85)continue; // too curved here
+                let angle=Math.atan2(by-ay,bx-ax);if(angle>Math.PI/2)angle-=Math.PI;else if(angle<-Math.PI/2)angle+=Math.PI;
+                const hw=Math.abs(Math.cos(angle))*tw/2+Math.abs(Math.sin(angle))*7,hh=Math.abs(Math.sin(angle))*tw/2+Math.abs(Math.cos(angle))*7;
+                if(!free(cx-hw,cy-hh,cx+hw,cy+hh))continue;
+                boxes.push([cx-hw,cy-hh,cx+hw,cy+hh]);labels.push({x:cx,y:cy,angle,text});
+                if(labels.length>=MAX_LABELS)return labels;
+              }
+            }
+          }
+          return labels;
+        };
+        const render=({context:ctx,state,stationary})=>{
+          if(!index||state.spatialReference&&!state.spatialReference.isWebMercator)return;
+          const tier=tierFor(state.scale);if(!tier)return;
+          const pr=state.pixelRatio||1,tiles=visibleTiles(state,tier),now=performance.now();
+          let pending=false;
+          for(const tile of tiles){
+            const data=cache.get(tileKey(tier,tile.key));
+            if(!data){fetchTile(tier,tile.key);pending=true;continue;}
+            data.used=now;
+            const t=tileTransform(state,tier,tile),scale=Math.hypot(t.a,t.b)||1;
+            ctx.setTransform(t.a*pr,t.b*pr,t.c*pr,t.d*pr,t.e*pr,t.f*pr);
+            ctx.lineCap="round";ctx.lineJoin="round";
+            ctx.strokeStyle=`rgba(${COLOR},.42)`;ctx.lineWidth=.7/scale;ctx.stroke(data.minor);
+            ctx.strokeStyle=`rgba(${COLOR},.9)`;ctx.lineWidth=1.25/scale;ctx.stroke(data.major);
+          }
+          ctx.setTransform(pr,0,0,pr,0,0);
+          if(!stationary)return;
+          const key=`${tier.id}|${state.size}|${state.scale}|${state.center}|${state.rotation}`;
+          if(labelCache.key!==key&&!pending){labelCache={key,labels:placeLabels(ctx,state,tier,tiles)};}
+          if(labelCache.key!==key)return;
+          ctx.font=LABEL_FONT;ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineJoin="round";
+          for(const label of labelCache.labels){
+            ctx.save();ctx.translate(label.x,label.y);ctx.rotate(label.angle);
+            ctx.lineWidth=3;ctx.strokeStyle="rgba(8,24,32,.92)";ctx.strokeText(label.text,0,0);
+            ctx.fillStyle="rgb(190,235,245)";ctx.fillText(label.text,0,0);
+            ctx.restore();
+          }
+        };
+        const ContourLayerView2D=BaseLayerView2D.createSubclass({
+          attach(){layerView=this;this._watch=reactiveUtils.watch(()=>this.view.stationary,()=>this.requestRender());},
+          detach(){this._watch?.remove();layerView=null;},
+          render(parameters){try{render(parameters);}catch(error){console.warn("Depth contour render failed",error);}}
+        });
+        const ContourLayer=Layer.createSubclass({createLayerView(targetView){if(targetView.type==="2d")return new ContourLayerView2D({view:targetView,layer:this});}});
+        const ensureLoaded=()=>loadPromise??=(async()=>{
+          meta.textContent="Loading…";
+          const response=await fetch("./data/contours/index.json",{cache:"no-cache"});
+          if(!response.ok)throw new Error(response.status===404?"Contour tiles not built yet. Run tools\\build_contours.py.":`Contour index returned HTTP ${response.status}.`);
+          index=await response.json();
+          index.tiers.forEach(tier=>tier.tileSet=new Set(tier.tiles));
+          if(!view.spatialReference?.isWebMercator)console.warn("Depth contours need a Web Mercator basemap; they will not draw on this basemap.");
+          layer=new ContourLayer({title:"Depth contours (ft)",visible:false,listMode:"hide"});
+          map.add(layer,1); // above the hillshade, below currents and infrastructure
+          raiseInfrastructure();
+          meta.textContent="Local";
+          meta.title=`Pre-built contour tiles · ${new Date(index.generated).toLocaleDateString()}`;
+          return layer;
+        })().catch(error=>{loadPromise=null;throw error;});
+        const update=()=>{
+          if(!toggle.checked){if(layer)layer.visible=false;return;}
+          ensureLoaded().then(()=>{layer.visible=toggle.checked;})
+            .catch(error=>{meta.textContent="Unavailable";status.textContent=`Depth contours: ${error.message||error}`;console.warn("Depth contours unavailable",error);});
+        };
+        return {update};
+      })();
+      const updateContours=depthContours.update;
+      // ---- Ocean currents (Copernicus Marine Service / CMEMS) ------------------------------------
+      // Frames are produced by tools/build_currents.py: data/currents/manifest.json plus one small PNG
+      // per time step (R = eastward, G = northward velocity, B = sea mask). Windy-style particles are
+      // advected in screen space and drawn with fading trails on a Canvas 2D custom layer view that
+      // sits above bathymetry/contours and below the infrastructure layers.
+      const oceanCurrents=(()=>{
+        const R=6378137,DEG=Math.PI/180,MS_TO_KN=1.943844;
+        const ui={};
+        ["currentsToggle","currentsMeta","currentsPanel","currentsRun","currentsSet","currentsPlay","currentsTime","currentsRel","currentsSlider","currentsInfo","currentsReadout"].forEach(id=>ui[id.replace("currents","").replace(/^./,c=>c.toLowerCase())]=document.getElementById(id));
+        // Tuning: playback speed, particle speed on screen, trail length, particle density.
+        const PLAY_HOURS_PER_SECOND=3,PX_PER_SECOND_PER_MS=70,TRAIL_FADE=.92,MAX_PARTICLES=8000,PARTICLE_AREA=230,SHADE_STEP=4,SHADE_ALPHA=.85;
+        // Speed colour ramp in knots (matches the sidebar legend); alpha rises with speed.
+        const RAMP_MAX=3,rampStops=[[0,[12,40,70,.2]],[.25,[27,94,140,.42]],[.5,[37,140,170,.52]],[1,[56,186,150,.6]],[1.5,[190,210,80,.66]],[2,[245,170,60,.7]],[2.5,[232,95,60,.74]],[3,[190,35,140,.78]]];
+        const lut=new Uint8ClampedArray(256*4);
+        for(let i=0;i<256;i++){
+          const kn=i/255*RAMP_MAX;let j=1;
+          while(j<rampStops.length-1&&rampStops[j][0]<kn)j++;
+          const [k0,c0]=rampStops[j-1],[k1,c1]=rampStops[j],t=Math.min(1,Math.max(0,(kn-k0)/(k1-k0)));
+          for(let c=0;c<3;c++)lut[i*4+c]=c0[c]+(c1[c]-c0[c])*t;
+          lut[i*4+3]=(c0[3]+(c1[3]-c0[3])*t)*255;
+        }
+        let manifest=null,set=null,frames=[],position=0,playing=false,layer=null,loadPromise=null;
+        let fieldA=null,fieldB=null,mix=0,fieldVersion=0;
+        const decoded=new window.Map(),pending=new window.Map(),failed=new Set();
+        const sample=new Float64Array(2),lonlat=new Float64Array(2);
+        // Bilinear sample of the (time-blended) field; ignores land cells. Writes m/s into `sample`.
+        const sampleField=(lon,lat)=>{
+          if(!fieldA)return false;
+          const g=set.grid,fx=(lon-g.lon0)/g.dLon,fy=(g.lat0-lat)/g.dLat;
+          if(!(fx>=0&&fy>=0&&fx<=g.width-1&&fy<=g.height-1))return false;
+          const x0=Math.min(fx|0,g.width-2),y0=Math.min(fy|0,g.height-2),tx=fx-x0,ty=fy-y0;
+          let su=0,sv=0,sw=0;
+          for(let k=0;k<4;k++){
+            const dx=k&1,dy=k>>1,w=(dx?tx:1-tx)*(dy?ty:1-ty);
+            if(w<=0)continue;
+            const i=(y0+dy)*g.width+x0+dx;
+            let u=fieldA.u[i];
+            if(u!==u)continue;
+            let v=fieldA.v[i];
+            if(fieldB&&mix>0){const ub=fieldB.u[i];if(ub===ub){u+=(ub-u)*mix;v+=(fieldB.v[i]-v)*mix;}}
+            su+=u*w;sv+=v*w;sw+=w;
+          }
+          if(sw<.5)return false;
+          sample[0]=su/sw;sample[1]=sv/sw;
+          return true;
+        };
+        const reportFrameError=(error,frame)=>{
+          failed.add(frame.file);
+          console.warn(`Currents frame ${frame.file} could not be loaded`,error);
+          ui.info.textContent=`Some forecast frames could not be loaded (${frame.file}). Re-run tools\\build_currents.py.`;
+        };
+        const decodeFrame=(activeSet,frame)=>{
+          if(decoded.has(frame.file))return Promise.resolve(decoded.get(frame.file));
+          if(!pending.has(frame.file))pending.set(frame.file,(async()=>{
+            const response=await fetch(`./data/currents/${frame.file}?v=${encodeURIComponent(manifest.version||"")}`);
+            if(!response.ok)throw new Error(`HTTP ${response.status}`);
+            const bitmap=await createImageBitmap(await response.blob(),{colorSpaceConversion:"none",premultiplyAlpha:"none"});
+            const g=activeSet.grid;
+            if(bitmap.width!==g.width||bitmap.height!==g.height)throw new Error(`frame is ${bitmap.width}×${bitmap.height}, manifest expects ${g.width}×${g.height}`);
+            const canvas=document.createElement("canvas");canvas.width=g.width;canvas.height=g.height;
+            const context=canvas.getContext("2d",{willReadFrequently:true});
+            context.drawImage(bitmap,0,0);bitmap.close?.();
+            const px=context.getImageData(0,0,g.width,g.height).data,n=g.width*g.height,u=new Float32Array(n),v=new Float32Array(n);
+            const S=activeSet.range,k=2*S/254;
+            for(let i=0;i<n;i++){const o=i*4;if(px[o+2]<128){u[i]=NaN;v[i]=NaN;}else{u[i]=(px[o]-1)*k-S;v[i]=(px[o+1]-1)*k-S;}}
+            const field={u,v};
+            if(activeSet===set)decoded.set(frame.file,field);
+            return field;
+          })().finally(()=>pending.delete(frame.file)));
+          return pending.get(frame.file);
+        };
+        const requestFrame=frame=>{if(!decoded.has(frame.file)&&!pending.has(frame.file)&&!failed.has(frame.file))decodeFrame(set,frame).catch(error=>reportFrameError(error,frame));};
+        // Picks the two frames around `position` and the blend factor between them.
+        const syncFields=()=>{
+          if(!frames.length)return;
+          const i0=Math.min(Math.floor(position),frames.length-1),i1=Math.min(i0+1,frames.length-1);
+          const a=decoded.get(frames[i0].file),b=i1!==i0?decoded.get(frames[i1].file):null;
+          if(!a)requestFrame(frames[i0]);
+          if(i1!==i0&&!b)requestFrame(frames[i1]);
+          if(a&&a!==fieldA){fieldA=a;fieldVersion++;}
+          const nextB=a&&b?b:null;
+          if(nextB!==fieldB){fieldB=nextB;fieldVersion++;}
+          mix=fieldB?position-i0:0;
+        };
+        const currentTime=()=>{
+          if(!frames.length)return Date.now();
+          const i0=Math.min(Math.floor(position),frames.length-1),i1=Math.min(i0+1,frames.length-1);
+          return frames[i0].t+(frames[i1].t-frames[i0].t)*(position-i0);
+        };
+        const timeFormat=new Intl.DateTimeFormat(undefined,{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZoneName:"short"});
+        const utcFormat=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"UTC"});
+        let lastLabel="";
+        const updateTimeUi=()=>{
+          if(!frames.length)return;
+          const shown=Math.round(currentTime()/600000)*600000;
+          const label=timeFormat.format(shown);
+          if(label!==lastLabel){
+            lastLabel=label;ui.time.textContent=label;
+            const hours=Math.round((shown-Date.now())/3600000);
+            ui.rel.textContent=`${utcFormat.format(shown)} UTC · ${hours===0?"now":hours>0?`+${hours} h forecast`:`${hours} h`}`;
+          }
+          if(document.activeElement!==ui.slider)ui.slider.value=String(Math.round(position));
+        };
+        const updatePlayButton=()=>{ui.play.textContent=playing?"❚❚":"▶";ui.play.setAttribute("aria-label",playing?"Pause forecast":"Play forecast");};
+        let preloadToken=0;
+        const preloadAll=async()=>{
+          const token=++preloadToken,activeSet=set,start=Math.floor(position);
+          const order=frames.map((_,i)=>frames[(start+i)%frames.length]);
+          let next=0;
+          await Promise.all(Array.from({length:3},async()=>{
+            while(next<order.length&&token===preloadToken&&activeSet===set){
+              const frame=order[next++];
+              if(decoded.has(frame.file)||failed.has(frame.file))continue;
+              try{await decodeFrame(activeSet,frame);}catch(error){if(activeSet===set)reportFrameError(error,frame);}
+            }
+          }));
+        };
+        const advance=dt=>{
+          if(!playing||frames.length<2)return;
+          const i0=Math.min(Math.floor(position),frames.length-1),i1=Math.min(i0+1,frames.length-1);
+          if(!decoded.has(frames[i1].file))return; // hold until the next frame has loaded
+          const stepHours=Math.max(.25,(frames[i1].t-frames[i0].t)/3600000||set.stepHours||1);
+          position+=dt*PLAY_HOURS_PER_SECOND/stepHours;
+          if(position>=frames.length-1)position=0;
+          updateTimeUi();
+        };
+        const selectSet=(id,targetTime)=>{
+          set=manifest.sets.find(item=>item.id===id)||manifest.sets[0];
+          frames=set.frames.map(frame=>({...frame,t:Date.parse(frame.time)}));
+          decoded.clear();failed.clear();preloadToken++;
+          fieldA=fieldB=null;mix=0;fieldVersion++;engine.shadeState=null;engine.shadeKey="";
+          let best=0;
+          frames.forEach((frame,i)=>{if(Math.abs(frame.t-targetTime)<Math.abs(frames[best].t-targetTime))best=i;});
+          position=best;
+          ui.set.value=set.id;
+          ui.slider.max=String(Math.max(0,frames.length-1));ui.slider.value=String(best);
+          ui.slider.disabled=frames.length<2;ui.play.disabled=frames.length<2;
+          lastLabel="";updateTimeUi();
+          const last=frames[frames.length-1]?.t??0;
+          const stepText=set.stepHours?`every ${set.stepHours} h`:"";
+          ui.info.textContent=Date.now()>last+3600000
+            ?`This forecast ended ${new Date(last).toLocaleString()}. Re-run tools\\build_currents.py for current data.`
+            :`${set.label} · ${frames.length} frames ${stepText}. Hover over the sea for speed and direction.`;
+          if(playing)preloadAll();
+        };
+
+        // ---- Rendering --------------------------------------------------------------------------
+        const engine={trail:null,trailCtx:null,shade:null,shadeCtx:null,shadeState:null,shadeKey:"",shadeVersion:-1,shadeMix:0,shadeTime:0,particleKey:"",last:0,
+          x:new Float32Array(MAX_PARTICLES),y:new Float32Array(MAX_PARTICLES),age:new Float32Array(MAX_PARTICLES),life:new Float32Array(MAX_PARTICLES),count:0};
+        // Screen (CSS px) -> lon/lat for the current view state; handles Web Mercator or geographic views and rotation.
+        const projector=state=>{
+          const w=state.size[0],h=state.size[1],res=state.resolution,c=state.center,cx=c[0]??c.x,cy=c[1]??c.y;
+          const rotation=state.rotation||0,rad=rotation*DEG,cos=Math.cos(rad),sin=Math.sin(rad);
+          const geographic=!!view.spatialReference?.isGeographic;
+          return {w,h,res,cx,cy,rotation,cos,sin,
+            toLonLat(sx,sy){
+              const dx=sx-w/2,dy=sy-h/2,ux=dx*cos+dy*sin,uy=-dx*sin+dy*cos,mx=cx+ux*res,my=cy-uy*res;
+              if(geographic){lonlat[0]=mx;lonlat[1]=my;}
+              else{lonlat[0]=mx/R/DEG;lonlat[1]=(2*Math.atan(Math.exp(my/R))-Math.PI/2)/DEG;}
+              return lonlat;
+            }};
+        };
+        const viewOverlapsGrid=p=>{
+          const g=set.grid,west=g.lon0,east=g.lon0+g.dLon*(g.width-1),north=g.lat0,south=g.lat0-g.dLat*(g.height-1);
+          let minLon=Infinity,maxLon=-Infinity,minLat=Infinity,maxLat=-Infinity;
+          [[0,0],[p.w,0],[0,p.h],[p.w,p.h]].forEach(([sx,sy])=>{const ll=p.toLonLat(sx,sy);minLon=Math.min(minLon,ll[0]);maxLon=Math.max(maxLon,ll[0]);minLat=Math.min(minLat,ll[1]);maxLat=Math.max(maxLat,ll[1]);});
+          return maxLon>=west&&minLon<=east&&maxLat>=south&&minLat<=north;
+        };
+        const respawn=(i,p)=>{
+          for(let attempt=0;attempt<4;attempt++){
+            const x=Math.random()*p.w,y=Math.random()*p.h,ll=p.toLonLat(x,y);
+            if(sampleField(ll[0],ll[1])){engine.x[i]=x;engine.y[i]=y;engine.age[i]=Math.random()*20;engine.life[i]=50+Math.random()*90;return;}
+          }
+          engine.age[i]=engine.life[i]=1; // dead; retried next frame
+        };
+        const resetParticles=(p,pr)=>{
+          const W=Math.max(1,Math.round(p.w*pr)),H=Math.max(1,Math.round(p.h*pr));
+          if(!engine.trail){engine.trail=document.createElement("canvas");engine.trailCtx=engine.trail.getContext("2d");}
+          if(engine.trail.width!==W||engine.trail.height!==H){engine.trail.width=W;engine.trail.height=H;}
+          engine.trailCtx.setTransform(1,0,0,1,0,0);engine.trailCtx.clearRect(0,0,W,H);
+          engine.trailCtx.setTransform(pr,0,0,pr,0,0);
+          engine.count=Math.min(MAX_PARTICLES,Math.round(p.w*p.h/PARTICLE_AREA));
+          for(let i=0;i<engine.count;i++)respawn(i,p);
+        };
+        const stepParticles=(p,dt)=>{
+          const ctx=engine.trailCtx,scale=PX_PER_SECOND_PER_MS*dt;
+          ctx.globalCompositeOperation="destination-in";
+          ctx.fillStyle=`rgba(0,0,0,${Math.pow(TRAIL_FADE,dt*60).toFixed(3)})`;
+          ctx.fillRect(0,0,p.w,p.h);
+          ctx.globalCompositeOperation="source-over";
+          ctx.beginPath();
+          for(let i=0;i<engine.count;i++){
+            if(engine.age[i]>=engine.life[i]){respawn(i,p);continue;}
+            const x=engine.x[i],y=engine.y[i],ll=p.toLonLat(x,y);
+            if(!sampleField(ll[0],ll[1])){engine.age[i]=engine.life[i];continue;}
+            const u=sample[0],v=sample[1];
+            // East/north velocity -> screen direction (y down), honouring view rotation.
+            const nx=x+(u*p.cos+v*p.sin)*scale,ny=y+(u*p.sin-v*p.cos)*scale;
+            ctx.moveTo(x,y);ctx.lineTo(nx,ny);
+            engine.x[i]=nx;engine.y[i]=ny;engine.age[i]++;
+            if(nx<0||ny<0||nx>p.w||ny>p.h)engine.age[i]=engine.life[i];
+          }
+          ctx.strokeStyle="rgba(240,248,250,.9)";ctx.lineWidth=1.15;ctx.lineCap="round";
+          ctx.stroke();
+        };
+        const viewKey=p=>`${p.w}|${p.h}|${p.res}|${p.cx}|${p.cy}|${p.rotation}`;
+        // Low-resolution speed image for the current view, rebuilt when the view settles or time moves.
+        const buildShade=(p,key)=>{
+          const cols=Math.ceil(p.w/SHADE_STEP),rows=Math.ceil(p.h/SHADE_STEP);
+          if(!engine.shade){engine.shade=document.createElement("canvas");engine.shadeCtx=engine.shade.getContext("2d");}
+          if(engine.shade.width!==cols||engine.shade.height!==rows){engine.shade.width=cols;engine.shade.height=rows;}
+          const image=engine.shadeCtx.createImageData(cols,rows),data=image.data;
+          for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+            const ll=p.toLonLat((c+.5)*SHADE_STEP,(r+.5)*SHADE_STEP);
+            if(!sampleField(ll[0],ll[1]))continue;
+            const kn=Math.hypot(sample[0],sample[1])*MS_TO_KN,j=Math.min(255,Math.round(kn/RAMP_MAX*255))*4,o=(r*cols+c)*4;
+            data[o]=lut[j];data[o+1]=lut[j+1];data[o+2]=lut[j+2];data[o+3]=lut[j+3];
+          }
+          engine.shadeCtx.putImageData(image,0,0);
+          engine.shadeState={w:cols*SHADE_STEP,h:rows*SHADE_STEP,vw:p.w,vh:p.h,res:p.res,cx:p.cx,cy:p.cy,rotation:p.rotation};
+          engine.shadeKey=key;engine.shadeVersion=fieldVersion;engine.shadeMix=mix;engine.shadeTime=performance.now();
+        };
+        // Draws the last shade image, shifted/scaled to follow pans and zooms until it is rebuilt.
+        const drawShade=(ctx,p,pr)=>{
+          const s=engine.shadeState;
+          if(!s)return;
+          if((s.rotation||p.rotation)&&engine.shadeKey!==viewKey(p))return;
+          const k=s.res/p.res,ox=(s.cx-p.cx)/p.res+p.w/2-s.vw/2*k,oy=(p.cy-s.cy)/p.res+p.h/2-s.vh/2*k;
+          ctx.save();ctx.imageSmoothingEnabled=true;ctx.globalAlpha=SHADE_ALPHA;
+          ctx.drawImage(engine.shade,ox*pr,oy*pr,s.w*k*pr,s.h*k*pr);
+          ctx.restore();
+        };
+        let renderErrorLogged=false;
+        const render=({context:ctx,state,stationary})=>{
+          if(!set)return;
+          const now=performance.now(),dt=engine.last?Math.min(.1,(now-engine.last)/1000):1/60;
+          engine.last=now;
+          advance(dt);syncFields();
+          if(!fieldA)return;
+          const p=projector(state),pr=state.pixelRatio||window.devicePixelRatio||1,key=viewKey(p);
+          const inView=viewOverlapsGrid(p);
+          if(stationary&&inView&&(engine.shadeKey!==key||(now-engine.shadeTime>250&&(engine.shadeVersion!==fieldVersion||Math.abs(engine.shadeMix-mix)>.1))))buildShade(p,key);
+          if(inView)drawShade(ctx,p,pr);
+          // Particles are hidden while the map is moving and re-seeded once it settles.
+          if(!stationary||!inView){engine.particleKey="";return;}
+          if(engine.particleKey!==key){resetParticles(p,pr);engine.particleKey=key;}
+          stepParticles(p,dt);
+          ctx.drawImage(engine.trail,0,0);
+        };
+        const CurrentsLayerView2D=BaseLayerView2D.createSubclass({
+          render(renderParameters){
+            try{render(renderParameters);}
+            catch(error){if(!renderErrorLogged){renderErrorLogged=true;console.warn("Ocean currents render failed",error);}}
+            this.requestRender(); // keep the animation running while the layer is visible
+          },
+          detach(){engine.particleKey="";engine.shadeKey="";engine.shadeState=null;engine.last=0;}
+        });
+        const CurrentsLayer=Layer.createSubclass({
+          createLayerView(targetView){if(targetView.type==="2d")return new CurrentsLayerView2D({view:targetView,layer:this});}
+        });
+
+        // ---- Hover readout ----------------------------------------------------------------------
+        const compass=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+        let lastPointer=null,readoutQueued=false;
+        const updateReadout=()=>{
+          readoutQueued=false;
+          if(!layer?.visible||!fieldA||!lastPointer){ui.readout.hidden=true;return;}
+          const point=view.toMap({x:lastPointer.x,y:lastPointer.y});
+          if(!point||!sampleField(point.longitude,point.latitude)){ui.readout.hidden=true;return;}
+          const u=sample[0],v=sample[1],ms=Math.hypot(u,v),bearing=(Math.atan2(u,v)/DEG+360)%360;
+          ui.readout.textContent=`Current ${(ms*MS_TO_KN).toFixed(2)} kn (${ms.toFixed(2)} m/s) toward ${compass[Math.round(bearing/22.5)%16]} ${String(Math.round(bearing)%360).padStart(3,"0")}°`;
+          ui.readout.hidden=false;
+        };
+        view.on("pointer-move",event=>{lastPointer=event;if(!readoutQueued){readoutQueued=true;requestAnimationFrame(updateReadout);}});
+        view.on("pointer-leave",()=>{lastPointer=null;ui.readout.hidden=true;});
+
+        // ---- Loading and controls ---------------------------------------------------------------
+        const ensureLoaded=()=>loadPromise??=(async()=>{
+          ui.meta.textContent="Loading…";
+          const response=await fetch("./data/currents/manifest.json",{cache:"no-cache"});
+          if(!response.ok)throw new Error(response.status===404?"No currents data yet. Run tools\\build_currents.py first.":`Currents manifest returned HTTP ${response.status}.`);
+          manifest=await response.json();
+          if(!manifest.sets?.length)throw new Error("The currents manifest contains no data sets.");
+          ui.set.replaceChildren(...manifest.sets.map(item=>{const option=document.createElement("option");option.value=item.id;option.textContent=item.label;return option;}));
+          ui.set.disabled=manifest.sets.length<2;
+          const generated=manifest.generated?new Date(manifest.generated):null;
+          ui.run.textContent=generated?`Built ${generated.toLocaleDateString(undefined,{month:"short",day:"numeric"})}`:"";
+          ui.run.title=generated?`Downloaded ${generated.toLocaleString()} from ${manifest.product||"CMEMS"}`:"";
+          selectSet(manifest.sets[0].id,Date.now());
+          layer=new CurrentsLayer({title:"Ocean currents (CMEMS)",visible:false,listMode:"hide"});
+          map.add(layer);
+          raiseInfrastructure();
+          return layer;
+        })().catch(error=>{loadPromise=null;throw error;});
+        const update=()=>{
+          const on=ui.toggle.checked;
+          ui.panel.hidden=!on;
+          if(!on){playing=false;updatePlayButton();if(layer)layer.visible=false;ui.readout.hidden=true;return;}
+          ensureLoaded().then(()=>{layer.visible=ui.toggle.checked;ui.meta.textContent="CMEMS";})
+            .catch(error=>{
+              ui.meta.textContent="Unavailable";
+              ui.info.textContent=error.message||String(error);
+              status.textContent=`Ocean currents: ${error.message||error}`;
+              console.warn("Ocean currents unavailable",error);
+            });
+        };
+        ui.toggle.onchange=update;
+        ui.set.onchange=()=>selectSet(ui.set.value,currentTime());
+        ui.slider.oninput=()=>{playing=false;updatePlayButton();position=Number(ui.slider.value);updateTimeUi();};
+        ui.play.onclick=()=>{
+          if(frames.length<2)return;
+          playing=!playing;
+          if(playing&&position>=frames.length-1)position=0;
+          updatePlayButton();
+          if(playing)preloadAll();
+        };
+        return {update};
+      })();
       const scaleOutput=document.getElementById("scaleThresholdValue");
       const formatScale=value=>`1:${(Math.round(value/1000)*1000).toLocaleString("en-US")}`;
       const thresholdFromSlider=value=>100000*Math.pow(100,Number(value)/100);
       const updateInfrastructureVisibility=()=>{
-        pipes.visible=document.getElementById("pipelinesToggle").checked;
-        platforms.visible=document.getElementById("platformsToggle").checked;
-        wells.visible=document.getElementById("wellsToggle").checked;
+        Object.values(infra).forEach(config=>{
+          const on=document.getElementById(config.toggle).checked;
+          const layer=config.key==="pipelines"?pipes:config.key==="platforms"?platforms:wells;
+          if(layer)layer.visible=on;
+          else if(on)ensureInfrastructure(config).catch(error=>{status.textContent=`Could not load ${config.key}: ${error.message||error}`;});
+        });
+      };
+      const handleTalosAssetsToggle=async()=>{
+        const enabled=document.getElementById("talosAssetsToggle").checked;
+        if(enabled){
+          infrastructureToggleIds.forEach(id=>{document.getElementById(id).checked=false;});
+          updateInfrastructureVisibility();
+          try{talosAssetsLayer=await ensureTalosAssetsLayer();talosAssetsLayer.visible=true;}
+          catch(error){document.getElementById("talosAssetsToggle").checked=false;status.textContent=`Could not load Talos Active Assets: ${error.message||error}`;}
+          return;
+        }
+        if(talosAssetsLayer)talosAssetsLayer.visible=false;
+        infrastructureToggleIds.forEach(id=>{document.getElementById(id).checked=false;});
+        updateInfrastructureVisibility();
+      };
+      const handleFullInfrastructureToggle=event=>{
+        if(event.target.checked&&document.getElementById("talosAssetsToggle").checked){
+          document.getElementById("talosAssetsToggle").checked=false;
+          if(talosAssetsLayer)talosAssetsLayer.visible=false;
+        }
+        updateInfrastructureVisibility();
       };
       const updateBathymetry=()=>{
         const threshold=thresholdFromSlider(scaleSlider.value);
         const inRange=view.scale<=threshold;
-        bathy.visible=document.getElementById("bathymetryToggle").checked&&inRange;
-        hillshade.visible=document.getElementById("hillshadeToggle").checked&&inRange;
+        const reliefOn=document.getElementById("hillshadeToggle").checked;
+        hillshade.visible=reliefOn&&inRange;
+        document.getElementById("thresholdSection").hidden=!reliefOn;
         scaleOutput.textContent=formatScale(threshold);
-        document.getElementById("scaleHint").textContent=inRange?`BOEM depth and relief are active at ${formatScale(view.scale)}. Drag the slider to tune when they switch on.`:`Zoom in past ${formatScale(threshold)} to load BOEM depth and relief. Infrastructure layers remain available.`;
+        document.getElementById("scaleHint").textContent=inRange?`BOEM hillshade is active at ${formatScale(view.scale)}. Drag the slider to tune when they switch on.`:`Zoom in past ${formatScale(threshold)} to load the BOEM hillshade. Infrastructure layers remain available.`;
       };
       view.when(async()=>{
-        updateBathymetry();updateInfrastructureVisibility();
-        const visibleLayers=[pipes,platforms,wells].filter(layer=>layer.visible);
-        status.textContent=`Map view ready · loading ${visibleLayers.length} visible BSEE layers…`;
-        const outcomes=await Promise.all(visibleLayers.map(async layer=>{
+        updateBathymetry();
+        const talosEnabled=document.getElementById("talosAssetsToggle").checked;
+        status.textContent=talosEnabled?"Map view ready · loading Talos Active Assets…":"Map view ready · loading visible BSEE layers…";
+        if(talosEnabled){
           try{
+            const layer=await ensureTalosAssetsLayer();
+            const layerView=await view.whenLayerView(layer);
+            if(layerView.updating)await reactiveUtils.whenOnce(()=>!layerView.updating);
+            status.innerHTML=`<span>●</span> &nbsp;Map ready · Talos Active Assets (${document.getElementById("talosAssetsCount").textContent})`;
+          }catch(error){status.textContent=`Talos Active Assets failed to load: ${error.message||error}`;console.warn("Could not create Talos Active Assets layer",error);}
+        }
+        const visibleConfigs=Object.values(infra).filter(config=>document.getElementById(config.toggle).checked);
+        if(visibleConfigs.length)status.textContent=`Map view ready · loading ${visibleConfigs.length} visible BSEE layers…`;
+        const outcomes=await Promise.all(visibleConfigs.map(async config=>{
+          let layer;
+          try{
+            layer=await ensureInfrastructure(config);
             const layerView=await view.whenLayerView(layer);
             if(layerView.updating)await reactiveUtils.whenOnce(()=>!layerView.updating);
             return {title:layer.title,error:null};
-          }catch(error){return {title:layer.title,error};}
+          }catch(error){return {title:layer?.title||config.options.title,error};}
         }));
         const failed=outcomes.filter(outcome=>outcome.error);
         if(failed.length){
           status.textContent=`Map ready · ${failed.length} BSEE layer${failed.length===1?"":"s"} failed: ${failed.map(outcome=>outcome.title).join(", ")}`;
           failed.forEach(outcome=>console.warn(`Could not create ${outcome.title} layer view`,outcome.error));
-        }else status.innerHTML=`<span>●</span> &nbsp;Map ready · ${outcomes.length} visible BSEE layer views loaded`;
+        }else if(!talosEnabled){
+          const local=Object.keys(snapshotOrigins).length;
+          status.innerHTML=`<span>●</span> &nbsp;Map ready · ${outcomes.length} visible BSEE layer views loaded${local?` (${local} from local snapshot)`:""}`;
+        }
+        // Background work once the map has drawn.
+        const idle=window.requestIdleCallback||(callback=>setTimeout(callback,500));
+        idle(()=>ensurePlatformStructures());
       });
-      view.watch("scale",updateBathymetry);
+      reactiveUtils.watch(()=>view.scale,updateBathymetry);
       scaleSlider.addEventListener("input",updateBathymetry);
-      [pipes,platforms,wells].forEach((layer)=>layer.when().then(()=>{const id=layer===pipes?"pipelineCount":layer===platforms?"platformCount":"wellCount";document.getElementById(id).textContent="Connected";}).catch(()=>{}));
-      document.getElementById("bathymetryToggle").onchange=updateBathymetry;
       document.getElementById("hillshadeToggle").onchange=updateBathymetry;
-      document.getElementById("pipelinesToggle").onchange=updateInfrastructureVisibility;
-      document.getElementById("platformsToggle").onchange=updateInfrastructureVisibility;
-      document.getElementById("wellsToggle").onchange=updateInfrastructureVisibility;
-      document.getElementById("hideBadDataToggle").onchange=()=>{definitionExpression=getPipelineDefinitionExpression();pipes.definitionExpression=definitionExpression;};
+      document.getElementById("contoursToggle").onchange=updateContours;
+      document.getElementById("talosAssetsToggle").onchange=handleTalosAssetsToggle;
+      document.getElementById("pipelinesToggle").onchange=handleFullInfrastructureToggle;
+      document.getElementById("platformsToggle").onchange=handleFullInfrastructureToggle;
+      document.getElementById("wellsToggle").onchange=handleFullInfrastructureToggle;
+      document.getElementById("hideBadDataToggle").onchange=()=>{definitionExpression=getPipelineDefinitionExpression();pipelineOptions.definitionExpression=definitionExpression;if(pipes)pipes.definitionExpression=definitionExpression;const talosPipelines=talosAssetsLayer?.layers.find(layer=>layer.title===pipelineOptions.title);if(talosPipelines)talosPipelines.definitionExpression=definitionExpression;};
       document.getElementById("gulfButton").onclick=()=>view.goTo({target:extent,zoom:5});
       document.getElementById("layersButton").onclick=()=>galleryExpand.expanded=!galleryExpand.expanded;
-      const escapeSql=value=>value.replace(/'/g,"''");
-      const searchFields={
-        pipelines:{layer:pipes,strings:["ORIG_ID_NAME","ORIG_BLK_NUM","STATUS_CODE","PPL_SIZE_CODE","ROW_NUMBER","PROD_CODE","SDE_COMPANY_DESG","COMGL_SYS_IDS"],numbers:["SEGMENT_NUM"]},
-        platforms:{layer:platforms,strings:[],numbers:["COMPLEX_ID_NUM"]},
-        wells:{layer:wells,strings:["API_NUMBER","OPERATOR","WELL_NAME","SPUD_DATE","TYPE_CODE","TYPE_CODE_DESC","STATUS","DEPTH","STATUS_DESCRIPTION"],numbers:[]}
+      const escapeXml=value=>String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
+      const escapeSql=value=>String(value).replace(/'/g,"''");
+      const resultsPanel=document.getElementById("searchResults");
+      let searchSequence=0;
+      const closeResults=()=>{resultsPanel.hidden=true;resultsPanel.replaceChildren();};
+      document.addEventListener("keydown",event=>{if(event.key==="Escape")closeResults();});
+      document.addEventListener("click",event=>{if(!event.target.closest(".search"))closeResults();});
+      const featureKey=(layer,feature)=>String(feature.attributes?.[layer.objectIdField]??JSON.stringify(feature.attributes));
+      // Platforms: Complex ID plus the structure name(s) joined from the BSEE Platform Structures data.
+      const describePlatform=attributes=>{
+        const complexId=String(attributes.COMPLEX_ID_NUM??"").trim();
+        const records=complexId?getPlatformByComplex().get(complexId)||[]:[];
+        const names=[...new Set(records.map(record=>String(record.STRUCTURE_NAME??"").trim()).filter(Boolean))];
+        const shown=names.length>4?`${names.slice(0,4).join(", ")} +${names.length-4} more`:names.join(", ");
+        return `Complex ID: ${complexId||"—"} · Structure: ${shown||"(no name on record)"}`;
       };
+      const describeFeature=(layer,feature)=>{
+        const attributes=feature.attributes||{};
+        if(layer&&layer.title==="Platforms")return describePlatform(attributes);
+        const preferred=["WELL_NAME","API_NUMBER","ORIG_ID_NAME","SEGMENT_NUM","COMPLEX_ID_NUM","PLATFORM_NAME","NAME","OPERATOR"];
+        const parts=preferred.filter(key=>attributes[key]!==null&&attributes[key]!==undefined&&String(attributes[key]).trim()).slice(0,3).map(key=>`${key}: ${attributes[key]}`);
+        if(!parts.length){const key=layer.displayField||layer.objectIdField;parts.push(`${key}: ${attributes[key]??"Record"}`);}
+        return parts.join(" · ");
+      };
+      // Service metadata determines searchability; ArcGIS numeric/date fields must not be passed to UPPER().
       const queryLayer=async(config,term)=>{
-        const escaped=escapeSql(term.trim().toUpperCase());
-        const clauses=config.strings.map(field=>`UPPER(${field}) LIKE '%${escaped}%'`);
-        if(/^\d+$/.test(term.trim()))config.numbers.forEach(field=>clauses.push(`${field} = ${Number(term.trim())}`));
-        if(!clauses.length)return {source:config.layer.title,features:[],error:null};
-        const searchWhere=`(${clauses.join(" OR ")})${config.layer===pipes?` AND (${definitionExpression})`:""}`;
+        const {layer,name}=config;
         try{
-          const result=await config.layer.queryFeatures({where:searchWhere,outFields:["*"],returnGeometry:true,num:8});
-          return {source:config.layer.title,features:result.features,error:null};
-        }catch(error){
-          console.warn(`Search failed for ${config.layer.title}`,error);
-          return {source:config.layer.title,features:[],error};
-        }
+          await layer.load();
+          const fields=layer.fields||[];
+          const strings=fields.filter(field=>field.type==="string").map(field=>field.name);
+          const numeric=/^-?\d+(?:\.\d+)?$/.test(term)?fields.filter(field=>["integer","small-integer","double","single","oid","big-integer"].includes(field.type)).map(field=>field.name):[];
+          const clauses=strings.map(field=>`${field} LIKE '%${escapeSql(term)}%'`);
+          const numericValue=Number(term);
+          if(Number.isFinite(numericValue))numeric.forEach(field=>clauses.push(`${field} = ${numericValue}`));
+          if(!clauses.length)return {name,layer,features:[],errors:[]};
+          // Query in short groups to keep requests within service SQL limits and isolate unsupported fields.
+          const groups=[];
+          for(let i=0;i<clauses.length;i+=6)groups.push(clauses.slice(i,i+6));
+          const errors=[];
+          const collected=[];
+          const fetchGroup=async group=>{
+            const where=`(${group.join(" OR ")})${layer===pipes?` AND (${definitionExpression})`:""}`;
+            try{
+              const response=await layer.queryFeatures({where,outFields:["*"],returnGeometry:true,num:12});
+              collected.push(...response.features);
+            }catch(error){
+              if(group.length>1){await Promise.all(group.map(clause=>fetchGroup([clause])));}
+              else {errors.push({field:group[0],error});console.warn(`Search field rejected in ${name}: ${group[0]}`,error);}
+            }
+          };
+          await Promise.all(groups.map(fetchGroup));
+          const unique=new window.Map();
+          collected.forEach(feature=>unique.set(featureKey(layer,feature),feature));
+          return {name,layer,features:[...unique.values()].slice(0,30),errors};
+        }catch(error){console.warn(`Search failed for ${name}`,error);return {name,layer,features:[],errors:[{error}]};}
       };
-      const waitForSearchMatch=(tasks,timeoutMs=15000)=>new Promise(resolve=>{
-        let pending=tasks.length,settled=false;
-        const timer=setTimeout(()=>{settled=true;resolve({timeout:true,pending:tasks.filter(task=>!task.done).map(task=>task.name)});},timeoutMs);
-        tasks.forEach(task=>task.promise.then(result=>{
-          task.done=true;
-          task.result=result;
-          if(settled)return;
-          if(result.features.length){settled=true;clearTimeout(timer);resolve({result});return;}
-          pending--;
-          if(pending===0){settled=true;clearTimeout(timer);resolve({results:tasks.map(item=>item.result)});}
-        }));
-      });
-      const searchOffshoreData=async term=>{
-        status.textContent="Searching offshore records…";
-        const localMatches=[];
-        (window.BSEE_PLATFORM_STRUCTURES||[]).forEach(values=>{
-          if(values.some(value=>String(value??"").toUpperCase().includes(term.toUpperCase())))localMatches.push(String(values[7]||"").trim());
-        });
-        const complexIds=[...new Set(localMatches.filter(Boolean))].slice(0,5);
-        status.textContent="Searching BSEE platform, pipeline, and well records…";
-        const platformPromise=complexIds.length?platforms.queryFeatures({where:`COMPLEX_ID_NUM IN (${complexIds.map(Number).join(",")})`,outFields:["*"],returnGeometry:true,num:8}).then(result=>({source:"platforms",features:result.features,error:null})).catch(error=>{console.warn("Platform structure lookup failed",error);return {source:"platforms",features:[],error};}):Promise.resolve({source:"platforms",features:[],error:null});
-        const tasks=[
-          {name:"platforms",promise:platformPromise},
-          {name:"pipelines",promise:queryLayer(searchFields.pipelines,term)},
-          {name:"wells",promise:queryLayer(searchFields.wells,term)}
-        ];
-        const outcome=await waitForSearchMatch(tasks);
-        if(outcome.timeout){status.textContent=`Search timed out waiting for ${outcome.pending.join(", ")} data.`;return;}
-        if(!outcome.result){
-          const errors=(outcome.results||[]).filter(result=>result?.error).map(result=>result.source);
-          status.textContent=errors.length?`No match found · unable to reach ${errors.join(", ")}.`:`No offshore data matched “${term}”.`;
-          return;
+      // In-memory search over snapshot attributes (same matching rules as the live LIKE / numeric query).
+      const passesPipelineFilter=attributes=>{
+        const code=attributes.PROD_CODE;
+        if(code===null||code===undefined||ignoredPipelineCodes.includes(code))return false;
+        return !(document.getElementById("hideBadDataToggle").checked&&badPipelineSegments.includes(Number(attributes.SEGMENT_NUM)));
+      };
+      const numericTypes=["integer","small-integer","double","single","oid","big-integer"];
+      const searchSnapshot=(config,layer,name,term)=>{
+        const needle=term.toUpperCase(),numericValue=/^-?\d+(?:\.\d+)?$/.test(term)?Number(term):null;
+        const strings=config.index.fields.filter(field=>field.type==="string").map(field=>field.name);
+        const numeric=numericValue===null?[]:config.index.fields.filter(field=>numericTypes.includes(field.type)).map(field=>field.name);
+        const features=[];
+        for(const graphic of config.index.graphics){
+          const attributes=graphic.attributes;
+          if(layer===pipes&&!passesPipelineFilter(attributes))continue;
+          if(strings.some(field=>attributes[field]!==null&&attributes[field]!==undefined&&String(attributes[field]).toUpperCase().includes(needle))||numeric.some(field=>attributes[field]===numericValue)){
+            features.push(graphic);
+            if(features.length>=30)break;
+          }
         }
-        const matches=outcome.result.features;
-        if(!matches.length){status.textContent=`No offshore data matched “${term}”.`;return;}
-        const feature=matches[0];
+        return {name,layer,features,errors:[]};
+      };
+      const searchInfrastructure=async(config,name,term)=>{
         try{
+          const layer=await ensureInfrastructure(config);
+          return layer.bluewaterSnapshot&&config.index?searchSnapshot(config,layer,name,term):await queryLayer({name,layer},term);
+        }catch(error){console.warn(`Search failed for ${name}`,error);return {name,layer:null,features:[],errors:[{error}]};}
+      };
+      const queryPlatforms=async term=>{
+        await ensurePlatformStructures();
+        const platforms=await ensureInfrastructure(infra.platforms);
+        const matches=[];
+        (window.BSEE_PLATFORM_STRUCTURES||[]).forEach(values=>{
+          if(values.some(value=>String(value??"").toUpperCase().includes(term.toUpperCase())))matches.push(String(values[7]||"").trim());
+        });
+        const ids=[...new Set(matches.filter(value=>/^\d+$/.test(value)))].slice(0,60);
+        if(!ids.length)return {name:"Platforms",layer:platforms,features:[],errors:[]};
+        if(platforms.bluewaterSnapshot&&infra.platforms.index){
+          const wanted=new Set(ids);
+          const features=infra.platforms.index.graphics.filter(graphic=>wanted.has(String(graphic.attributes.COMPLEX_ID_NUM??"").trim()));
+          return {name:"Platforms",layer:platforms,features:features.slice(0,30),errors:[]};
+        }
+        try{
+          await platforms.load();
+          const features=[];
+          for(let i=0;i<ids.length;i+=20){
+            const result=await platforms.queryFeatures({where:`COMPLEX_ID_NUM IN (${ids.slice(i,i+20).join(",")})`,outFields:["*"],returnGeometry:true,num:30});
+            features.push(...result.features);
+          }
+          return {name:"Platforms",layer:platforms,features:features.slice(0,30),errors:[]};
+        }catch(error){console.warn("Platform lookup failed",error);return {name:"Platforms",layer:platforms,features:[],errors:[{error}]};}
+      };
+      const focusSearchFeature=async(layer,feature)=>{
+        closeResults();
+        try{
+          // Snapshot graphics live in the layer source; re-query so the popup gets the layer's template.
+          if(layer.bluewaterSnapshot){
+            const objectId=feature.attributes?.[layer.objectIdField];
+            const result=await layer.queryFeatures({objectIds:[objectId],outFields:["*"],returnGeometry:true});
+            if(result.features[0])feature=result.features[0];
+          }
           const geometry=feature.geometry;
-          status.textContent=`Found ${matches.length} offshore record${matches.length===1?"":"s"} · moving to the first match…`;
+          if(!geometry)throw new Error("Feature has no geometry");
+          if(document.getElementById("talosAssetsToggle").checked){
+            document.getElementById("talosAssetsToggle").checked=false;
+            if(talosAssetsLayer)talosAssetsLayer.visible=false;
+            infrastructureToggleIds.forEach(id=>{document.getElementById(id).checked=false;});
+          }
           if(geometry.type==="point")await view.goTo({target:geometry,zoom:14});
           else if(geometry.extent)await view.goTo({target:geometry.extent.expand(1.5)});
+          if(!layer.visible)layer.visible=true;
+          if(layer===pipes)document.getElementById("pipelinesToggle").checked=true;
+          if(layer===platforms)document.getElementById("platformsToggle").checked=true;
+          if(layer===wells)document.getElementById("wellsToggle").checked=true;
           view.openPopup({features:[feature],location:geometry.type==="point"?geometry:geometry.extent?.center});
-          status.textContent=`Found ${matches.length} offshore record${matches.length===1?"":"s"} · showing the first match.`;
-        }catch(error){status.textContent="The matching record was found, but the map could not move to it.";console.warn(error);}
+          status.textContent=`Showing ${layer.title} search result.`;
+        }catch(error){console.warn("Could not navigate to search feature",error);status.textContent="Found the record, but could not display its map location.";}
+      };
+      const searchOffshoreData=async term=>{
+        const current=++searchSequence;
+        closeResults();
+        const trimmed=term.trim();
+        if(!trimmed)return;
+        status.textContent="Searching platform, pipeline, and well metadata…";
+        if(!wells&&!infra.wells.promise)status.textContent="Loading wells data for search (first time only)…";
+        const queries=[queryPlatforms(trimmed).catch(error=>({name:"Platforms",layer:null,features:[],errors:[{error}]})),searchInfrastructure(infra.pipelines,"Pipelines",trimmed),searchInfrastructure(infra.wells,"Wells",trimmed)];
+        const timeout=new Promise(resolve=>setTimeout(()=>resolve(null),20000));
+        const outcomes=await Promise.race([Promise.all(queries),timeout]);
+        if(current!==searchSequence)return;
+        if(!outcomes){status.textContent="Search timed out. Check agency service availability and try again.";return;}
+        const count=outcomes.reduce((sum,item)=>sum+item.features.length,0);
+        const errors=outcomes.filter(item=>item.errors.length).map(item=>item.name);
+        const heading=document.createElement("div");heading.className="search-empty";
+        heading.textContent=count?`${count} matching records (up to 30 per layer)${errors.length?` · Some ${errors.join("/")} fields unavailable`:""}`:errors.length?`No matches found; some ${errors.join("/")} metadata could not be searched.`:`No offshore data matched “${trimmed}”.`;
+        const close=document.createElement("button");close.className="search-results-close";close.type="button";close.textContent="Close ×";close.onclick=event=>{event.preventDefault();closeResults();};
+        resultsPanel.append(close,heading);
+        outcomes.forEach(({name,layer,features})=>{
+          if(!features.length)return;
+          const title=document.createElement("div");title.className="search-result-heading";title.textContent=`${name} (${features.length})`;resultsPanel.append(title);
+          features.forEach(feature=>{
+            const button=document.createElement("button");button.type="button";button.className="search-result";
+            button.textContent=describeFeature(layer,feature);
+            const detail=document.createElement("small");detail.textContent=`${name} · Select to zoom and show attributes`;button.append(detail);
+            button.onclick=event=>{event.preventDefault();focusSearchFeature(layer,feature);};resultsPanel.append(button);
+          });
+        });
+        resultsPanel.hidden=false;
+        status.textContent=count?`Found ${count} offshore records across ${outcomes.filter(item=>item.features.length).length} layers · select a result from the search list.`:heading.textContent;
       };
       window.offshoreSearchData=searchOffshoreData;
       window.offshoreMapStarted=true;
