@@ -41,6 +41,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from array import array
+from config import data_directory
 
 SERVICE = "https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Deepwater_Bathymetry_Contours/FeatureServer"
 ORIGIN = 20037508.342789244          # Web Mercator half-world (m)
@@ -61,7 +62,7 @@ TIERS = [
 ]
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "data" / "contours"
+OUT = data_directory() / "contours"
 UA = "Bluewater-contour-builder/1.0"
 
 

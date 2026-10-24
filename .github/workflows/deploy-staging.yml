@@ -1,0 +1,59 @@
+name: Deploy private staging
+
+on:
+  push:
+    branches: [feature-experiments]
+    paths:
+      - index.html
+      - app/**
+      - tools/**
+      - deploy/requirements-*.txt
+      - Dockerfile.web
+      - .dockerignore
+      - .github/workflows/deploy-staging.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bluewater-staging-release
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.repository == 'BlackOilCoder/GulfInfrastructure' && github.ref == 'refs/heads/feature-experiments'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      IMAGE: us-south1-docker.pkg.dev/bluewater-512614/bluewater-staging/web
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build web image
+        run: docker build -f Dockerfile.web -t "$IMAGE:$GITHUB_SHA" .
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/713881092468/locations/global/workloadIdentityPools/bw-staging-github/providers/github
+          service_account: bw-staging-github@bluewater-512614.iam.gserviceaccount.com
+      - uses: google-github-actions/setup-gcloud@v3
+      - name: Publish immutable image
+        shell: bash
+        run: |
+          set -euo pipefail
+          gcloud auth configure-docker us-south1-docker.pkg.dev --quiet
+          docker push "$IMAGE:$GITHUB_SHA"
+          digest=$(docker inspect --format='{{index .RepoDigests 0}}' "$IMAGE:$GITHUB_SHA")
+          echo "DEPLOY_IMAGE=$digest" >> "$GITHUB_ENV"
+      - name: Deploy staging revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          gcloud run services update bw-staging-web \
+            --project=bluewater-512614 --region=us-south1 \
+            --image="$DEPLOY_IMAGE" --quiet
+          echo "Deployed commit $GITHUB_SHA using $DEPLOY_IMAGE" >> "$GITHUB_STEP_SUMMARY"
+          echo 'Staging remains protected by Cloud Run IAM.' >> "$GITHUB_STEP_SUMMARY"

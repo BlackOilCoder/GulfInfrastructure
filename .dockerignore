@@ -1,0 +1,17 @@
+.git
+.venv*
+**/__pycache__
+**/*.pyc
+.bathymetry-test
+.bluewater-local.json
+.env
+.env.*
+!.env.example
+data
+*.xlsx
+platform-structures.js
+.cloud-staging
+**/.terraform
+**/*.tfstate*
+**/*.tfvars
+**/*.tfplan

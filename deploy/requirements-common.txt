@@ -1,0 +1,7 @@
+# Direct dependencies pinned for the Python 3.12 Linux images.
+numpy==2.5.4
+rasterio==1.5.2
+pyproj==3.8.0
+Pillow==12.3.0
+truststore==0.10.5
+google-cloud-storage==3.17.1

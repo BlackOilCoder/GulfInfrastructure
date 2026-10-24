@@ -1,0 +1,22 @@
+FROM python:3.12-slim-bookworm
+
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
+    HOME=/tmp/bluewater-home TMPDIR=/work/tmp \
+    BLUEWATER_DATA_DIR=/data \
+    BLUEWATER_BATHYMETRY_DIR=/bathymetry \
+    BLUEWATER_STRUCTURES_FILE=/inputs/platform-structures.js \
+    BLUEWATER_PRODUCTION_CACHE_DIR=/work/production-cache \
+    BLUEWATER_PROJ_DIR=/tmp/bluewater-proj
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libexpat1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --gid 10001 bluewater \
+    && useradd --uid 10001 --gid 10001 --no-create-home bluewater \
+    && mkdir -p /work/tmp /work/production-cache \
+    && chown -R 10001:10001 /work
+COPY deploy/requirements-common.txt deploy/requirements-worker.txt /app/deploy/
+RUN pip install --no-cache-dir --only-binary=:all: -r deploy/requirements-worker.txt
+COPY tools/ /app/tools/
+USER 10001:10001
+ENTRYPOINT ["python", "tools/container_entrypoint.py", "worker"]
+CMD ["snapshots", "--help"]

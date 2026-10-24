@@ -13,12 +13,16 @@
     :root{color-scheme:dark;--bg:#071722;--panel:#0b202d;--panel2:#102936;--line:#1d3a48;--muted:#7893a0;--text:#e8f2f4;--mint:#66e2c2;--gold:#e9b977;--blue:#71a9ff}
     *{box-sizing:border-box}html,body,#app{height:100%;margin:0}body{background:var(--bg);color:var(--text);font:14px/1.4 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
     #app{display:grid;grid-template-rows:64px 1fr}.topbar{display:flex;align-items:center;gap:16px;padding:0 24px;border-bottom:1px solid var(--line);background:#081a25;z-index:4}.brand{display:flex;align-items:center;gap:11px;min-width:250px}.brandmark{width:31px;height:31px;border-radius:10px;background:linear-gradient(145deg,#78eed1,#298f95);display:grid;place-items:center;color:#072229;font-size:17px;font-weight:900}.brandname{font-size:15px;font-weight:750;letter-spacing:.01em}.brandname span{display:block;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-top:1px}.search{width:min(480px,42vw);height:38px;border:1px solid var(--line);border-radius:9px;background:#0d222e;display:flex;align-items:center;gap:10px;padding:0 12px}.search svg{color:#86a6b2;flex:none}.search input{background:none;border:0;outline:0;color:var(--text);width:100%;font:inherit}.search input::placeholder{color:#67818d}.topspacer{flex:1}.badge{font-size:11px;color:#9db5bc;border:1px solid var(--line);padding:6px 10px;border-radius:99px;white-space:nowrap}.badge i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:7px;box-shadow:0 0 10px #66e2c288}
-    .workspace{min-height:0;display:grid;grid-template-columns:300px 1fr}.sidebar{background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:20px 16px 24px;z-index:2}.eyebrow{color:#71909d;text-transform:uppercase;font-size:10px;letter-spacing:.13em;font-weight:700}.section-title{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;font-size:13px;font-weight:700}.section{margin-bottom:24px}.switch-row{display:flex;align-items:center;gap:10px;padding:10px 9px;border-radius:8px;transition:background .2s}.switch-row:hover{background:#102936}.switch-row input{appearance:none;width:32px;height:18px;background:#26404b;border-radius:99px;position:relative;cursor:pointer;flex:none;margin:0;transition:.2s}.switch-row input:checked{background:#168c7a}.switch-row input:after{content:"";position:absolute;width:12px;height:12px;left:3px;top:3px;border-radius:50%;background:#d5e5e7;transition:.2s}.switch-row input:checked:after{left:17px;background:white}.layer-dot{width:9px;height:9px;border-radius:50%;flex:none}.layer-label{font-size:12px;flex:1}.layer-meta{font-size:10px;color:#718c98}.layer-meta strong{color:#bed0d4;font-weight:600}.divider{height:1px;background:var(--line);margin:18px 0}.legend{display:grid;gap:10px;padding:4px 2px 2px}.legend-item{display:flex;align-items:center;gap:10px;font-size:11px;color:#acc0c5}.legend-line{height:3px;width:20px;border-radius:4px;background:var(--mint)}.legend-line.pipe{background:var(--gold)}.legend-dot{width:8px;height:8px;background:#fff;border:2px solid var(--blue);border-radius:50%}.legend-diamond{height:9px;width:9px;background:var(--mint);transform:rotate(45deg);border:1px solid #082a2c}.info-card{border:1px solid var(--line);border-radius:10px;background:#0a1b25;padding:13px;margin-top:22px}.info-card h3{font-size:11px;margin:0 0 6px}.info-card p{font-size:10px;line-height:1.55;color:#8ba2aa;margin:0}.info-card a,.source-link{color:#83d9cc;text-decoration:none}.info-card a:hover,.source-link:hover{text-decoration:underline}.attribution{font-size:9px;color:#647f8b;margin-top:13px;line-height:1.6}
-    .scale-control{padding:4px 9px 10px}.scale-control label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px;color:#b7c9cd}.scale-control output{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}.scale-control input{width:100%;margin:12px 0 5px;accent-color:#66e2c2;cursor:pointer}.scale-range{display:flex;justify-content:space-between;color:#718b96;font-size:9px}.scale-hint{font-size:10px;line-height:1.5;color:#7f99a3;margin-top:8px}
+    .workspace{min-height:0;display:grid;grid-template-columns:300px 1fr}.sidebar{background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:20px 16px 24px;z-index:2}.eyebrow{color:#71909d;text-transform:uppercase;font-size:10px;letter-spacing:.13em;font-weight:700}.section-title{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;font-size:13px;font-weight:700}.section{margin-bottom:24px}.switch-row{display:flex;align-items:center;gap:10px;padding:10px 9px;border-radius:8px;transition:background .2s}.switch-row:hover{background:#102936}.switch-row input{appearance:none;width:32px;height:18px;background:#26404b;border-radius:99px;position:relative;cursor:pointer;flex:none;margin:0;transition:.2s}.switch-row input:checked{background:#168c7a}.switch-row input:after{content:"";position:absolute;width:12px;height:12px;left:3px;top:3px;border-radius:50%;background:#d5e5e7;transition:.2s}.switch-row input:checked:after{left:17px;background:white}.layer-dot{width:9px;height:9px;border-radius:50%;flex:none}.layer-label{font-size:12px;flex:1}.layer-meta{font-size:10px;color:#718c98}.layer-meta strong{color:#bed0d4;font-weight:600}.divider{height:1px;background:var(--line);margin:18px 0}.legend{display:grid;gap:10px;padding:4px 2px 2px}.legend-item[hidden]{display:none}.legend-item{display:flex;align-items:center;gap:10px;font-size:11px;color:#acc0c5}.legend-line{height:3px;width:20px;border-radius:4px;background:var(--mint)}.legend-line.pipe{background:var(--gold)}.legend-dot{width:8px;height:8px;background:#fff;border:2px solid var(--blue);border-radius:50%}.legend-diamond{height:9px;width:9px;background:var(--mint);transform:rotate(45deg);border:1px solid #082a2c}.info-card{border:1px solid var(--line);border-radius:10px;background:#0a1b25;padding:13px;margin-top:22px}.info-card h3{font-size:11px;margin:0 0 6px}.info-card p{font-size:10px;line-height:1.55;color:#8ba2aa;margin:0}.info-card a,.source-link{color:#83d9cc;text-decoration:none}.info-card a:hover,.source-link:hover{text-decoration:underline}.attribution{font-size:9px;color:#647f8b;margin-top:13px;line-height:1.6}
+    .scale-range{display:flex;justify-content:space-between;color:#718b96;font-size:9px}.scale-hint{font-size:10px;line-height:1.5;color:#7f99a3;margin-top:8px}
     .map-wrap{position:relative;min-width:0;min-height:0;background:#09212e}.map{height:100%;width:100%}.map-tools{position:absolute;top:18px;right:18px;z-index:3;display:flex;gap:8px}.map-button{border:1px solid #31515e;background:#0b202d;color:#d7e6e8;border-radius:8px;padding:9px 12px;font:inherit;font-size:11px;cursor:pointer;box-shadow:0 5px 18px #0004}.map-button:hover{border-color:#68bba9;color:white}.scale-card{position:absolute;left:18px;bottom:24px;z-index:2;background:#071923d9;border:1px solid #24414d;border-radius:8px;padding:9px 12px;font-size:10px;color:#abc0c5;backdrop-filter:blur(8px)}.status{position:absolute;right:18px;bottom:18px;z-index:2;background:#071923d9;border:1px solid #24414d;border-radius:8px;padding:8px 11px;font-size:10px;color:#abc0c5;backdrop-filter:blur(8px)}.status span{color:var(--mint)}.esri-view .esri-view-surface--inset-outline:focus:after{outline:none}.esri-widget,.esri-widget--button{background:#0b202d!important;color:#d8e7e9!important}.esri-widget--button:hover{background:#153240!important}.esri-popup__main-container{background:#0c202b!important;color:var(--text)!important}.esri-popup__header-title{color:var(--text)!important}.esri-popup__content{color:#c0d1d5!important}.esri-ui .esri-attribution{background:#071923b8!important;color:#90a7ad!important}.esri-attribution__sources a{color:#85cfc4!important}
-    .profile-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#020a10bb;backdrop-filter:blur(5px)}.profile-backdrop[hidden]{display:none}.profile-dialog{width:min(980px,96vw);max-height:min(760px,92vh);overflow:auto;border:1px solid #31515e;border-radius:14px;background:#0b202d;box-shadow:0 24px 80px #0009;padding:20px}.profile-header{display:flex;align-items:flex-start;gap:16px}.profile-heading{flex:1;min-width:0}.profile-heading h2{font-size:17px;margin:0 0 4px}.profile-heading p{font-size:11px;color:#8ba2aa;margin:0}.profile-close{border:1px solid #31515e;border-radius:8px;background:#102936;color:#d7e6e8;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer}.profile-close:disabled{opacity:.45;cursor:default}.profile-header .profile-close+.profile-close{margin-left:-8px}.profile-close:hover:not(:disabled){border-color:#68bba9;color:white}.profile-status{font-size:12px;color:#9db5bc;padding:18px 2px}.profile-summary{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.profile-stat{border:1px solid #24414d;border-radius:8px;background:#0a1b25;padding:8px 11px;color:#9db5bc;font-size:10px}.profile-stat strong{color:#dce9eb;font-size:12px;margin-left:5px}.profile-chart{border:1px solid #203943;border-radius:10px;background:#081a25;padding:8px;overflow:hidden}.profile-chart svg{display:block;width:100%;height:auto;min-height:250px}.profile-note{font-size:10px;line-height:1.5;color:#78939c;margin:12px 2px 0}.profile-axis{fill:#9db5bc;font:11px ui-sans-serif,system-ui,sans-serif}.profile-grid{stroke:#29414b;stroke-width:1}.profile-line{fill:none;stroke:#d4a36d;stroke-width:2.5;vector-effect:non-scaling-stroke}.profile-area{fill:#b9834c33;stroke:none}.profile-origin-marker{fill:#fff4d6;stroke:#152a32;stroke-width:2;vector-effect:non-scaling-stroke}.profile-origin-label-bg{fill:#142a34;stroke:#d4a36d;stroke-width:1;vector-effect:non-scaling-stroke}.profile-origin-label{fill:#f3e5ce;font:600 11px ui-sans-serif,system-ui,sans-serif}
+    .profile-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#020a10bb;backdrop-filter:blur(5px)}.profile-backdrop[hidden]{display:none}.profile-dialog{width:min(980px,96vw);max-height:min(760px,92vh);overflow:auto;border:1px solid #31515e;border-radius:14px;background:#0b202d;box-shadow:0 24px 80px #0009;padding:20px}.profile-header{display:flex;align-items:flex-start;gap:16px}.profile-heading{flex:1;min-width:0}.profile-heading h2{font-size:17px;margin:0 0 4px}.profile-heading p{font-size:11px;color:#8ba2aa;margin:0}.profile-close{border:1px solid #31515e;border-radius:8px;background:#102936;color:#d7e6e8;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer}.profile-close:disabled{opacity:.45;cursor:default}.profile-header .profile-close+.profile-close{margin-left:-8px}.profile-close:hover:not(:disabled){border-color:#68bba9;color:white}.profile-status{font-size:12px;color:#9db5bc;padding:18px 2px}.profile-summary{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.profile-stat{border:1px solid #24414d;border-radius:8px;background:#0a1b25;padding:8px 11px;color:#9db5bc;font-size:10px}.profile-stat strong{color:#dce9eb;font-size:12px;margin-left:5px}.profile-chart{border:1px solid #203943;border-radius:10px;background:#081a25;padding:8px;overflow:hidden}.profile-chart svg{display:block;width:100%;height:auto;min-height:250px}.profile-note{font-size:10px;line-height:1.5;color:#78939c;margin:12px 2px 0}.profile-axis{fill:#9db5bc;font:11px ui-sans-serif,system-ui,sans-serif}.profile-grid{stroke:#29414b;stroke-width:1}.profile-line{fill:none;stroke:#d4a36d;stroke-width:2.5;vector-effect:non-scaling-stroke}.profile-area{fill:#b9834c33;stroke:none}.profile-origin-marker{fill:#fff4d6;stroke:#152a32;stroke-width:2;vector-effect:non-scaling-stroke}.profile-origin-label-bg{fill:#142a34;stroke:#d4a36d;stroke-width:1;vector-effect:non-scaling-stroke}.riser-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin:0 0 12px}.riser-controls[hidden]{display:none}.riser-field{display:flex;align-items:center;gap:7px;font-size:11px;color:#b7c9cd}.riser-field select{background:#0d222e;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit;font-size:11px;max-width:260px}.riser-field input{accent-color:#66e2c2}.riser-field output{color:var(--mint);min-width:26px;font-variant-numeric:tabular-nums;font-weight:700}.riser-field :disabled{opacity:.5}.riser-note{flex-basis:100%;font-size:10.5px;line-height:1.5;color:#c9b38a}#riserToggle[aria-pressed="true"]{background:#168c7a;border-color:#66e2c2;color:#fff}.riser-stat{border-color:#2f6b62}.profile-seabed{fill:none;stroke:#d4a36d;stroke-width:1.6;stroke-dasharray:6 4;opacity:.75;vector-effect:non-scaling-stroke}.riser-line{fill:none;stroke:#66e2c2;stroke-width:2.6;vector-effect:non-scaling-stroke}.riser-tdp{fill:#66e2c2;stroke:#152a32;stroke-width:2;vector-effect:non-scaling-stroke}.riser-tdp-label{fill:#bff3e6;font:600 11px ui-sans-serif,system-ui,sans-serif}.profile-origin-label{fill:#f3e5ce;font:600 11px ui-sans-serif,system-ui,sans-serif}
     .search{position:relative}.search-results{position:absolute;top:calc(100% + 8px);left:0;width:min(590px,88vw);max-height:min(480px,70vh);overflow:auto;background:#0b202d;border:1px solid #31515e;border-radius:10px;box-shadow:0 15px 45px #0009;z-index:10;padding:8px}.search-results[hidden]{display:none}.search-result-heading{font-size:10px;color:#83a5af;padding:9px 10px 5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.search-result{display:block;width:100%;text-align:left;background:transparent;color:#dce9eb;border:0;border-radius:7px;padding:9px 10px;cursor:pointer;font:inherit}.search-result:hover,.search-result:focus{background:#173744;outline:none}.search-result small{display:block;color:#8ba2aa;margin-top:3px;font-size:10px}.search-empty{padding:12px;color:#9db5bc;font-size:12px}.search-results-close{float:right;color:#9db5bc;background:none;border:0;font:inherit;cursor:pointer;padding:5px 9px}
-    .currents-panel[hidden],#thresholdSection[hidden]{display:none}.currents-body{padding:0 9px;display:grid;gap:11px}.currents-field{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:#b7c9cd}.currents-field select{background:#0d222e;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 6px;font:inherit;font-size:11px;max-width:180px}.currents-time{display:flex;align-items:center;gap:10px}.currents-btn{width:30px;height:30px;border-radius:50%;border:1px solid #31515e;background:#102936;color:#d7e6e8;cursor:pointer;font-size:11px;flex:none}.currents-btn:hover:not(:disabled){border-color:#68bba9;color:#fff}.currents-btn:disabled{opacity:.4;cursor:default}.currents-time-text{display:grid;font-size:11px;color:#b7c9cd;min-width:0}.currents-time-text strong{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}.currents-time-text span{font-size:10px;color:#718b96}#currentsSlider{width:100%;accent-color:#66e2c2;cursor:pointer;margin:0}.currents-ramp{height:8px;border-radius:4px;margin-bottom:4px;background:linear-gradient(90deg,rgb(12,40,70) 0%,rgb(27,94,140) 8.3%,rgb(37,140,170) 16.7%,rgb(56,186,150) 33.3%,rgb(190,210,80) 50%,rgb(245,170,60) 66.7%,rgb(232,95,60) 83.3%,rgb(190,35,140) 100%)}.currents-readout{position:absolute;left:18px;bottom:64px;z-index:2;background:#071923e6;border:1px solid #24414d;border-radius:8px;padding:7px 10px;font-size:11px;color:#dce9eb;backdrop-filter:blur(8px);font-variant-numeric:tabular-nums;pointer-events:none}.currents-readout[hidden]{display:none}
+    .currents-panel[hidden]{display:none}.currents-body{padding:0 9px;display:grid;gap:11px}.currents-field{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:#b7c9cd}.currents-field select{background:#0d222e;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 6px;font:inherit;font-size:11px;max-width:180px}.currents-time{display:flex;align-items:center;gap:10px}.currents-btn{width:30px;height:30px;border-radius:50%;border:1px solid #31515e;background:#102936;color:#d7e6e8;cursor:pointer;font-size:11px;flex:none}.currents-btn:hover:not(:disabled){border-color:#68bba9;color:#fff}.currents-btn:disabled{opacity:.4;cursor:default}.currents-time-text{display:grid;font-size:11px;color:#b7c9cd;min-width:0}.currents-time-text strong{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}.currents-time-text span{font-size:10px;color:#718b96}#currentsSlider{width:100%;accent-color:#66e2c2;cursor:pointer;margin:0}.currents-ramp{height:8px;border-radius:4px;margin-bottom:4px;background:linear-gradient(90deg,rgb(12,40,70) 0%,rgb(27,94,140) 8.3%,rgb(37,140,170) 16.7%,rgb(56,186,150) 33.3%,rgb(190,210,80) 50%,rgb(245,170,60) 66.7%,rgb(232,95,60) 83.3%,rgb(190,35,140) 100%)}.currents-readout{position:absolute;left:18px;bottom:64px;z-index:2;background:#071923e6;border:1px solid #24414d;border-radius:8px;padding:7px 10px;font-size:11px;color:#dce9eb;backdrop-filter:blur(8px);font-variant-numeric:tabular-nums;pointer-events:none}.currents-readout[hidden]{display:none}
+.depth-menu{position:absolute;z-index:6;min-width:190px;background:#0b202d;border:1px solid #31515e;border-radius:9px;box-shadow:0 12px 34px #0009;padding:5px}.depth-menu[hidden]{display:none}.depth-menu-item{display:block;width:100%;text-align:left;background:none;border:0;border-radius:6px;color:#dce9eb;font:inherit;font-size:12px;padding:8px 10px;cursor:pointer}.depth-menu-item:hover:not(:disabled),.depth-menu-item:focus{background:#173744;outline:none}.depth-menu-item:disabled{opacity:.45;cursor:default}.depth-menu-note{font-size:10px;color:#7f99a3;padding:2px 10px 6px;font-variant-numeric:tabular-nums}
+    .depth-panel{position:absolute;z-index:5;right:18px;top:66px;width:min(460px,calc(100% - 36px));max-height:calc(100% - 120px);overflow:auto;background:#0b202df2;border:1px solid #31515e;border-radius:12px;box-shadow:0 18px 50px #0009;padding:14px;backdrop-filter:blur(8px)}.depth-panel[hidden]{display:none}.depth-panel-header{display:flex;gap:12px;align-items:flex-start;cursor:move;user-select:none}.depth-panel-header.dragging{cursor:grabbing}.depth-panel-option{display:flex;align-items:center;gap:7px;font-size:11px;color:#9db5bc;margin:0 2px 8px;cursor:pointer}.depth-panel-option input{accent-color:#66e2c2;margin:0}.depth-panel-heading{flex:1;min-width:0}.depth-panel-heading h2{font-size:14px;margin:0 0 3px}.depth-panel-heading p{font-size:11px;color:#8ba2aa;margin:0;font-variant-numeric:tabular-nums}.depth-panel-status{font-size:11px;color:#9db5bc;margin:8px 2px 0}.depth-panel .profile-summary{margin:10px 0}.depth-panel .profile-summary[hidden],.depth-panel-chart[hidden]{display:none}.depth-panel-chart svg{min-height:0}.depth-line{fill:none;stroke:#f5aa3c;stroke-width:2.2;stroke-linejoin:round}.depth-area{fill:#f5aa3c22;stroke:none}.depth-dot{fill:#fff4d6;stroke:#152a32;stroke-width:1}.depth-dot:hover{fill:#f5aa3c}.depth-arrow{fill:#9fd8e6}.depth-floor{stroke:#8a6d4b;stroke-width:1.5;stroke-dasharray:5 4}
+    .production-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 2px 10px}.production-controls[hidden],#productionSummary[hidden],#productionChart[hidden]{display:none}.production-toggle{display:flex;align-items:center;gap:6px;font-size:11px;color:#b7c9cd;cursor:pointer}.production-toggle input{accent-color:#66e2c2;margin:0}.production-toggle i{width:14px;height:3px;border-radius:2px;display:inline-block}.production-controls select{background:#0d222e;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit;font-size:11px}.production-chart-wrap{position:relative}.production-cursor{stroke:#9db5bc;stroke-dasharray:3 3}.production-tooltip{position:absolute;z-index:2;pointer-events:none;background:#071923f2;border:1px solid #31515e;border-radius:8px;padding:7px 9px;font-size:11px;color:#dce9eb;white-space:nowrap;font-variant-numeric:tabular-nums}.production-tooltip[hidden]{display:none}.production-tooltip strong{display:block;margin-bottom:3px}.production-tooltip i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.route-panel{position:absolute;z-index:5;left:18px;top:18px;width:min(430px,calc(100% - 36px));max-height:calc(100% - 90px);overflow:auto;background:#0b202df2;border:1px solid #31515e;border-radius:12px;box-shadow:0 18px 50px #0009;padding:14px;backdrop-filter:blur(8px)}.route-panel[hidden]{display:none}.route-header{display:flex;gap:12px;align-items:flex-start;cursor:move;user-select:none;margin-bottom:10px}.route-header div{flex:1}.route-header h2{font-size:14px;margin:0 0 2px}.route-header p{font-size:10.5px;color:#8ba2aa;margin:0}.route-grid{display:grid;grid-template-columns:42px 66px 1fr 1fr;gap:6px;align-items:center}.route-col{font-size:10px;color:#7f99a3}.route-label{font-size:11px;color:#b7c9cd;font-weight:600}.route-panel select,.route-panel input{background:#0d222e;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 6px;font:inherit;font-size:11.5px;min-width:0;font-variant-numeric:tabular-nums}.route-panel input:focus,.route-panel select:focus{outline:1px solid #66e2c2}.route-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:10px}.route-row label{display:flex;align-items:center;gap:6px;font-size:11px;color:#b7c9cd}.route-status{font-size:11px;color:#c9dfe2;margin-top:10px;line-height:1.45}#routePick.active{background:#168c7a;border-color:#66e2c2;color:#fff}
     @media(max-width:760px){#app{grid-template-rows:58px 1fr}.topbar{padding:0 12px;gap:9px}.brand{min-width:0}.brandname{font-size:13px}.brandname span{display:none}.brandmark{width:29px;height:29px}.search{width:auto;flex:1}.badge{display:none}.workspace{grid-template-columns:1fr;grid-template-rows:1fr auto}.sidebar{grid-row:2;max-height:34vh;border-right:0;border-top:1px solid var(--line);padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.section{margin:0}.section:first-child{grid-row:span 2}.section-title{margin-bottom:5px}.switch-row{padding:6px}.info-card,.attribution{display:none}.map-wrap{grid-row:1}.map-tools{top:10px;right:10px}.map-button{padding:7px 9px}.scale-card{bottom:10px;left:10px}.currents-readout{bottom:48px;left:10px}.profile-backdrop{padding:10px}.profile-dialog{padding:14px;max-height:96vh}.profile-chart svg{min-height:210px}}
   </style>
 </head>
@@ -32,36 +36,47 @@
     <main class="workspace">
       <aside class="sidebar">
         <section class="section"><div class="eyebrow" style="margin:0 0 7px 9px">Map contents</div><h2 class="section-title" style="padding:0 9px">Layers <span class="layer-meta">7 layers</span></h2>
-          <label class="switch-row"><input id="hillshadeToggle" type="checkbox"><span class="layer-dot" style="background:#718b98"></span><span class="layer-label">Bathymetry hillshade</span><span class="layer-meta">BOEM</span></label>
-          <label class="switch-row"><input id="contoursToggle" type="checkbox"><span class="layer-dot" style="background:#78c8dc"></span><span class="layer-label">Depth contours (ft)</span><span class="layer-meta" id="contourMeta">BOEM</span></label>
+          <label class="switch-row"><input id="hillshadeToggle" type="checkbox"><span class="layer-dot" style="background:#718b98"></span><span class="layer-label">Bathymetry hillshade</span><span class="layer-meta" id="bathymetryMeta">Local</span></label>
+          <label class="switch-row"><input id="contoursToggle" type="checkbox"><span class="layer-dot" style="background:#b0b6ba"></span><span class="layer-label">Depth contours (ft)</span><span class="layer-meta" id="contourMeta">BOEM</span></label>
           <label class="switch-row"><input id="currentsToggle" type="checkbox"><span class="layer-dot" style="background:linear-gradient(135deg,#258caa,#f5aa3c)"></span><span class="layer-label">Ocean currents</span><span class="layer-meta" id="currentsMeta">CMEMS</span></label>
           <label class="switch-row"><input id="talosAssetsToggle" type="checkbox" checked><span class="layer-dot" style="background:#f3bb69"></span><span class="layer-label">Talos Active Assets</span><span class="layer-meta" id="talosAssetsCount">Workbook</span></label>
           <label class="switch-row"><input id="pipelinesToggle" type="checkbox"><span class="layer-dot" style="background:#e9b977"></span><span class="layer-label">Pipelines</span><span class="layer-meta" id="pipelineCount">BSEE</span></label>
           <label class="switch-row"><input id="platformsToggle" type="checkbox"><span class="layer-dot" style="background:#66e2c2"></span><span class="layer-label">Platforms</span><span class="layer-meta" id="platformCount">BSEE</span></label>
           <label class="switch-row"><input id="wellsToggle" type="checkbox"><span class="layer-dot" style="background:#71a9ff"></span><span class="layer-label">Oil &amp; gas wells</span><span class="layer-meta" id="wellCount">BSEE</span></label>
         </section>
-        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Legend</h2><div class="legend"><div class="legend-item"><span class="legend-line" style="background:#78c8dc;height:2px"></span>Depth contour · index (labeled)</div><div class="legend-item"><span class="legend-line" style="background:rgba(120,200,220,.45);height:1px"></span>Depth contour · intermediate</div><div class="legend-item"><span class="legend-line" style="background:#006400"></span>Pipeline · Gas</div><div class="legend-item"><span class="legend-line" style="background:#000000"></span>Pipeline · Oil</div><div class="legend-item"><span class="legend-line" style="background:#ff00ff"></span>Communication Cable</div><div class="legend-item"><span class="legend-line" style="background:#ff8c00"></span>Power Cable</div><div class="legend-item"><span class="legend-line" style="background:#ffb45f"></span>Umbilical</div><div class="legend-item"><span class="legend-line" style="background:#d9dee3"></span>Pipeline · CO₂</div><div class="legend-item"><span class="legend-line" style="background:#87cefa"></span>Pipeline · Water</div><div class="legend-item"><span class="legend-diamond"></span>Platform / structure</div><div class="legend-item"><span class="legend-dot"></span>Oil &amp; gas well</div><div class="layer-meta" style="padding-left:30px">Ignore codes are hidden. Unlisted codes appear gray.</div></div></section>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Legend</h2><div class="legend"><div class="legend-item contour-legend" hidden><span class="legend-line" style="background:rgb(176,182,186);height:2px"></span>Depth contour · index (labeled)</div><div class="legend-item contour-legend" hidden><span class="legend-line" style="background:rgba(176,182,186,.55);height:1px"></span>Depth contour · intermediate</div><div class="legend-item"><span class="legend-line" style="background:#006400"></span>Pipeline · Gas</div><div class="legend-item"><span class="legend-line" style="background:#000000"></span>Pipeline · Oil</div><div class="legend-item"><span class="legend-line" style="background:#ff00ff"></span>Communication Cable</div><div class="legend-item"><span class="legend-line" style="background:#ff8c00"></span>Power Cable</div><div class="legend-item"><span class="legend-line" style="background:#ffb45f"></span>Umbilical</div><div class="legend-item"><span class="legend-line" style="background:#d9dee3"></span>Pipeline · CO₂</div><div class="legend-item"><span class="legend-line" style="background:#87cefa"></span>Pipeline · Water</div><div class="legend-item"><span class="legend-diamond"></span>Platform / structure</div><div class="legend-item"><span class="legend-dot"></span>Oil &amp; gas well</div><div class="layer-meta" style="padding-left:30px">Ignore codes are hidden. Unlisted codes appear gray.</div></div></section>
         <section class="section currents-panel" id="currentsPanel" hidden><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Ocean currents <span class="layer-meta" id="currentsRun"></span></h2>
           <div class="currents-body">
             <label class="currents-field"><span>Level</span><select id="currentsSet" aria-label="Current level"></select></label>
             <div class="currents-time"><button id="currentsPlay" class="currents-btn" type="button" aria-label="Play forecast">▶</button><div class="currents-time-text"><strong id="currentsTime">—</strong><span id="currentsRel"></span></div></div>
             <input id="currentsSlider" type="range" min="0" max="0" value="0" step="1" aria-label="Forecast time">
             <div><div class="layer-meta" style="margin-bottom:5px">Speed shading</div><div class="currents-ramp"></div><div class="scale-range"><span>0</span><span>0.5</span><span>1</span><span>1.5</span><span>2</span><span>2.5</span><span>3+ kn</span></div></div>
-            <div class="scale-hint" id="currentsInfo" style="margin:0">Hover over the sea for speed and direction.</div>
+            <div class="scale-hint" id="currentsInfo" style="margin:0">Hover over the sea for speed and direction; right-click for a depth graph.</div>
           </div>
         </section>
-        <section class="section" id="thresholdSection" hidden><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Bathymetry detail threshold</h2><div class="scale-control"><label for="scaleThreshold"><span>Render at this scale and closer</span><output id="scaleThresholdValue">1:650,000</output></label><input id="scaleThreshold" type="range" min="0" max="100" value="40.6457" step="0.0001" aria-describedby="scaleHint"><div class="scale-range"><span>1:100,000</span><span>1:10,000,000</span></div><div class="scale-hint" id="scaleHint">The BOEM hillshade turns on only after you zoom in past the selected scale.</div></div></section>
-        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Data notes</h2><div class="info-card" style="margin:0"><h3>Bathymetry coverage</h3><p>BOEM’s deepwater grid covers over 90,000 sq mi. Depths are in feet; native cells are 40 × 40 ft. The hillshade uses 5× vertical exaggeration. The source grid does not cover the entire Gulf.</p></div>
-          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as local tiles. The interval follows map scale: 1,000 ft zoomed out, 500 ft at regional scale, 100 ft zoomed in (heavier, labeled index lines every 5,000 / 2,500 / 500 ft; every 100 ft line is labeled closer than 1:100,000).</p></div>
+        <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Data notes</h2><div class="info-card" style="margin:0"><h3>Bathymetry coverage</h3><p>BOEM’s deepwater grid is served from a prepared dataset. Depths are in feet; native cells are 40 × 40 ft. Show Elevation reads the depth grid even when hillshade is off. The brown hillshade uses 5× visual exaggeration; depth values are unchanged. The source grid does not cover the entire Gulf.</p></div>
+          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as map tiles. The interval follows map scale: 1,000 ft zoomed out, 500 ft at regional scale, 100 ft zoomed in (heavier, labeled index lines every 5,000 / 2,500 / 500 ft; every 100 ft line is labeled closer than 1:100,000).</p></div>
           <div class="info-card"><h3>Ocean currents</h3><p>Copernicus Marine Service Global Ocean Physics Analysis and Forecast (GLOBAL_ANALYSISFORECAST_PHY_001_024, 1/12° ≈ 9 km, DOI 10.48670/moi-00016). Modelled values for situational awareness only, not for operational or design use. Generated using E.U. Copernicus Marine Service Information.</p></div>
           <div class="info-card"><h3>Platform details</h3><p>Structure names, business associates, coordinates, water depth and related records are joined to map points by Complex ID. This local BSEE dataset snapshot is dated October 19, 2026.</p></div>
           <div class="info-card"><h3>Infrastructure detail</h3><p>BSEE’s pipeline service provides oil &amp; gas pipeline segments. The source schema does not identify a separate umbilical layer; umbilical coverage may therefore be incomplete. GIS locations are approximate, not official records.</p></div>
           <div class="info-card"><h3>Talos Active Assets</h3><p>Matches workbook platform Complex IDs, pipeline Segment Numbers and well API numbers to BSEE map features. Turning this layer off also switches off the three full BSEE infrastructure layers; reenable any of them to show the broader BSEE data.</p></div>
-          <div class="attribution">Sources: <a class="source-link" href="https://www.boem.gov/oil-gas-energy/mapping-and-data/map-gallery/northern-goa-deepwater-bathymetry-grid-3d-seismic" target="_blank" rel="noreferrer">BOEM bathymetry</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Platform.aspx" target="_blank" rel="noreferrer">BSEE platforms</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Pipeline.aspx" target="_blank" rel="noreferrer">BSEE pipelines</a> · <a class="source-link" href="https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_PHY_001_024/description" target="_blank" rel="noreferrer">Copernicus Marine currents</a></div>
+          <div class="attribution">Sources: <a class="source-link" href="https://www.boem.gov/oil-gas-energy/mapping-and-data/map-gallery/northern-goa-deepwater-bathymetry-grid-3d-seismic" target="_blank" rel="noreferrer">BOEM bathymetry</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Platform.aspx" target="_blank" rel="noreferrer">BSEE platforms</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Pipeline.aspx" target="_blank" rel="noreferrer">BSEE pipelines</a> · <a class="source-link" href="https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_PHY_001_024/description" target="_blank" rel="noreferrer">Copernicus Marine currents</a> · <a class="source-link" href="https://www.data.bsee.gov/Main/Production.aspx" target="_blank" rel="noreferrer">BSEE production</a></div>
         </section>
         <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Pipeline data quality</h2><label class="switch-row"><input id="hideBadDataToggle" type="checkbox" checked><span class="layer-label">Hide Bad Data</span></label><div class="layer-meta" style="padding:0 9px">Bad Data list: pipeline segment 21562</div></section>
       </aside>
-      <section class="map-wrap"><div id="map" class="map"></div><div class="map-tools"><button id="exportDataButton" class="map-button">⇩ &nbsp;Export Data</button><button id="gulfButton" class="map-button">⌖ &nbsp;Gulf overview</button><button id="layersButton" class="map-button">◫ &nbsp;Basemap</button></div><div class="scale-card">Gulf of America <span style="color:#587480;margin:0 5px">/</span> WGS 84</div><div id="currentsReadout" class="currents-readout" hidden aria-live="off"></div><div class="status" id="status">Connecting to agency services…</div></section>
+      <section class="map-wrap"><div id="map" class="map"></div><div class="map-tools"><button id="drawRouteButton" class="map-button">✎ &nbsp;Draw Route</button><button id="exportDataButton" class="map-button">⇩ &nbsp;Export Data</button><button id="gulfButton" class="map-button">⌖ &nbsp;Gulf overview</button><button id="layersButton" class="map-button">◫ &nbsp;Basemap</button></div><div class="scale-card">Gulf of America <span style="color:#587480;margin:0 5px">/</span> WGS 84</div><section id="routePanel" class="route-panel" hidden role="dialog" aria-label="Draw route">
+          <header class="route-header"><div><h2>Draw route</h2><p>NAD27 UTM · zone 15N or 16N</p></div><button id="routeClose" class="profile-close" type="button" aria-label="Close draw route">Close</button></header>
+          <div class="route-grid">
+            <span></span><span class="route-col">Zone</span><span class="route-col">X (easting)</span><span class="route-col">Y (northing)</span>
+            <span class="route-label">Start</span><select id="routeStartZone" aria-label="Start zone"><option value="15">15N</option><option value="16">16N</option></select><input id="routeStartX" inputmode="decimal" aria-label="Start X" placeholder="X"><input id="routeStartY" inputmode="decimal" aria-label="Start Y" placeholder="Y">
+            <span class="route-label">End</span><select id="routeEndZone" aria-label="End zone"><option value="15">15N</option><option value="16">16N</option></select><input id="routeEndX" inputmode="decimal" aria-label="End X" placeholder="X"><input id="routeEndY" inputmode="decimal" aria-label="End Y" placeholder="Y">
+          </div>
+          <div class="route-row"><label>Units <select id="routeUnits"><option value="ft">US survey ft</option><option value="m">Metres</option></select></label><label>Line type <select id="routeType"><option>Oil</option><option>Gas</option><option>Water</option><option>CO2</option><option>Umbilical</option><option>Power cable</option><option>None</option></select></label><label>Size (in) <input id="routeSize" value="8" inputmode="decimal" style="width:56px"></label></div>
+          <div class="route-row"><button id="routeDraw" class="profile-close" type="button">Draw from coordinates</button><button id="routePick" class="profile-close" type="button">✎ Click on map</button></div>
+          <div class="route-row"><button id="routeElevation" class="profile-close" type="button" disabled>Show Elevation</button><button id="routeClear" class="profile-close" type="button" disabled>Clear</button></div>
+          <div id="routeStatus" class="route-status" aria-live="polite">Enter coordinates or click two points on the map.</div>
+          <p class="profile-note" style="margin:8px 0 0">Datum shift NAD27→WGS 84 uses the EPSG 3-parameter CONUS transformation (typically within 5–10 m). Clicked points fill in the zone they fall in (west of 90°W = 15N). Line type and size are only used by Adjust for Riser.</p>
+        </section><div id="currentsReadout" class="currents-readout" hidden aria-live="off"></div><div class="status" id="status">Connecting to agency services…</div></section>
     </main>
   </div>
   <div id="elevationDialog" class="profile-backdrop" hidden>
@@ -69,8 +84,19 @@
       <header class="profile-header"><div class="profile-heading"><h2 id="elevationTitle">Pipeline elevation profile</h2><p id="elevationSubtitle">Bathymetry sampled along the selected route</p></div><button id="exportElevation" class="profile-close" type="button" aria-label="Download elevation profile as Excel" disabled>⤓ Excel</button><button id="closeElevation" class="profile-close" type="button" aria-label="Close elevation profile">Close</button></header>
       <div id="elevationStatus" class="profile-status" role="status" aria-live="polite">Preparing profile…</div>
       <div id="elevationSummary" class="profile-summary" hidden></div>
+        <div id="riserControls" class="riser-controls" hidden><button id="riserToggle" class="profile-close" type="button" aria-pressed="false">Adjust for Riser</button><label class="riser-field">End <select id="riserEnd" disabled><option value="origin">Origin</option><option value="destination">Destination</option></select></label><label class="riser-field">Top angle <input id="riserAngle" type="range" min="5" max="25" step="1" value="12" disabled><output id="riserAngleValue">12°</output></label><div id="riserNote" class="riser-note" aria-live="polite"></div></div>
       <div id="elevationChart" class="profile-chart" hidden></div>
       <p class="profile-note">This profile assumes the pipeline follows the seafloor. It is not measured pipe elevation and does not show burial, unsupported spans, or as-built conditions. BOEM bathymetry coverage is limited; gaps indicate locations without a returned depth sample.</p>
+    </section>
+  </div>
+  <div id="productionDialog" class="profile-backdrop" hidden>
+    <section class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="productionTitle">
+      <header class="profile-header"><div class="profile-heading"><h2 id="productionTitle">Production</h2><p id="productionSubtitle"></p></div><button id="exportProduction" class="profile-close" type="button" aria-label="Download production data as Excel" disabled>⤓ Excel</button><button id="closeProduction" class="profile-close" type="button" aria-label="Close production data">Close</button></header>
+      <div id="productionStatus" class="profile-status" role="status" aria-live="polite">Loading production data…</div>
+      <div id="productionSummary" class="profile-summary" hidden></div>
+      <div id="productionControls" class="production-controls" hidden><span id="productionSeries" style="display:contents"></span><label class="production-toggle">Range <select id="productionRange"><option value="0">All (since 1996)</option><option value="10">Last 10 years</option><option value="5">Last 5 years</option><option value="2">Last 2 years</option></select></label></div>
+      <div class="production-chart-wrap"><div id="productionChart" class="profile-chart" hidden></div><div id="productionTooltip" class="production-tooltip" hidden></div></div>
+      <p class="profile-note">Public BSEE/BOEM production data (1996 onward), built locally by tools\build_production.py. Well data adds up all reported completions for the API number; platform data is BOEM's Production by Platform figures by Complex ID. Monthly rates use calendar days, so partial-month production shows as a lower rate. Oil equivalent uses 5.62 Mcf per boe.</p>
     </section>
   </div>
   <script>
@@ -140,7 +166,7 @@
     })();
   </script>
   <script>
-    require(["esri/Map","esri/views/MapView","esri/layers/MapImageLayer","esri/layers/FeatureLayer","esri/layers/GroupLayer","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/geometry/Extent","esri/widgets/Popup","esri/core/reactiveUtils","esri/Graphic","esri/layers/Layer","esri/views/2d/layers/BaseLayerView2D"], function(Map,MapView,MapImageLayer,FeatureLayer,GroupLayer,BasemapGallery,Expand,Extent,Popup,reactiveUtils,Graphic,Layer,BaseLayerView2D){
+    require(["esri/Map","esri/views/MapView","esri/layers/WebTileLayer","esri/layers/FeatureLayer","esri/layers/GroupLayer","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/geometry/Extent","esri/widgets/Popup","esri/core/reactiveUtils","esri/Graphic","esri/layers/Layer","esri/views/2d/layers/BaseLayerView2D"], function(Map,MapView,WebTileLayer,FeatureLayer,GroupLayer,BasemapGallery,Expand,Extent,Popup,reactiveUtils,Graphic,Layer,BaseLayerView2D){
       try{
       const status=document.getElementById("status");
       status.textContent="Building offshore map…";
@@ -232,8 +258,36 @@
         if(!rows.length){const row=table.insertRow();row.insertCell().textContent="No attribute values returned for this feature.";}
         return table;
       };
-      const bathymetryUrl="https://gis.boem.gov/arcgis/rest/services/BOEM_BSEE/GOA_Deepwater_Bathymetry_and_Hillshade_Tiled/MapServer";
-      const hillshade=new MapImageLayer({url:bathymetryUrl,title:"BOEM hillshade (brown tone)",effect:"grayscale(100%) sepia(80%)",visible:false,sublayers:[{id:1,visible:true}]});
+      const localTileInfo=maxZoom=>({dpi:96,rows:256,cols:256,spatialReference:{wkid:3857},origin:{x:-20037508.342789244,y:20037508.342789244},lods:Array.from({length:maxZoom+1},(_,level)=>({level,resolution:156543.03392804097/2**level,scale:591657527.591555/2**level}))});
+      const bathymetryApiUrl=new URL("./api/bathymetry/",window.location.href).href;
+      const hillshade=new WebTileLayer({urlTemplate:`${bathymetryApiUrl}hillshade/{level}/{col}/{row}.png`,tileInfo:localTileInfo(14),title:"BOEM local hillshade (brown tone)",copyright:"BOEM northern Gulf deepwater bathymetry",visible:false});
+      let localBathymetryInfo=null,localBathymetryError="Checking local bathymetry…";
+      const requestBathymetry=async(path,options={},timeoutMs=60000)=>{
+        if(window.location.protocol==="file:")throw new Error("Open Bluewater through tools/start_bluewater.bat and http://localhost:8000/ to use local bathymetry.");
+        const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
+        try{
+          const response=await fetch(`${bathymetryApiUrl}${path}`,{cache:"no-store",...options,signal:controller.signal});
+          if(!response.headers.get("content-type")?.includes("application/json"))throw new Error("The local bathymetry API is unavailable. Start Bluewater through tools/start_bluewater.bat.");
+          const data=await response.json();
+          if(!response.ok)throw new Error(data.error||`Local bathymetry returned HTTP ${response.status}.`);
+          return data;
+        }catch(error){if(error.name==="AbortError")throw new Error("The local bathymetry request timed out. Check the Bluewater server.");throw error;}
+        finally{clearTimeout(timer);}
+      };
+      const loadLocalBathymetry=async()=>{
+        try{
+          const info=await requestBathymetry("status",{},10000);
+          if(!info.ready)throw new Error(info.message||"Local bathymetry is not installed.");
+          if(localBathymetryInfo?.version!==info.version){
+            hillshade.tileInfo=localTileInfo(info.tiles.maxZoom);
+            hillshade.urlTemplate=`${bathymetryApiUrl}hillshade/{level}/{col}/{row}.png?v=${encodeURIComponent(info.version)}`;
+            const b=info.bounds;hillshade.fullExtent=new Extent({xmin:b[0],ymin:b[1],xmax:b[2],ymax:b[3],spatialReference:{wkid:4326}});
+          }
+          localBathymetryInfo=info;localBathymetryError="";
+          const meta=document.getElementById("bathymetryMeta");meta.textContent=info.storage==="gcs"?"Cloud":"Local";meta.title=`${info.source||"BOEM bathymetry"} · ${info.resolutionFt} ft native grid · version ${info.version}`;
+          return info;
+        }catch(error){localBathymetryInfo=null;localBathymetryError=error.message||String(error);document.getElementById("bathymetryMeta").textContent="Unavailable";throw error;}
+      };
       const pipelineGroups=[
         {name:"Gas",color:"#006400",codes:["BLGH","BLKG","COND","CSNG","FLG","G/C","G/CH","G/O","G/OH","GAS","GASH","INJ","LIFT","NGER","NGL","SPLY"]},
         {name:"Oil",color:"#000000",codes:["BLKO","BLOH","O/W","OIL","OILH","SERV"]},
@@ -262,8 +316,8 @@
       let definitionExpression=getPipelineDefinitionExpression();
       const serviceUrl="https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer";
       const pipelineOptions={title:"Offshore pipelines",definitionExpression,renderer:pipelineRenderer,popupTemplate:{title:"Pipeline segment {SEGMENT_NUM}",content:[{type:"fields",fieldInfos:[{fieldName:"STATUS_CODE",label:"Status"},{fieldName:"PROD_CODE",label:"Product code"},{fieldName:"PPL_SIZE_CODE",label:"Size"},{fieldName:"SDE_COMPANY_DESG",label:"Company"},{fieldName:"ORIG_ID_NAME",label:"Origin"},{fieldName:"ORIG_BLK_NUM",label:"Origin block"}]}],actions:[{title:"Show Elevation",id:"show-elevation",className:"esri-icon-line-chart"}]}};
-      const platformOptions={title:"Platforms",renderer:{type:"simple",visualVariables:[scaledSize(8,3.5)],symbol:{type:"simple-marker",style:"diamond",size:8,color:[102,226,194,235],outline:{color:[7,30,39,255],width:1}}},popupTemplate:{title:"Platform / structure",content:attributePopup}};
-      const wellOptions={title:"Oil and gas wells",renderer:{type:"simple",visualVariables:[scaledSize(5,2)],symbol:{type:"simple-marker",size:5,color:[113,169,255,180],outline:{color:[12,32,43,220],width:.6}}},popupTemplate:{title:"Oil & gas well",content:attributePopup}};
+      const platformOptions={title:"Platforms",renderer:{type:"simple",visualVariables:[scaledSize(8,3.5)],symbol:{type:"simple-marker",style:"diamond",size:8,color:[102,226,194,235],outline:{color:[7,30,39,255],width:1}}},popupTemplate:{title:"Platform / structure",content:attributePopup,actions:[{title:"Production Data",id:"production-data",className:"esri-icon-chart"}]}};
+      const wellOptions={title:"Oil and gas wells",renderer:{type:"simple",visualVariables:[scaledSize(5,2)],symbol:{type:"simple-marker",size:5,color:[113,169,255,180],outline:{color:[12,32,43,220],width:.6}}},popupTemplate:{title:"Oil & gas well",content:attributePopup,actions:[{title:"Production Data",id:"production-data",className:"esri-icon-chart"}]}};
       // Infrastructure datasets: local snapshot first (client-side FeatureLayer, no service calls),
       // live BOEM feature service as fallback. Wells load on first use.
       const infra={
@@ -313,6 +367,39 @@
         updateDataBadge();
         return layer;
       })();
+      // ---- Talos platform map labels -------------------------------------------------------------
+      // From each structure's STRUCTURE_NAME (BSEE Platform Structures data, joined by Complex ID):
+      //   "A (Matterhorn)" -> "Matterhorn"   (text inside the parentheses)
+      //   "A"              -> "MP-299"        (single letter only: Area Code - Block Number)
+      //   anything else    -> the name as written
+      // A complex with several structures shows each distinct label once, joined with " / ".
+      const areaBlock=(record,attributes)=>{
+        const area=String(record?.AREA_CODE??attributes?.AREA_CODE??"").trim();
+        const block=String(record?.BLOCK_NUMBER??attributes?.BLOCK_NUMBER??"").trim().replace(/^0+(?=\d)/,"");
+        return [area,block].filter(Boolean).join("-");
+      };
+      const structureLabel=(record,attributes)=>{
+        let name=String(record?.STRUCTURE_NAME??"").trim();
+        const inParens=name.match(/\(([^)]*)\)/);
+        if(inParens&&inParens[1].trim())return inParens[1].trim();
+        name=name.replace(/\(\s*\)/g,"").trim(); // empty parentheses are ignored
+        if(/^[A-Za-z]$/.test(name))return areaBlock(record,attributes);
+        return name;
+      };
+      const talosPlatformLabel=attributes=>{
+        const complexId=String(attributes?.COMPLEX_ID_NUM??"").trim();
+        const records=complexId?getPlatformByComplex().get(complexId)||[]:[];
+        const labels=[...new Set(records.map(record=>structureLabel(record,attributes)).filter(Boolean))];
+        if(!labels.length)return areaBlock(null,attributes)||(complexId?`Complex ${complexId}`:"");
+        return labels.length>3?`${labels.slice(0,3).join(" / ")} +${labels.length-3}`:labels.join(" / ");
+      };
+      const talosPlatformLabelClass={
+        labelExpressionInfo:{expression:"$feature.BW_LABEL"},
+        labelPlacement:"above-center",
+        deconflictionStrategy:"static",
+        symbol:{type:"text",color:[243,187,105,255],haloColor:[8,22,30,235],haloSize:1.5,yoffset:2,
+          font:{family:"Avenir Next LT Pro",size:9.5,weight:"bold"}}
+      };
       let talosAssetsData=null,talosAssetsLayer=null,talosAssetsPromise=null;
       const infrastructureToggleIds=Object.values(infra).map(config=>config.toggle);
       const ensureTalosAssetsLayer=()=>talosAssetsPromise??=(async()=>{
@@ -332,8 +419,13 @@
           const result=await baseLayer.queryFeatures({where:`${fieldName} IN (${values.join(",")})`,outFields:["*"],returnGeometry:true});
           missing[config.key]=Math.max(0,keys.length-result.features.length);
           totalFeatures+=result.features.length;
-          const source=result.features.map(feature=>new Graphic({geometry:feature.geometry,attributes:{...feature.attributes}}));
-          childLayers.push(new FeatureLayer({...config.options,title:config.options.title,source,fields:baseLayer.fields,objectIdField:baseLayer.objectIdField,geometryType:baseLayer.geometryType,spatialReference:baseLayer.spatialReference,outFields:["*"]}));
+          const isPlatforms=config.key==="platforms";
+          if(isPlatforms)await ensurePlatformStructures();
+          const source=result.features.map(feature=>new Graphic({geometry:feature.geometry,attributes:isPlatforms?{...feature.attributes,BW_LABEL:talosPlatformLabel(feature.attributes)}:{...feature.attributes}}));
+          const fields=isPlatforms?[...baseLayer.fields.filter(item=>item.name!=="BW_LABEL"),{name:"BW_LABEL",alias:"Map label",type:"string",length:120}]:baseLayer.fields;
+          const child=new FeatureLayer({...config.options,title:config.options.title,source,fields,objectIdField:baseLayer.objectIdField,geometryType:baseLayer.geometryType,spatialReference:baseLayer.spatialReference,outFields:["*"]});
+          if(isPlatforms){child.labelingInfo=[talosPlatformLabelClass];child.labelsVisible=true;}
+          childLayers.push(child);
         }
         talosAssetsLayer=new GroupLayer({title:"Talos Active Assets",visibilityMode:"independent",visible:document.getElementById("talosAssetsToggle").checked,layers:childLayers});
         talosAssetsLayer.bluewaterRank=40;
@@ -371,11 +463,9 @@
       const elevationChart=document.getElementById("elevationChart");
       const elevationProfileCache=new window.Map();
       const profileSampleLimit=500;
-      const profileBatchSize=25;
-      const profileConcurrency=6;
       let elevationModulesPromise;
       const getElevationModules=()=>{
-        if(!elevationModulesPromise)elevationModulesPromise=new Promise((resolve,reject)=>require(["esri/geometry/Multipoint","esri/geometry/Polyline","esri/geometry/SpatialReference","esri/geometry/geometryEngine","esri/geometry/projection","esri/rest/identify","esri/rest/support/IdentifyParameters","esri/geometry/Polygon"],(...modules)=>resolve({Multipoint:modules[0],Polyline:modules[1],SpatialReference:modules[2],geometryEngine:modules[3],projection:modules[4],identify:modules[5]?.identify,IdentifyParameters:modules[6],Polygon:modules[7]}),reject));
+        if(!elevationModulesPromise)elevationModulesPromise=new Promise((resolve,reject)=>require(["esri/geometry/Polyline","esri/geometry/SpatialReference","esri/geometry/geometryEngine","esri/geometry/projection","esri/geometry/Polygon"],(...modules)=>resolve({Polyline:modules[0],SpatialReference:modules[1],geometryEngine:modules[2],projection:modules[3],Polygon:modules[4]}),reject));
         return elevationModulesPromise;
       };
       // ---- Minimal XLSX writer (no external library): stored ZIP + SpreadsheetML parts.
@@ -434,34 +524,63 @@
       const fieldLabel=(layer,name)=>layer?.fields?.find(field=>field.name===name)?.alias||name;
       const exportElevationProfile=()=>{
         if(!currentProfileExport)return;
-        const {profile,attributes,segment}=currentProfileExport;
+        const {profile,attributes,segment,drawn}=currentProfileExport;
         // Origin header: every ORIG_* attribute the pipeline record carries (name, block, area, etc.).
         const originRows=Object.keys(attributes).filter(key=>/^ORIG/i.test(key)&&attributes[key]!==null&&attributes[key]!==undefined&&String(attributes[key]).trim()!=="")
           .map(key=>[{v:fieldLabel(pipes,key),s:1},String(attributes[key]).trim()]);
         const valid=profile.samples.filter(sample=>Number.isFinite(sample.depthFt));
         const first=profile.samples[0]?.point;
+        const drawnRows=drawn?[
+          [{v:"Start",s:1},attributes.ORIG_UTM],[{v:"Start (WGS 84)",s:1},attributes.ORIG_LATLON],
+          [{v:"End",s:1},attributes.DEST_UTM],[{v:"End (WGS 84)",s:1},attributes.DEST_LATLON],
+          [{v:"Line type / size (riser model)",s:1},`${attributes.LINE_TYPE||"—"} · ${attributes.PPL_SIZE_CODE||"—"} in`],
+          [{v:"Coordinate note",s:1},"NAD27 UTM; NAD27→WGS 84 by EPSG 3-parameter CONUS shift (≈5–10 m)"]]:null;
         const rows=[
-          [{v:`Pipeline segment ${segment} — seafloor depth profile`,s:2}],
+          [{v:drawn?`${segment} — seafloor depth profile`:`Pipeline segment ${segment} — seafloor depth profile`,s:2}],
           [],
-          [{v:"Origin",s:1}],
-          ...(originRows.length?originRows:[["(no origin attributes on this record)"]]),
+          [{v:drawn?"Route":"Origin",s:1}],
+          ...(drawnRows||(originRows.length?originRows:[["(no origin attributes on this record)"]])),
           [{v:"Origin coordinates (WGS 84)",s:1},first?`${first[1].toFixed(6)}, ${first[0].toFixed(6)}`:""],
           [],
           [{v:"Route length (ft)",s:1},{v:Math.round(profile.routeLengthFt),s:5}],
           [{v:"Sample spacing (ft, approx.)",s:1},{v:Math.round(profile.sampleSpacingFt),s:5}],
           [{v:"Samples with depth",s:1},`${valid.length} of ${profile.samples.length}`],
-          [{v:"Depth source",s:1},"BOEM Gulf deepwater bathymetry (3D seismic grid)"],
+          [{v:"Depth source",s:1},`${profile.bathymetry?.source||"BOEM bathymetry"} · version ${profile.bathymetry?.version||"unknown"} · ${profile.bathymetry?.method||"nearest"} sampling`],
           [{v:"Generated",s:1},new Date().toLocaleString()],
           ["Depth assumes the pipeline follows the seafloor; not measured pipe elevation. Blank depth = no bathymetry coverage."],
           []
         ];
+        const r=riserState.on?riserState.result:null;
+        if(r){
+          rows.push([{v:"Riser adjustment (catenary)",s:1}],
+            [{v:"Riser end",s:1},r.end==="origin"?"Origin (start of route)":"Destination (end of route)"],
+            [{v:"Top angle from vertical (deg)",s:1},{v:r.angleDeg,s:5}],
+            [{v:"Weight basis",s:1},r.props.basis],
+            [{v:"Submerged weight (lb/ft)",s:1},{v:Math.round(r.wSub*10)/10,s:3}],
+            [{v:"Catenary parameter a = H/w (ft)",s:1},{v:Math.round(r.a),s:5}],
+            [{v:"Touchdown distance from riser end (ft)",s:1},{v:Math.round(r.touchdownFromEndFt),s:5}],
+            [{v:"Touchdown depth (ft)",s:1},{v:Math.round(r.touchdownDepthFt),s:5}],
+            [{v:"Suspended length (ft)",s:1},{v:Math.round(r.suspendedLengthFt),s:5}],
+            [{v:"Catenary point spacing (ft along riser)",s:1},{v:Math.round(r.stepFt*10)/10,s:3}],
+            [{v:"Horizontal tension (lbf)",s:1},{v:Math.round(r.horizontalTensionLbf),s:5}],
+            [{v:"Top tension (lbf)",s:1},{v:Math.round(r.topTensionLbf),s:5}],
+            ["Simple catenary: no bending stiffness, current or vessel offset; distance along the route is treated as horizontal distance."],
+            []);
+        }
         const headerRow=rows.length+1;
-        rows.push([{v:"Distance along route (ft)",s:4},{v:"Depth (ft)",s:4}]);
-        profile.samples.forEach(sample=>rows.push([{v:Math.round(sample.distanceFt*10)/10,s:3},Number.isFinite(sample.depthFt)?{v:Math.round(sample.depthFt*10)/10,s:3}:""]));
-        const blob=buildXlsx({sheetName:`Segment ${segment}`,rows,colWidths:[32,46],freezeRow:headerRow});
+        const num=v=>Number.isFinite(v)?{v:Math.round(v*10)/10,s:3}:"";
+        if(r){
+          // Catenary rows are spaced along the riser length; seabed rows beyond touchdown keep the route sampling.
+          rows.push([{v:"Distance along route (ft)",s:4},{v:"Seabed depth (ft)",s:4},{v:"Riser-adjusted depth (ft)",s:4},{v:"Riser length from touchdown (ft)",s:4},{v:"Section",s:4}]);
+          riserProfilePoints(r,profile.samples).forEach(p=>rows.push([num(p.routeDistanceFt),num(p.seabedFt),num(p.riserFt),p.arc!==undefined?num(p.arc):"",p.section]));
+        }else{
+          rows.push([{v:"Distance along route (ft)",s:4},{v:"Depth (ft)",s:4}]);
+          profile.samples.forEach(sample=>rows.push([num(sample.distanceFt),num(sample.depthFt)]));
+        }
+        const blob=buildXlsx({sheetName:`Segment ${segment}`,rows,colWidths:r?[40,46,24,26,22]:[32,46],freezeRow:headerRow});
         const link=document.createElement("a");
         link.href=URL.createObjectURL(blob);
-        link.download=`Pipeline_${String(segment).replace(/[^\w-]+/g,"_")}_depth_profile.xlsx`;
+        link.download=`${drawn?"":"Pipeline_"}${String(segment).replace(/[^\w-]+/g,"_")}_depth_profile.xlsx`;
         document.body.append(link);link.click();link.remove();
         setTimeout(()=>URL.revokeObjectURL(link.href),10000);
       };
@@ -560,53 +679,33 @@
         }
         return {samples,routeLengthFt,sampleSpacingFt:spacingFt};
       };
-      const identifyProfileBatch=async(batch,mapExtent)=>{
-        const {Multipoint,IdentifyParameters,identify}=await getElevationModules();
-        if(typeof identify!=="function")throw new Error("ArcGIS identify operation did not load from esri/rest/identify.");
-        const multipoint=new Multipoint({points:batch.map(sample=>sample.point),spatialReference:{wkid:4326}});
-        const parameters=new IdentifyParameters({geometry:multipoint,mapExtent,width:1024,height:1024,tolerance:1,layerOption:"all",layerIds:[0],returnGeometry:true});
-        const response=await identify(bathymetryUrl,parameters);
-        const unmatched=new Set(batch.map((_,index)=>index));
-        (response.results||[]).forEach((result,resultIndex)=>{
-          // ArcGIS SDK IdentifyResult stores service attributes on its feature Graphic;
-          // raw REST responses instead put them directly on result.attributes.
-          const attrs=result.feature?.attributes||result.attributes||{};
-          const valueField=Object.keys(attrs).find(field=>/pixel value/i.test(field));
-          const value=Number(valueField?attrs[valueField]:result.value);
-          if(!Number.isFinite(value))return;
-          let nearest=-1,nearestDistance=Infinity;
-          const resultGeometry=result.feature?.geometry||result.geometry;
-          if(resultGeometry&&Number.isFinite(resultGeometry.x)&&Number.isFinite(resultGeometry.y)){
-            batch.forEach((sample,index)=>{const dx=sample.point[0]-resultGeometry.x,dy=sample.point[1]-resultGeometry.y,distance=dx*dx+dy*dy;if(unmatched.has(index)&&distance<nearestDistance){nearest=index;nearestDistance=distance;}});
-          }
-          if(nearest<0&&unmatched.has(resultIndex))nearest=resultIndex;
-          if(nearest>=0){batch[nearest].depthFt=Math.abs(value);unmatched.delete(nearest);}
-        });
+      const fetchProfileDepths=async(samples,version)=>{
+        elevationStatus.textContent=`Reading local seafloor depth · ${samples.length.toLocaleString()} points…`;
+        const result=await requestBathymetry("sample",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({points:samples.map(sample=>sample.point),method:"nearest",version})});
+        if(result.version!==version||result.units!=="feet"||result.samples?.length!==samples.length)throw new Error("The local bathymetry response changed or was incomplete. Run Show Elevation again.");
+        result.samples.forEach((value,index)=>{samples[index].depthFt=typeof value.depthFt==="number"&&Number.isFinite(value.depthFt)&&value.depthFt>=0?value.depthFt:null;samples[index].depthStatus=value.status;});
+        return {version:result.version,units:result.units,method:result.method,resolutionFt:result.resolutionFt,source:result.source||"BOEM local bathymetry"};
       };
-      const fetchProfileDepths=async samples=>{
-        const batches=[];
-        for(let index=0;index<samples.length;index+=profileBatchSize)batches.push(samples.slice(index,index+profileBatchSize));
-        const xs=samples.map(sample=>sample.point[0]),ys=samples.map(sample=>sample.point[1]);
-        // Keep at least 0.2 degrees of map extent in either axis so one identify pixel
-        // is not much smaller than the native bathymetry cell when routes are short.
-        const padX=Math.max((Math.max(...xs)-Math.min(...xs))*.08,.1),padY=Math.max((Math.max(...ys)-Math.min(...ys))*.08,.1);
-        const routeMapExtent=new Extent({xmin:Math.min(...xs)-padX,ymin:Math.min(...ys)-padY,xmax:Math.max(...xs)+padX,ymax:Math.max(...ys)+padY,spatialReference:{wkid:4326}});
-        let nextBatch=0,completed=0,firstError=null;
-        await Promise.all(Array.from({length:Math.min(profileConcurrency,batches.length)},async()=>{
-          while(nextBatch<batches.length){
-            const current=batches[nextBatch++];
-            try{await identifyProfileBatch(current,routeMapExtent);}catch(error){firstError??=error;console.warn("Bathymetry sample batch failed",error);}
-            completed+=current.length;
-            elevationStatus.textContent=`Sampling seafloor depth… ${Math.min(completed,samples.length).toLocaleString()} of ${samples.length.toLocaleString()} points`;
-          }
-        }));
-        if(!samples.some(sample=>Number.isFinite(sample.depthFt))&&firstError)throw new Error(`BOEM depth identify failed: ${firstError.message||firstError}`);
+      // Riser-adjusted profile: dense catenary points from the chosen end to touchdown, then the
+      // original seabed samples beyond touchdown.
+      const riserProfilePoints=(riser,samples)=>{
+        const L=riser.L,beyond=samples.filter(sample=>(riser.end==="origin"?sample.distanceFt:L-sample.distanceFt)>riser.touchdownFromEndFt+1e-6)
+          .map(sample=>({routeDistanceFt:sample.distanceFt,seabedFt:sample.depthFt,riserFt:sample.depthFt,section:"Seabed"}));
+        const cat=riser.dense.map(p=>({routeDistanceFt:p.routeDistanceFt,seabedFt:p.seabedFt,riserFt:p.riserFt,section:p.onSeabed?"Seabed (above catenary)":"Catenary",arc:p.arcFromTouchdownFt}));
+        return [...cat,...beyond].sort((p,q)=>p.routeDistanceFt-q.routeDistanceFt);
       };
-      const renderElevationChart=(samples,routeLengthFt,originMetadata)=>{
+      const riserSvg=(riser,samples,xFor,yFor)=>{
+        let d="";
+        riserProfilePoints(riser,samples).forEach(p=>{if(!Number.isFinite(p.riserFt))return;d+=`${d?" L":"M"}${xFor(p.routeDistanceFt).toFixed(2)},${yFor(p.riserFt).toFixed(2)}`;});
+        const tx=xFor(Math.max(0,Math.min(riser.touchdownDistanceFt,samples[samples.length-1].distanceFt))),ty=yFor(riser.touchdownDepthFt);
+        const tdp=riser.reaches?`<circle class="riser-tdp" cx="${tx.toFixed(2)}" cy="${ty.toFixed(2)}" r="4.5"/><text class="riser-tdp-label" x="${tx.toFixed(2)}" y="${(ty-10).toFixed(2)}" text-anchor="middle">Touchdown</text>`:"";
+        return `<path class="riser-line" d="${d}"/>${tdp}`;
+      };
+      const renderElevationChart=(samples,routeLengthFt,originMetadata,riser=null)=>{
         const valid=samples.filter(sample=>Number.isFinite(sample.depthFt));
-        if(!valid.length)throw new Error("No BOEM depth samples were returned. This route may be outside the bathymetry coverage.");
+        if(!valid.length)throw new Error("No local BOEM depth coverage was found along this route.");
         const depths=valid.map(sample=>sample.depthFt),minValue=Math.min(...depths),maxValue=Math.max(...depths);
-        const pad=Math.max(10,(maxValue-minValue)*.12),minDepth=Math.max(0,minValue-pad),maxDepth=maxValue+pad;
+        const pad=Math.max(10,(maxValue-minValue)*.12),minDepth=riser?0:Math.max(0,minValue-pad),maxDepth=maxValue+pad;
         const width=900,height=390,left=78,right=24,top=24,bottom=58,plotWidth=width-left-right,plotHeight=height-top-bottom;
         const totalMiles=routeLengthFt/5280;
         const xFor=distance=>left+(distance/Math.max(routeLengthFt,1))*plotWidth;
@@ -623,15 +722,15 @@
           const ratio=tick/4,y=top+ratio*plotHeight,depth=minDepth+ratio*(maxDepth-minDepth),distance=totalMiles*ratio,x=left+ratio*plotWidth;
           grid.push(`<line class="profile-grid" x1="${left}" y1="${y.toFixed(2)}" x2="${width-right}" y2="${y.toFixed(2)}"/><text class="profile-axis" x="${left-10}" y="${(y+4).toFixed(2)}" text-anchor="end">${Math.round(depth).toLocaleString()}</text><text class="profile-axis" x="${x.toFixed(2)}" y="${height-30}" text-anchor="middle">${distance.toFixed(totalMiles<10?2:1)}</text>`);
         }
-        const originSample=samples.find(sample=>Number.isFinite(sample.depthFt)); const originX=originSample?xFor(originSample.distanceFt):left,originY=originSample?yFor(originSample.depthFt):top+plotHeight/2; const labelWidth=Math.min(Math.max(originMetadata.length*6.4+16,96),330),labelX=Math.min(originX+9,width-right-labelWidth),labelY=Math.max(top+4,originY-30); const originAnnotation=originMetadata?`<circle class="profile-origin-marker" cx="${originX.toFixed(2)}" cy="${originY.toFixed(2)}" r="5"/><rect class="profile-origin-label-bg" x="${labelX.toFixed(2)}" y="${labelY.toFixed(2)}" width="${labelWidth.toFixed(2)}" height="22" rx="5"/><text class="profile-origin-label" x="${(labelX+8).toFixed(2)}" y="${(labelY+15).toFixed(2)}">${escapeXml(originMetadata)}</text>`:"";
-        elevationChart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Pipeline route seafloor depth profile"><text class="profile-axis" x="${left}" y="15">Depth (ft)</text>${grid.join("")}<path class="profile-line" d="${path}"/><line class="profile-grid" x1="${left}" y1="${top}" x2="${left}" y2="${top+plotHeight}"/>${originAnnotation}<text class="profile-axis" x="${left+plotWidth/2}" y="${height-6}" text-anchor="middle">Distance along pipeline (mi)</text></svg>`;
+        const originSample=samples.find(sample=>Number.isFinite(sample.depthFt)); const originX=originSample?xFor(originSample.distanceFt):left,originY=riser&&riser.end==="origin"?yFor(0):originSample?yFor(originSample.depthFt):top+plotHeight/2; const labelWidth=Math.min(Math.max(originMetadata.length*6.4+16,96),330),labelX=Math.min(originX+9,width-right-labelWidth),labelY=Math.max(top+4,originY-30); const originAnnotation=originMetadata?`<circle class="profile-origin-marker" cx="${originX.toFixed(2)}" cy="${originY.toFixed(2)}" r="5"/><rect class="profile-origin-label-bg" x="${labelX.toFixed(2)}" y="${labelY.toFixed(2)}" width="${labelWidth.toFixed(2)}" height="22" rx="5"/><text class="profile-origin-label" x="${(labelX+8).toFixed(2)}" y="${(labelY+15).toFixed(2)}">${escapeXml(originMetadata)}</text>`:"";
+        elevationChart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Pipeline route seafloor depth profile"><text class="profile-axis" x="${left}" y="15">Depth (ft)</text>${grid.join("")}<path class="${riser?"profile-seabed":"profile-line"}" d="${path}"/>${riser?riserSvg(riser,samples,xFor,yFor):""}<line class="profile-grid" x1="${left}" y1="${top}" x2="${left}" y2="${top+plotHeight}"/>${originAnnotation}<text class="profile-axis" x="${left+plotWidth/2}" y="${height-6}" text-anchor="middle">Distance along pipeline (mi)</text></svg>`;
         const coverage=valid.length/samples.length*100;
         elevationSummary.replaceChildren();
         [["Route length",`${totalMiles.toFixed(totalMiles<10?2:1)} mi`],["Shallowest sampled",`${Math.round(minValue).toLocaleString()} ft`],["Deepest sampled",`${Math.round(maxValue).toLocaleString()} ft`],["Bathymetry coverage",`${coverage.toFixed(0)}%`]].forEach(([label,value])=>{
           const stat=document.createElement("div");stat.className="profile-stat";const key=document.createElement("span");key.textContent=label;const val=document.createElement("strong");val.textContent=value;stat.append(key,val);elevationSummary.append(stat);
         });
         elevationSummary.hidden=false;elevationChart.hidden=false;
-        elevationStatus.textContent=`Profile sampled at up to ${Math.round(routeLengthFt/Math.max(samples.length-1,1)).toLocaleString()} ft intervals. Missing samples appear as gaps.`;
+        elevationStatus.textContent=(riser?`Riser-adjusted profile (dashed line = seabed). `:"")+`Profile sampled at up to ${Math.round(routeLengthFt/Math.max(samples.length-1,1)).toLocaleString()} ft intervals. Missing samples appear as gaps.`;
       };
       // Popup graphics can carry display-generalized geometry; re-query the full-resolution route.
       const fullRouteAttributes=new window.Map();
@@ -645,51 +744,647 @@
         }
         return feature.geometry;
       };
+      // ---- Adjust for Riser (elevation profile) ---------------------------------------------------
+      // Replaces the seabed profile near the chosen end with a simple catenary from the water surface
+      // to a touchdown point on the seabed. The shape is set by the hang-off (top) angle; submerged
+      // weight per foot is only used to report tensions.
+      //   a = d·sinφ/(1−sinφ),  X = a·acosh(1+d/a),  y(x) = a(cosh(x/a)−1),  H = w·a,  T_top = H + w·d
+      // Steel lines (oil, gas, water, CO₂): nearest standard pipe size, wall t = OD/8.625 (1 in on 8 in
+      // nominal), steel 490 lb/ft³, seawater 64 lb/ft³, contents oil 53 · gas 8 · water 64 · CO₂ 55 lb/ft³.
+      // Umbilicals and power cables: Size = actual OD (in); submerged weight = 0.5 lb/ft per in² of area.
+      // Comms cables and unlisted product codes: not offered.
+      const RISER_CONTENT_DENSITY={Oil:53,Gas:8,Water:64,CO2:55};
+      const RISER_STEP_FT=20; // spacing of exported/drawn catenary points along the riser length
+      const RISER_CABLE_GROUPS=new Set(["Umbilical","Cable"]);
+      const RISER_DEFAULT_ANGLE={steel:12,cable:15};
+      const NPS_OD=[[2,2.375],[3,3.5],[4,4.5],[5,5.563],[6,6.625],[8,8.625],[10,10.75],[12,12.75],[14,14],[16,16],[18,18],[20,20],[22,22],[24,24],[26,26],[28,28],[30,30],[32,32],[34,34],[36,36],[42,42],[48,48]];
+      const FLOATING_TYPES=new Set(["TLP","MTLP","SPAR","SEMI","FPSO","FPS","MOPU","DDCV","FSO"]);
+      const FIXED_TYPES=new Set(["FIXED","CAIS","WP","CT","GRAV","CPT","PROC","QRT"]);
+      const productGroup=code=>pipelineGroups.find(group=>group.codes.includes(String(code??"").trim().toUpperCase()))?.name||null;
+      // "08", "10", "10 3/4", "6-5/8", "4.5" → inches
+      const parseSize=raw=>{
+        const text=String(raw??"").trim();
+        const m=text.match(/^(\d+(?:\.\d+)?)(?:\s*[- ]\s*(\d+)\s*\/\s*(\d+))?/);
+        if(!m)return null;
+        let value=Number(m[1]);if(m[2]&&Number(m[3]))value+=Number(m[2])/Number(m[3]);
+        return value>0?value:null;
+      };
+      const riserProperties=attributes=>{
+        const group=productGroup(attributes.PROD_CODE);
+        const sizeRaw=attributes.PPL_SIZE_CODE;
+        if(!group)return {eligible:false,reason:"Adjust for Riser is not available for this product code."};
+        if(group==="Comms")return {eligible:false,reason:"Adjust for Riser is not available for communication cables."};
+        const size=parseSize(sizeRaw);
+        if(!size)return {eligible:false,reason:`Adjust for Riser needs a pipe size; this segment's size is "${String(sizeRaw??"").trim()||"blank"}".`};
+        const area=d=>Math.PI/4*d*d; // in²
+        if(RISER_CABLE_GROUPS.has(group)){
+          const od=size,wSub=.5*area(od);
+          return {eligible:true,kind:"cable",group,sizeRaw,odIn:od,wSub,defaultAngle:RISER_DEFAULT_ANGLE.cable,
+            basis:`${group==="Cable"?"Power cable":"Umbilical"} · OD ${od.toFixed(2)} in (Size as actual diameter) · 0.5 lb/ft per in² submerged`};
+        }
+        const nominal=Math.floor(size);
+        const [nps,od]=NPS_OD.reduce((best,row)=>Math.abs(row[0]-nominal)<Math.abs(best[0]-nominal)?row:best,NPS_OD[0]);
+        const wall=od/8.625,id=od-2*wall;
+        const wSteel=10.69*(od-wall)*wall,wBuoy=64*area(od)/144,wContents=RISER_CONTENT_DENSITY[group]*area(id)/144;
+        const wSub=wSteel+wContents-wBuoy;
+        return {eligible:true,kind:"steel",group,sizeRaw,nps,odIn:od,wallIn:wall,wSteel,wBuoy,wContents,wSub,defaultAngle:RISER_DEFAULT_ANGLE.steel,
+          basis:`${group} line · ${nps} in nominal (OD ${od.toFixed(3)} in) · wall ${wall.toFixed(2)} in · steel ${wSteel.toFixed(0)} + contents ${wContents.toFixed(0)} − buoyancy ${wBuoy.toFixed(0)} = ${wSub.toFixed(0)} lb/ft submerged`};
+      };
+      // Host structure at the chosen end (BSEE Platform Structures, matched by area + block + name).
+      const hostStructure=(attributes,end)=>{
+        const p=end==="origin"?"ORIG":"DEST";
+        const area=String(attributes[`${p}_AREA_CODE`]??"").trim().toUpperCase();
+        const block=String(attributes[`${p}_BLK_NUM`]??"").trim().replace(/^0+(?=\d)/,"").toUpperCase();
+        const name=String(attributes[`${p}_ID_NAME`]??"").trim().toUpperCase();
+        const fields=window.BSEE_PLATFORM_FIELDS||[],rows=window.BSEE_PLATFORM_STRUCTURES||[];
+        if(!area||!block||!rows.length)return null;
+        const ix=key=>fields.indexOf(key);
+        const iA=ix("AREA_CODE"),iB=ix("BLOCK_NUMBER"),iN=ix("STRUCTURE_NAME"),iT=ix("STRUC_TYPE_CODE"),iR=ix("REMOVAL_DATE");
+        const candidates=rows.filter(r=>String(r[iA]??"").trim().toUpperCase()===area&&String(r[iB]??"").trim().replace(/^0+(?=\d)/,"").toUpperCase()===block);
+        if(!candidates.length)return null;
+        const byName=name?candidates.filter(r=>{const n=String(r[iN]??"").trim().toUpperCase();return n===name||n.startsWith(`${name} `)||n.startsWith(`${name}(`);}):[];
+        const pool=byName.length?byName:candidates;
+        const pick=pool.find(r=>!String(r[iR]??"").trim())||pool[0];
+        return {type:String(pick[iT]??"").trim().toUpperCase(),name:String(pick[iN]??"").trim(),exact:!!byName.length};
+      };
+      const hostWarning=host=>{
+        if(!host)return "Host structure not found in the BSEE Platform Structures data; check that this end is a floating facility.";
+        const label=`${host.name||"structure"} (${host.type||"type unknown"})`;
+        if(FLOATING_TYPES.has(host.type))return host.exact?"":`Host matched by block only: ${label}.`;
+        if(FIXED_TYPES.has(host.type))return `Host ${label} is a fixed structure; risers there are normally clamped vertically to the jacket, so this catenary is indicative only.`;
+        return `Host ${label} is not a recognised floating type; the catenary is indicative only.`;
+      };
+      // Catenary along the route from the chosen end; iterates touchdown depth on the seabed profile.
+      const solveRiser=(profile,end,angleDeg,props)=>{
+        const L=profile.routeLengthFt;
+        const pts=profile.samples.filter(s=>Number.isFinite(s.depthFt)).map(s=>({s:end==="origin"?s.distanceFt:L-s.distanceFt,d:s.depthFt})).sort((a,b)=>a.s-b.s);
+        if(pts.length<2)throw new Error("Not enough bathymetry along the route for a riser.");
+        const depthAt=s=>{
+          if(s<=pts[0].s)return pts[0].d;
+          const last=pts[pts.length-1];if(s>=last.s)return last.d;
+          let lo=0,hi=pts.length-1;while(hi-lo>1){const mid=(lo+hi)>>1;if(pts[mid].s<=s)lo=mid;else hi=mid;}
+          const a=pts[lo],b=pts[hi];return a.d+(b.d-a.d)*(s-a.s)/((b.s-a.s)||1);
+        };
+        const sinPhi=Math.sin(angleDeg*Math.PI/180),k=sinPhi/(1-sinPhi);
+        let d=depthAt(0),a=0,X=0;
+        for(let i=0;i<25;i++){
+          a=k*d;X=a*Math.acosh(1+d/a);
+          const next=depthAt(Math.min(X,L));
+          if(Math.abs(next-d)<.25){d=next;break;}
+          d=next;
+        }
+        a=k*d;X=a*Math.acosh(1+d/a);
+        const reaches=X<=L;
+        const riserDepthAtEndDistance=s=>{const y=a*(Math.cosh((X-s)/a)-1);return Math.max(0,d-y);};
+        let clamped=false;
+        const depths=profile.samples.map(sample=>{
+          const s=end==="origin"?sample.distanceFt:L-sample.distanceFt;
+          if(s>X)return sample.depthFt;
+          const rd=riserDepthAtEndDistance(s);
+          if(Number.isFinite(sample.depthFt)&&rd>sample.depthFt){clamped=true;return sample.depthFt;}
+          return rd;
+        });
+        const w=props.wSub,H=w*a,top=H+w*d,suspended=Math.sqrt(d*d+2*a*d);
+        // Dense catenary points, evenly spaced along the riser's own length (arc length s from
+        // touchdown): x = a·asinh(s/a), height y = a(cosh(x/a)−1). Spacing RISER_STEP_FT, 100–2,000 points.
+        const n=Math.min(2000,Math.max(100,Math.ceil(suspended/RISER_STEP_FT))),dense=[];
+        for(let i=n;i>=0;i--){
+          const arc=suspended*i/n,x=a*Math.asinh(arc/a),fromEnd=Math.max(0,X-x);
+          if(fromEnd>L+1e-6)continue;
+          const seabed=depthAt(fromEnd),cat=Math.max(0,d-a*(Math.cosh(x/a)-1));
+          const onSeabed=cat>seabed;
+          dense.push({routeDistanceFt:end==="origin"?fromEnd:L-fromEnd,fromEndFt:fromEnd,seabedFt:seabed,riserFt:onSeabed?seabed:cat,arcFromTouchdownFt:arc,onSeabed});
+        }
+        if(dense.some(p=>p.onSeabed))clamped=true;
+        dense.sort((p,q)=>p.routeDistanceFt-q.routeDistanceFt);
+        return {end,angleDeg,a,touchdownDepthFt:d,touchdownFromEndFt:X,touchdownDistanceFt:end==="origin"?X:L-X,
+          suspendedLengthFt:suspended,horizontalTensionLbf:H,topTensionLbf:top,wSub:w,depths,reaches,clamped,props,dense,stepFt:suspended/n,L};
+      };
+      const riserUi={controls:document.getElementById("riserControls"),toggle:document.getElementById("riserToggle"),end:document.getElementById("riserEnd"),
+        angle:document.getElementById("riserAngle"),angleValue:document.getElementById("riserAngleValue"),note:document.getElementById("riserNote")};
+      const riserState={on:false,props:null,result:null};
+      const fmtKips=lbf=>`${(lbf/1000).toLocaleString(undefined,{maximumFractionDigits:lbf<1e5?1:0})} kips`;
+      const fmtFtNum=ft=>`${Math.round(ft).toLocaleString()} ft`;
+      const resetRiserUi=()=>{
+        riserState.on=false;riserState.props=null;riserState.result=null;
+        riserUi.controls.hidden=true;riserUi.toggle.setAttribute("aria-pressed","false");riserUi.toggle.textContent="Adjust for Riser";
+        riserUi.end.disabled=riserUi.angle.disabled=true;riserUi.note.textContent="";
+      };
+      const setupRiserUi=attributes=>{
+        resetRiserUi();
+        const props=riserProperties(attributes);
+        riserState.props=props;
+        riserUi.controls.hidden=false;
+        if(!props.eligible){riserUi.toggle.disabled=true;riserUi.toggle.title=props.reason;riserUi.note.textContent=props.reason;riserUi.controls.dataset.ineligible="true";
+          if(productGroup(attributes.PROD_CODE)==="Comms"||!productGroup(attributes.PROD_CODE)){riserUi.controls.hidden=true;}
+          return;}
+        delete riserUi.controls.dataset.ineligible;
+        riserUi.toggle.disabled=false;riserUi.toggle.title="Model a catenary riser from the water surface at one end";
+        const describe=p=>[String(attributes[`${p}_ID_NAME`]??"").trim(),[attributes[`${p}_AREA_CODE`],attributes[`${p}_BLK_NUM`]].map(v=>String(v??"").trim()).filter(Boolean).join(" ")].filter(Boolean).join(" · ");
+        riserUi.end.options[0].textContent=`Origin${describe("ORIG")?` · ${describe("ORIG")}`:""}`;
+        riserUi.end.options[1].textContent=`Destination${describe("DEST")?` · ${describe("DEST")}`:""}`;
+        riserUi.end.value="origin";
+        riserUi.angle.value=String(props.defaultAngle);riserUi.angleValue.textContent=`${props.defaultAngle}°`;
+      };
+      const redrawElevation=()=>{
+        if(!currentProfileExport)return;
+        const {profile,originLabel}=currentProfileExport;
+        riserState.result=null;
+        if(riserState.on&&riserState.props?.eligible){
+          try{riserState.result=solveRiser(profile,riserUi.end.value,Number(riserUi.angle.value),riserState.props);}
+          catch(error){riserUi.note.textContent=error.message||String(error);}
+        }
+        renderElevationChart(profile.samples,profile.routeLengthFt,originLabel,riserState.result);
+        if(riserState.result)appendRiserSummary(riserState.result);
+      };
+      const appendRiserSummary=r=>{
+        const chip=(label,value)=>{const stat=document.createElement("div");stat.className="profile-stat riser-stat";const k=document.createElement("span");k.textContent=label;const v=document.createElement("strong");v.textContent=value;stat.append(k,v);elevationSummary.append(stat);};
+        chip("Riser end",`${r.end==="origin"?"Origin":"Destination"} · ${r.angleDeg}° from vertical`);
+        chip("Touchdown",`${fmtFtNum(r.touchdownFromEndFt)} from end · ${fmtFtNum(r.touchdownDepthFt)} deep`);
+        chip("Suspended length",fmtFtNum(r.suspendedLengthFt));
+        chip("Submerged weight",`${r.wSub.toFixed(r.wSub<20?1:0)} lb/ft`);
+        chip("Horizontal tension",fmtKips(r.horizontalTensionLbf));
+        chip("Top tension",fmtKips(r.topTensionLbf));
+        const notes=[`${r.props.basis}.`];
+        if(!r.reaches)notes.push("The catenary is longer than this segment; it does not reach touchdown within the route.");
+        if(r.clamped)notes.push("Where the seabed rises above the catenary, the profile follows the seabed.");
+        const host=currentProfileExport.drawn?null:hostStructure(currentProfileExport.attributes,r.end),warn=currentProfileExport.drawn?"Drawn route: host structure not checked; confirm this end is a floating facility.":hostWarning(host);
+        if(warn)notes.push(warn);
+        riserUi.note.textContent=notes.join(" ");
+      };
+      riserUi.toggle.onclick=async()=>{
+        if(!riserState.props?.eligible)return;
+        riserState.on=!riserState.on;
+        riserUi.toggle.setAttribute("aria-pressed",String(riserState.on));
+        riserUi.toggle.textContent=riserState.on?"Riser adjusted ✓":"Adjust for Riser";
+        riserUi.end.disabled=riserUi.angle.disabled=!riserState.on;
+        if(riserState.on)await ensurePlatformStructures();
+        else riserUi.note.textContent="";
+        redrawElevation();
+      };
+      riserUi.end.onchange=()=>redrawElevation();
+      riserUi.angle.oninput=()=>{riserUi.angleValue.textContent=`${riserUi.angle.value}°`;redrawElevation();};
       const showElevationProfile=async feature=>{
-        const segment=feature?.attributes?.SEGMENT_NUM??"Unknown";
+        const drawn=!!feature?.attributes?.BW_DRAWN_ROUTE;
+        const segment=drawn?(feature.attributes.ROUTE_NAME||"Drawn route"):feature?.attributes?.SEGMENT_NUM??"Unknown";
         previousFocus=document.activeElement;
-        currentProfileExport=null;exportButton.disabled=true;
+        currentProfileExport=null;exportButton.disabled=true;resetRiserUi();
         elevationDialog.hidden=false;elevationSummary.hidden=true;elevationChart.hidden=true;elevationSummary.replaceChildren();elevationChart.replaceChildren();
-        elevationSubtitle.textContent=`Pipeline segment ${segment} · BOEM seafloor bathymetry`;
+        elevationSubtitle.textContent=drawn?`${segment} · ${feature.attributes.ORIG_UTM} → ${feature.attributes.DEST_UTM} · BOEM seafloor bathymetry`:`Pipeline segment ${segment} · BOEM seafloor bathymetry`;
         elevationStatus.textContent="Preparing profile…";
         document.getElementById("closeElevation").focus();
         try{
-          const key=String(segment),cached=elevationProfileCache.get(key);
-          const profile=cached||await sampleRouteGeometry(await getFullRouteGeometry(feature));
+          const local=await loadLocalBathymetry();
+          updateBathymetry();
+          const key=`${local.version}:${drawn?feature.attributes.ROUTE_KEY:String(segment)}`,cached=elevationProfileCache.get(key);
+          const profile=cached||await sampleRouteGeometry(drawn?feature.geometry:await getFullRouteGeometry(feature));
           if(!cached){
-            await fetchProfileDepths(profile.samples);
+            profile.bathymetry=await fetchProfileDepths(profile.samples,local.version);
           }
-          if(!profile.samples.some(sample=>Number.isFinite(sample.depthFt)))throw new Error("No BOEM depth samples were returned. This route may be outside the bathymetry coverage.");
+          if(!profile.samples.some(sample=>Number.isFinite(sample.depthFt)))throw new Error("No local BOEM depth coverage was found along this route.");
           if(!cached)elevationProfileCache.set(key,profile);
-          const objectKey=String(feature?.attributes?.[pipes?.objectIdField]??""); const attributes={...(feature?.attributes||{}),...(fullRouteAttributes.get(objectKey)||{})}; const originName=String(attributes.ORIG_ID_NAME??"").trim(); const originBlock=String(attributes.ORIG_BLK_NUM??"").trim(); const originMetadata=[originName,originBlock?`Block ${originBlock}`:""].filter(Boolean).join(" · "); renderElevationChart(profile.samples,profile.routeLengthFt,originMetadata?`Origin: ${originMetadata}`:"Origin"); currentProfileExport={profile,attributes,segment}; exportButton.disabled=false;
+          const objectKey=String(feature?.attributes?.[pipes?.objectIdField]??""); const attributes={...(feature?.attributes||{}),...(fullRouteAttributes.get(objectKey)||{})}; const originName=String(attributes.ORIG_ID_NAME??"").trim(); const originBlock=String(attributes.ORIG_BLK_NUM??"").trim(); const originMetadata=[originName,originBlock?`Block ${originBlock}`:""].filter(Boolean).join(" · "); const originLabel=drawn?"Start":originMetadata?`Origin: ${originMetadata}`:"Origin"; currentProfileExport={profile,attributes,segment,originLabel,drawn}; setupRiserUi(attributes); renderElevationChart(profile.samples,profile.routeLengthFt,originLabel); exportButton.disabled=false;
         }catch(error){elevationStatus.textContent=error.message||"Could not retrieve bathymetry for this pipeline route.";console.warn("Elevation profile failed",error);}
       };
-      reactiveUtils.on(()=>view.popup?.viewModel,"trigger-action",event=>{if(event.action?.id==="show-elevation")showElevationProfile(view.popup.selectedFeature);});
-      const scaleSlider=document.getElementById("scaleThreshold");
+      // ---- NAD27 UTM (Clarke 1866) <-> WGS 84 -----------------------------------------------------
+      // Transverse Mercator series (Snyder 1987) on Clarke 1866; datum shift NAD27 -> WGS 84 by the
+      // EPSG 3-parameter CONUS transformation (dX -8, dY +160, dZ +176 m; ~5-10 m accuracy).
+      const nad27Utm=(()=>{
+        const D=Math.PI/180,K0=.9996,FE=500000,FT=1200/3937;
+        const CL={a:6378206.4,f:1/294.978698214},WG={a:6378137,f:1/298.257223563};
+        const SHIFT=[-8,160,176];
+        const e2=e=>e.f*(2-e.f);
+        const toEcef=(lat,lon,el)=>{const s=e2(el),N=el.a/Math.sqrt(1-s*Math.sin(lat)**2);return [N*Math.cos(lat)*Math.cos(lon),N*Math.cos(lat)*Math.sin(lon),N*(1-s)*Math.sin(lat)];};
+        const fromEcef=([x,y,z],el)=>{
+          const s=e2(el),p=Math.hypot(x,y),lon=Math.atan2(y,x);let lat=Math.atan2(z,p*(1-s));
+          for(let i=0;i<8;i++){const N=el.a/Math.sqrt(1-s*Math.sin(lat)**2);lat=Math.atan2(z+s*N*Math.sin(lat),p);}
+          return [lat,lon];
+        };
+        const shift=(lat,lon,from,to,sign)=>{const c=toEcef(lat,lon,from);return fromEcef([c[0]+sign*SHIFT[0],c[1]+sign*SHIFT[1],c[2]+sign*SHIFT[2]],to);};
+        const cm=zone=>(zone*6-183)*D;
+        const mArc=(phi,e)=>{const e4=e*e,e6=e4*e;return CL.a*((1-e/4-3*e4/64-5*e6/256)*phi-(3*e/8+3*e4/32+45*e6/1024)*Math.sin(2*phi)+(15*e4/256+45*e6/1024)*Math.sin(4*phi)-(35*e6/3072)*Math.sin(6*phi));};
+        // Clarke 1866 lat/lon (radians) -> easting/northing (m)
+        const forward=(lat,lon,zone)=>{
+          const e=e2(CL),ep=e/(1-e),N=CL.a/Math.sqrt(1-e*Math.sin(lat)**2),T=Math.tan(lat)**2,C=ep*Math.cos(lat)**2,A=(lon-cm(zone))*Math.cos(lat),M=mArc(lat,e);
+          const x=K0*N*(A+(1-T+C)*A**3/6+(5-18*T+T*T+72*C-58*ep)*A**5/120)+FE;
+          const y=K0*(M+N*Math.tan(lat)*(A*A/2+(5-T+9*C+4*C*C)*A**4/24+(61-58*T+T*T+600*C-330*ep)*A**6/720));
+          return [x,y];
+        };
+        const inverse=(x,y,zone)=>{
+          const e=e2(CL),ep=e/(1-e),M=y/K0,mu=M/(CL.a*(1-e/4-3*e*e/64-5*e**3/256)),e1=(1-Math.sqrt(1-e))/(1+Math.sqrt(1-e));
+          const p1=mu+(3*e1/2-27*e1**3/32)*Math.sin(2*mu)+(21*e1*e1/16-55*e1**4/32)*Math.sin(4*mu)+(151*e1**3/96)*Math.sin(6*mu)+(1097*e1**4/512)*Math.sin(8*mu);
+          const C1=ep*Math.cos(p1)**2,T1=Math.tan(p1)**2,N1=CL.a/Math.sqrt(1-e*Math.sin(p1)**2),R1=CL.a*(1-e)/(1-e*Math.sin(p1)**2)**1.5,Dd=(x-FE)/(N1*K0);
+          const lat=p1-(N1*Math.tan(p1)/R1)*(Dd*Dd/2-(5+3*T1+10*C1-4*C1*C1-9*ep)*Dd**4/24+(61+90*T1+298*C1+45*T1*T1-252*ep-3*C1*C1)*Dd**6/720);
+          const lon=cm(zone)+(Dd-(1+2*T1+C1)*Dd**3/6+(5-2*C1+28*T1-3*C1*C1+8*ep+24*T1*T1)*Dd**5/120)/Math.cos(p1);
+          return [lat,lon];
+        };
+        // Public: units "ft" (US survey feet) or "m"
+        const toWgs84=(x,y,zone,units)=>{
+          const k=units==="ft"?FT:1,[lat27,lon27]=inverse(x*k,y*k,zone),[lat,lon]=shift(lat27,lon27,CL,WG,1);
+          return {lon:lon/D,lat:lat/D};
+        };
+        const fromWgs84=(lon,lat,zone,units)=>{
+          const [lat27,lon27]=shift(lat*D,lon*D,WG,CL,-1),[x,y]=forward(lat27,lon27,zone),k=units==="ft"?FT:1;
+          return {x:x/k,y:y/k};
+        };
+        const zoneFor=lon=>lon<-90?15:16;
+        return {toWgs84,fromWgs84,zoneFor};
+      })();
+      // ---- Draw Route ---------------------------------------------------------------------------------
+      // A straight route between two points, entered as NAD27 UTM coordinates (zone 15N or 16N, US survey
+      // feet or metres) or picked with two map clicks. The route is a geodesic line in WGS 84 and supports
+      // Show Elevation (including Adjust for Riser and the Excel export) like a BSEE pipeline segment.
+      const drawRoute=(()=>{
+        const $=id=>document.getElementById(id);
+        const panel=$("routePanel"),statusEl=$("routeStatus"),pickBtn=$("routePick"),drawBtn=$("routeDraw"),elevBtn=$("routeElevation"),clearBtn=$("routeClear");
+        const fields={sz:$("routeStartZone"),sx:$("routeStartX"),sy:$("routeStartY"),ez:$("routeEndZone"),ex:$("routeEndX"),ey:$("routeEndY"),units:$("routeUnits"),type:$("routeType"),size:$("routeSize")};
+        const TYPE_CODES={Oil:"OIL",Gas:"GAS",Water:"H2O",CO2:"CO2",Umbilical:"UMB","Power cable":"CBLP",None:""};
+        const LINE=[0,255,170,255],RUBBER=[0,255,170,170];
+        let layer=null,layerPromise=null,routeGraphic=null,startGraphic=null,endGraphic=null,rubber=null;
+        let mode="idle",pickStart=null,routeCount=0,current=null,pointerHandle=null;
+        const ensureLayer=()=>layerPromise??=new Promise((resolve,reject)=>require(["esri/layers/GraphicsLayer"],GraphicsLayer=>{
+          layer=new GraphicsLayer({title:"Drawn route",listMode:"hide"});layer.bluewaterRank=100;map.add(layer);raiseInfrastructure();resolve(layer);
+        },reject));
+        const units=()=>fields.units.value;
+        const fmtNum=v=>Number.isFinite(v)?v.toLocaleString(undefined,{maximumFractionDigits:units()==="ft"?1:2,useGrouping:false}):"";
+        const fmtLatLon=(lon,lat)=>`${Math.abs(lat).toFixed(5)}°${lat>=0?"N":"S"}, ${Math.abs(lon).toFixed(5)}°${lon>=0?"E":"W"}`;
+        const setStatus=text=>{statusEl.textContent=text;};
+        const readPoint=(prefix)=>{
+          const zone=Number(fields[`${prefix}z`].value),x=Number(String(fields[`${prefix}x`].value).replace(/,/g,"")),y=Number(String(fields[`${prefix}y`].value).replace(/,/g,""));
+          const name=prefix==="s"?"Start":"End";
+          if(!Number.isFinite(x)||!Number.isFinite(y)||fields[`${prefix}x`].value.trim()===""||fields[`${prefix}y`].value.trim()==="")throw new Error(`${name}: enter both X (easting) and Y (northing).`);
+          const ll=nad27Utm.toWgs84(x,y,zone,units());
+          if(!(ll.lat>17&&ll.lat<32&&ll.lon>-100&&ll.lon<-79))throw new Error(`${name} falls outside the Gulf (${fmtLatLon(ll.lon,ll.lat)}). Check the zone, units and X/Y order.`);
+          return {zone,x,y,lon:ll.lon,lat:ll.lat};
+        };
+        const writePoint=(prefix,lon,lat)=>{
+          const zone=nad27Utm.zoneFor(lon),u=nad27Utm.fromWgs84(lon,lat,zone,units());
+          fields[`${prefix}z`].value=String(zone);fields[`${prefix}x`].value=fmtNum(u.x);fields[`${prefix}y`].value=fmtNum(u.y);
+          return {zone,x:u.x,y:u.y,lon,lat};
+        };
+        const marker=(lon,lat,label)=>new Graphic({geometry:{type:"point",longitude:lon,latitude:lat},
+          symbol:{type:"simple-marker",size:9,color:label==="S"?[0,255,170,255]:[255,255,255,255],outline:{color:[8,22,30,255],width:1.5}}});
+        const routeAttributes=(start,end,lengthFt)=>{
+          const type=fields.type.value,size=fields.size.value.trim(),key=`drawn:${[start.lon,start.lat,end.lon,end.lat].map(v=>v.toFixed(6)).join(",")}`;
+          const utm=p=>`UTM ${p.zone}N NAD27 · X ${fmtNum(p.x)} · Y ${fmtNum(p.y)} ${units()==="ft"?"US ft":"m"}`;
+          return {BW_DRAWN_ROUTE:1,ROUTE_KEY:key,ROUTE_NAME:`Drawn route ${routeCount}`,ROUTE_LENGTH_FT:Math.round(lengthFt),
+            ORIG_ID_NAME:"Start",ORIG_UTM:utm(start),ORIG_LATLON:fmtLatLon(start.lon,start.lat),
+            DEST_ID_NAME:"End",DEST_UTM:utm(end),DEST_LATLON:fmtLatLon(end.lon,end.lat),
+            LINE_TYPE:type,PROD_CODE:TYPE_CODES[type]??"",PPL_SIZE_CODE:size};
+        };
+        const popupTemplate={title:"{ROUTE_NAME}",content:[{type:"fields",fieldInfos:[
+          {fieldName:"ORIG_UTM",label:"Start (UTM)"},{fieldName:"ORIG_LATLON",label:"Start (WGS 84)"},
+          {fieldName:"DEST_UTM",label:"End (UTM)"},{fieldName:"DEST_LATLON",label:"End (WGS 84)"},
+          {fieldName:"ROUTE_LENGTH_FT",label:"Length (ft)",format:{digitSeparator:true,places:0}},
+          {fieldName:"LINE_TYPE",label:"Line type (riser model)"},{fieldName:"PPL_SIZE_CODE",label:"Size (in)"}]}],
+          actions:[{title:"Show Elevation",id:"show-elevation",className:"esri-icon-line-chart"}]};
+        const clearRubber=()=>{if(rubber&&layer){layer.remove(rubber);rubber=null;}};
+        const stopPicking=()=>{mode="idle";pickStart=null;clearRubber();pointerHandle?.remove();pointerHandle=null;view.container.style.cursor="";pickBtn.classList.remove("active");pickBtn.textContent="✎ Click on map";};
+        const drawLine=async(start,end)=>{
+          await ensureLayer();
+          const {Polyline,geometryEngine}=await getElevationModules();
+          const line=new Polyline({paths:[[[start.lon,start.lat],[end.lon,end.lat]]],spatialReference:{wkid:4326}});
+          const lengthFt=geometryEngine.geodesicLength(line,"feet");
+          if(!(lengthFt>1))throw new Error("Start and end are the same point.");
+          const shown=geometryEngine.geodesicDensify(line,Math.max(500,lengthFt/200),"feet");
+          routeCount++;
+          [routeGraphic,startGraphic,endGraphic].forEach(g=>g&&layer.remove(g));
+          const attributes=routeAttributes(start,end,lengthFt);
+          routeGraphic=new Graphic({geometry:shown,attributes,popupTemplate,symbol:{type:"simple-line",color:LINE,width:2.5,style:"solid"}});
+          startGraphic=marker(start.lon,start.lat,"S");endGraphic=marker(end.lon,end.lat,"E");
+          layer.addMany([routeGraphic,startGraphic,endGraphic]);
+          current={start,end,lengthFt,attributes,geometry:line};
+          elevBtn.disabled=false;clearBtn.disabled=false;
+          setStatus(`Route ${(lengthFt/5280).toFixed(2)} mi (${Math.round(lengthFt).toLocaleString()} ft) · start ${fmtLatLon(start.lon,start.lat)} · end ${fmtLatLon(end.lon,end.lat)}. Click the line or use Show Elevation.`);
+        };
+        const fromCoordinates=async()=>{
+          stopPicking();
+          try{await drawLine(readPoint("s"),readPoint("e"));const {start,end}=current;view.goTo({target:[[start.lon,start.lat],[end.lon,end.lat]].map(([lon,lat])=>({type:"point",longitude:lon,latitude:lat}))}).then(()=>view.goTo({zoom:Math.min(view.zoom,13)})).catch(()=>{});}
+          catch(error){setStatus(error.message||String(error));}
+        };
+        const showElevation=()=>{if(current&&routeGraphic){current.attributes=routeAttributes(current.start,current.end,current.lengthFt);routeGraphic.attributes=current.attributes;showElevationProfile({attributes:current.attributes,geometry:current.geometry});}};
+        const clear=()=>{stopPicking();if(layer)layer.removeAll();routeGraphic=startGraphic=endGraphic=null;current=null;elevBtn.disabled=true;clearBtn.disabled=true;setStatus("Enter coordinates or click two points on the map.");};
+        const startPicking=async()=>{
+          if(mode!=="idle"){stopPicking();setStatus("Map picking cancelled.");return;}
+          await ensureLayer();
+          mode="start";view.closePopup?.();view.container.style.cursor="crosshair";pickBtn.classList.add("active");pickBtn.textContent="✕ Cancel picking";
+          setStatus("Click the START point on the map (Esc to cancel).");
+          pointerHandle=view.on("pointer-move",event=>{
+            if(mode!=="end"||!pickStart)return;
+            const p=view.toMap({x:event.x,y:event.y});if(!p)return;
+            const geometry={type:"polyline",paths:[[[pickStart.lon,pickStart.lat],[p.longitude,p.latitude]]],spatialReference:{wkid:4326}};
+            if(!rubber){rubber=new Graphic({geometry,symbol:{type:"simple-line",color:RUBBER,width:2,style:"dash"}});layer.add(rubber);}else rubber.geometry=geometry;
+          });
+        };
+        view.on("click",async event=>{
+          if(mode==="idle")return;
+          event.stopPropagation();
+          const p=view.toMap({x:event.x,y:event.y});if(!p)return;
+          if(mode==="start"){
+            pickStart=writePoint("s",p.longitude,p.latitude);
+            [routeGraphic,startGraphic,endGraphic].forEach(g=>g&&layer.remove(g));routeGraphic=endGraphic=null;
+            startGraphic=marker(pickStart.lon,pickStart.lat,"S");layer.add(startGraphic);
+            mode="end";setStatus(`Start set (${fmtLatLon(pickStart.lon,pickStart.lat)}). Click the END point.`);
+            return;
+          }
+          const end=writePoint("e",p.longitude,p.latitude),start=pickStart;
+          stopPicking();
+          try{await drawLine(start,end);}catch(error){setStatus(error.message||String(error));}
+        });
+        document.addEventListener("keydown",event=>{if(event.key==="Escape"&&mode!=="idle"){stopPicking();setStatus("Map picking cancelled.");}});
+        // Changing units converts the values already in the boxes.
+        let lastUnits=fields.units.value;
+        fields.units.onchange=()=>{
+          const k=lastUnits==="ft"&&units()==="m"?1200/3937:lastUnits==="m"&&units()==="ft"?3937/1200:1;lastUnits=units();
+          ["sx","sy","ex","ey"].forEach(f=>{const v=Number(String(fields[f].value).replace(/,/g,""));if(fields[f].value.trim()&&Number.isFinite(v))fields[f].value=fmtNum(v*k);});
+        };
+        const open=()=>{panel.hidden=false;};
+        const close=()=>{stopPicking();panel.hidden=true;};
+        $("drawRouteButton").onclick=()=>panel.hidden?open():close();
+        $("routeClose").onclick=close;
+        drawBtn.onclick=fromCoordinates;pickBtn.onclick=startPicking;elevBtn.onclick=showElevation;clearBtn.onclick=clear;
+        // Drag the panel by its header.
+        const header=panel.querySelector(".route-header"),wrap=panel.parentElement;
+        header.addEventListener("pointerdown",event=>{
+          if(event.button!==0||event.target.closest("button"))return;
+          const s={x:event.clientX,y:event.clientY,left:panel.offsetLeft,top:panel.offsetTop};header.setPointerCapture(event.pointerId);
+          const move=e=>{panel.style.left=`${Math.max(0,Math.min(wrap.clientWidth-panel.offsetWidth,s.left+e.clientX-s.x))}px`;panel.style.top=`${Math.max(0,Math.min(wrap.clientHeight-60,s.top+e.clientY-s.y))}px`;panel.style.right="auto";};
+          const up=()=>{header.removeEventListener("pointermove",move);header.removeEventListener("pointerup",up);};
+          header.addEventListener("pointermove",move);header.addEventListener("pointerup",up);
+        });
+        return {isDrawn:feature=>!!feature?.attributes?.BW_DRAWN_ROUTE};
+      })();
+      // ---- Production Data (popup action on platforms and wells) ---------------------------------
+      // Data comes from tools/build_production.py: data/production/index.json plus sharded JSON
+      // files (wells by 12-digit API number, platforms by Complex ID). Nothing is fetched from BSEE here.
+      const productionData=(()=>{
+        const dialog=document.getElementById("productionDialog"),statusEl=document.getElementById("productionStatus");
+        const titleEl=document.getElementById("productionTitle"),subtitleEl=document.getElementById("productionSubtitle");
+        const summaryEl=document.getElementById("productionSummary"),chartEl=document.getElementById("productionChart");
+        const controlsEl=document.getElementById("productionControls"),exportBtn=document.getElementById("exportProduction");
+        const rangeSel=document.getElementById("productionRange");
+        const tooltip=document.getElementById("productionTooltip");
+        const SERIES=[
+          {key:"oil",label:"Oil",unit:"bbl/d",color:"#5fd38d",axis:"left"},
+          {key:"gas",label:"Gas",unit:"Mcf/d",color:"#ef6b5b",axis:"right"},
+          {key:"boe",label:"Oil equivalent",unit:"boe/d",color:"#f2c14e",axis:"left"},
+          {key:"water",label:"Water",unit:"bbl/d",color:"#5aa9f0",axis:"left"}
+        ];
+        const shown={oil:true,gas:true,boe:true,water:true};
+        let indexPromise=null,current=null,previousFocus=null;
+        const shardCache=new window.Map();
+        const loadIndex=()=>indexPromise??=fetch("./data/production/index.json",{cache:"no-cache"}).then(response=>{
+          if(!response.ok)throw new Error(response.status===404?"Production data has not been built yet. Run tools\\build_production.py.":`Production index returned HTTP ${response.status}.`);
+          return response.json();
+        }).catch(error=>{indexPromise=null;throw error;});
+        const loadShard=async(kind,shard,version)=>{
+          const key=`${kind}/${shard}`;
+          if(shardCache.has(key))return shardCache.get(key);
+          const response=await fetch(`./data/production/${kind}/${shard}.json?v=${encodeURIComponent(version||"")}`);
+          if(!response.ok)throw new Error(`Production file ${key}.json returned HTTP ${response.status}. Re-run tools\\build_production.py.`);
+          const data=await response.json();
+          shardCache.set(key,data);
+          if(shardCache.size>12)shardCache.delete(shardCache.keys().next().value);
+          return data;
+        };
+        const normalizeApi=value=>{let digits=String(value??"").replace(/\D/g,"");if(digits.length===10)digits+="00";return digits.length>=12?digits.slice(0,12):null;};
+        const baseYear=index=>Number(String(index.baseMonth||"1996-01").slice(0,4));
+        const monthDate=(index,mi)=>{const y=baseYear(index)+Math.floor(mi/12),m=mi%12;return {y,m:m+1,days:new Date(Date.UTC(y,m+1,0)).getUTCDate(),label:`${y}-${String(m+1).padStart(2,"0")}`};};
+        // Normalises both kinds to rows of {mi, label, days, oil, gas, water, boe, ...extra}.
+        const toSeries=(index,kind,record)=>record.r.map(row=>{
+          const d=monthDate(index,row[0]);
+          if(kind==="wells"){
+            const [mi,oilV,gasV,waterV,daysOn,completions]=row,boeMcf=index.boeMcf||5.62;
+            return {mi,label:d.label,days:d.days,oil:oilV/d.days,gas:gasV/d.days,water:waterV/d.days,boe:(oilV+gasV/boeMcf)/d.days,oilV,gasV,waterV,daysOn,completions};
+          }
+          const [mi,oil,gas,water,boe,wells]=row;
+          return {mi,label:d.label,days:d.days,oil,gas,water,boe,wells};
+        });
+        const fmt=(value,digits=0)=>Number.isFinite(value)?value.toLocaleString(undefined,{maximumFractionDigits:digits,minimumFractionDigits:digits}):"—";
+        const chip=(label,value)=>{const stat=document.createElement("div");stat.className="profile-stat";const a=document.createElement("span");a.textContent=label;const b=document.createElement("strong");b.textContent=value;stat.append(a,b);return stat;};
+        const niceMax=value=>{if(!(value>0))return 1;const mag=10**Math.floor(Math.log10(value)),f=value/mag;return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*mag;};
+        const visibleRows=()=>{
+          if(!current)return [];
+          const years=Number(rangeSel.value);
+          if(!years)return current.rows;
+          const last=current.rows[current.rows.length-1].mi;
+          return current.rows.filter(row=>row.mi>last-years*12);
+        };
+        const draw=()=>{
+          const rows=visibleRows();
+          if(!rows.length){chartEl.replaceChildren();return;}
+          const width=900,height=400,left=74,right=74,top=26,bottom=48,pw=width-left-right,ph=height-top-bottom;
+          const log=false;
+          const active=SERIES.filter(s=>shown[s.key]);
+          const axisMax=axis=>niceMax(Math.max(1,...rows.flatMap(row=>active.filter(s=>s.axis===axis).map(s=>row[s.key]||0)))*1.05);
+          const maxL=axisMax("left"),maxR=axisMax("right");
+          const minLog=1,lg=v=>Math.log10(Math.max(v,minLog));
+          const y=(v,axis)=>{const max=axis==="left"?maxL:maxR;return log?top+ph-(lg(v)-lg(minLog))/(lg(max)-lg(minLog))*ph:top+ph-Math.max(0,v)/max*ph;};
+          const mi0=rows[0].mi,mi1=rows[rows.length-1].mi,x=mi=>left+(mi1===mi0?pw/2:(mi-mi0)/(mi1-mi0)*pw);
+          const parts=[];
+          const ticks=max=>log?Array.from({length:Math.floor(lg(max))+1},(_,i)=>10**i).filter(v=>v<=max):Array.from({length:6},(_,i)=>max*i/5);
+          ticks(maxL).forEach(v=>parts.push(`<line class="profile-grid" x1="${left}" y1="${y(v,"left").toFixed(1)}" x2="${left+pw}" y2="${y(v,"left").toFixed(1)}"/><text class="profile-axis" x="${left-8}" y="${(y(v,"left")+4).toFixed(1)}" text-anchor="end">${fmt(v)}</text>`));
+          if(shown.gas)ticks(maxR).forEach(v=>parts.push(`<text class="profile-axis" x="${left+pw+8}" y="${(y(v,"right")+4).toFixed(1)}" fill="#ef6b5b">${fmt(v)}</text>`));
+          const span=(mi1-mi0)/12,step=span>24?5:span>10?2:1;
+          for(let yr=Math.ceil((baseYear(current.index)+mi0/12)/step)*step;yr<=baseYear(current.index)+mi1/12;yr+=step){
+            const mi=(yr-baseYear(current.index))*12;if(mi<mi0)continue;
+            parts.push(`<line class="profile-grid" x1="${x(mi).toFixed(1)}" y1="${top}" x2="${x(mi).toFixed(1)}" y2="${top+ph}"/><text class="profile-axis" x="${x(mi).toFixed(1)}" y="${top+ph+16}" text-anchor="middle">${yr}</text>`);
+          }
+          const lines=active.map(s=>{
+            let d="",open=false;
+            rows.forEach((row,i)=>{
+              const v=row[s.key];
+              // Break the line across gaps of more than one month (no report).
+              const gap=i>0&&row.mi-rows[i-1].mi>1;
+              if(!Number.isFinite(v)||(log&&v<=0)){open=false;return;}
+              d+=`${open&&!gap?"L":"M"}${x(row.mi).toFixed(1)},${y(v,s.axis).toFixed(1)}`;open=true;
+            });
+            return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="1.8" stroke-linejoin="round"/>`;
+          }).join("");
+          chartEl.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Production rates over time">
+            <text class="profile-axis" x="${left}" y="14">bbl/d · boe/d</text>${shown.gas?`<text class="profile-axis" x="${left+pw}" y="14" text-anchor="end" fill="#ef6b5b">Gas Mcf/d</text>`:""}
+            ${parts.join("")}<line class="profile-grid" x1="${left}" y1="${top+ph}" x2="${left+pw}" y2="${top+ph}"/>${lines}
+            <line class="production-cursor" x1="0" y1="${top}" x2="0" y2="${top+ph}" visibility="hidden"/>
+            <rect class="production-hit" x="${left}" y="${top}" width="${pw}" height="${ph}" fill="transparent"/></svg>`;
+          const svg=chartEl.querySelector("svg"),cursor=svg.querySelector(".production-cursor");
+          svg.querySelector(".production-hit").addEventListener("mousemove",event=>{
+            const box=svg.getBoundingClientRect(),sx=(event.clientX-box.left)/box.width*width;
+            const target=mi0+(sx-left)/pw*(mi1-mi0);
+            let best=rows[0];for(const row of rows)if(Math.abs(row.mi-target)<Math.abs(best.mi-target))best=row;
+            cursor.setAttribute("x1",x(best.mi));cursor.setAttribute("x2",x(best.mi));cursor.setAttribute("visibility","visible");
+            tooltip.innerHTML=`<strong>${best.label}</strong>`+SERIES.map(s=>`<div><i style="background:${s.color}"></i>${s.label}: ${fmt(best[s.key])} ${s.unit}</div>`).join("")+
+              (best.wells!==undefined?`<div>Producing wells: ${fmt(best.wells)}</div>`:`<div>Days on production: ${fmt(best.daysOn)}</div>`);
+            tooltip.hidden=false;
+            const wrap=chartEl.getBoundingClientRect(),px=event.clientX-wrap.left;
+            tooltip.style.left=`${Math.min(px+14,wrap.width-tooltip.offsetWidth-8)}px`;tooltip.style.top=`${Math.max(8,event.clientY-wrap.top-tooltip.offsetHeight-10)}px`;
+          });
+          svg.querySelector(".production-hit").addEventListener("mouseleave",()=>{cursor.setAttribute("visibility","hidden");tooltip.hidden=true;});
+        };
+        const summarize=()=>{
+          const rows=current.rows,last=rows[rows.length-1],peak=rows.reduce((a,b)=>b.boe>a.boe?b:a,rows[0]);
+          const cum=key=>rows.reduce((sum,row)=>sum+(row[key]||0)*row.days,0);
+          summaryEl.replaceChildren(
+            chip(`Latest (${last.label})`,`${fmt(last.oil)} bbl/d oil · ${fmt(last.gas)} Mcf/d gas`),
+            chip("Peak oil equivalent",`${fmt(peak.boe)} boe/d (${peak.label})`),
+            chip("Cumulative production",`${fmt(cum("oil")/1e6,2)} MMbbl oil · ${fmt(cum("gas")/1e6,2)} Bcf gas · ${fmt(cum("boe")/1e6,2)} MMboe`),
+            ...(current.kind==="platforms"?[chip("Producing wells (latest)",fmt(last.wells))]:[]));
+          summaryEl.hidden=false;
+        };
+        const show=()=>{controlsEl.hidden=false;chartEl.hidden=false;summarize();draw();exportBtn.disabled=false;
+          const latest=current.index[current.kind]?.latestMonth;
+          statusEl.textContent=`${current.rows.length.toLocaleString()} reported months · data through ${latest||current.rows[current.rows.length-1].label} · built ${new Date(current.index.generated).toLocaleDateString()}. Rates are monthly volumes ÷ days in the month; hover the chart for values.`;
+        };
+        const reset=()=>{current=null;exportBtn.disabled=true;summaryEl.hidden=true;controlsEl.hidden=true;chartEl.hidden=true;chartEl.replaceChildren();tooltip.hidden=true;};
+        const close=()=>{dialog.hidden=true;tooltip.hidden=true;if(previousFocus?.focus)previousFocus.focus();};
+        // Fills in attributes that live (non-snapshot) layers may not have loaded for the popup.
+        const fullAttributes=async feature=>{
+          const layer=feature?.layer||feature?.sourceLayer;let attributes=feature?.attributes||{};
+          const need=layer?.title==="Platforms"?"COMPLEX_ID_NUM":"API_NUMBER";
+          if((attributes[need]===undefined||attributes[need]===null)&&layer?.queryFeatures){
+            const objectId=attributes[layer.objectIdField]??attributes.OBJECTID;
+            try{const result=await layer.queryFeatures({objectIds:[objectId],outFields:["*"],returnGeometry:false});attributes={...attributes,...(result.features[0]?.attributes||{})};}catch(error){console.warn("Could not load feature attributes",error);}
+          }
+          return {layer,attributes};
+        };
+        const open=async feature=>{
+          previousFocus=document.activeElement;reset();dialog.hidden=false;document.getElementById("closeProduction").focus();
+          statusEl.textContent="Loading production data…";
+          try{
+            const {layer,attributes}=await fullAttributes(feature);
+            const isPlatform=layer?.title==="Platforms";
+            const kind=isPlatform?"platforms":"wells";
+            let key,label;
+            if(isPlatform){
+              key=String(attributes.COMPLEX_ID_NUM??"").replace(/\D/g,"");key=key?String(Number(key)):"";
+              await ensurePlatformStructures();
+              const names=[...new Set((getPlatformByComplex().get(key)||[]).map(r=>String(r.STRUCTURE_NAME??"").trim()).filter(Boolean))];
+              label=`Complex ID ${key||"—"}${names.length?` · ${names.slice(0,4).join(", ")}`:""}`;
+            }else{key=normalizeApi(attributes.API_NUMBER);label=`API ${key||attributes.API_NUMBER||"—"}`;}
+            titleEl.textContent=isPlatform?"Platform production":"Well production";subtitleEl.textContent=label;
+            if(!key)throw new Error(isPlatform?"This platform has no Complex ID.":"This well has no usable API number.");
+            const index=await loadIndex();
+            const meta=index[kind];
+            if(!meta)throw new Error(`No ${isPlatform?"platform":"well"} production in the local data. Run tools\\build_production.py${isPlatform?" (without --wells-only)":" (without --platforms-only)"}.`);
+            const shard=Number(BigInt(key)%BigInt(meta.shards));
+            const record=(await loadShard(kind,shard,index.version))[key];
+            if(!record?.r?.length){
+              statusEl.textContent=isPlatform?`No reported production since 1996 for Complex ID ${key}.`:`No reported production since 1996 for API ${key}.`;
+              if(isPlatform){const a=document.createElement("a");a.href="https://www.data.boem.gov/Production/ProdbyPlatform/Default.aspx";a.target="_blank";a.rel="noreferrer";a.className="source-link";a.textContent=" Check BOEM's Production by Platform query.";statusEl.append(a);}
+              return;
+            }
+            current={kind,key,label,index,record,attributes,rows:toSeries(index,kind,record)};
+            if(isPlatform&&!label.includes(" · ")&&record.names?.length)current.label=label=`${label} · ${record.names.slice(0,4).join(", ")}`;
+            subtitleEl.textContent=record.op?`${label} · ${record.op}`:label;
+            show();
+          }catch(error){statusEl.textContent=error.message||String(error);console.warn("Production data failed",error);}
+        };
+        const exportExcel=()=>{
+          if(!current)return;
+          const {kind,key,label,record,rows,index}=current,isPlatform=kind==="platforms";
+          const head=[
+            [{v:`${isPlatform?"Platform":"Well"} production — ${label}`,s:2}],[],
+            [{v:isPlatform?"Complex ID":"API number",s:1},key],
+            ...(isPlatform&&record.names?.length?[[{v:"Structure name(s)",s:1},record.names.join(", ")]]:[]),
+            ...(record.op?[[{v:"Operator (latest report)",s:1},record.op]]:[]),
+            [{v:"Source",s:1},isPlatform?"BSEE/BOEM Production by Platform raw data":"BSEE/BOEM OGOR-A well production (completions summed per well)"],
+            [{v:"Data through",s:1},index[kind]?.latestMonth||rows[rows.length-1].label],
+            [{v:"Rates",s:1},"Monthly volume ÷ calendar days in month; oil equivalent = oil + gas ÷ 5.62"],
+            [{v:"Generated",s:1},new Date().toLocaleString()],[]
+          ];
+          const headerRow=head.length+1;
+          const columns=isPlatform?["Month","Oil (bbl/d)","Gas (Mcf/d)","Oil equivalent (boe/d)","Water (bbl/d)","Producing wells"]
+            :["Month","Oil (bbl/d)","Gas (Mcf/d)","Oil equivalent (boe/d)","Water (bbl/d)","Oil volume (bbl)","Gas volume (Mcf)","Water volume (bbl)","Days on production","Completions reporting"];
+          const table=rows.map(row=>isPlatform?[row.label,{v:+row.oil.toFixed(1),s:3},{v:+row.gas.toFixed(1),s:3},{v:+row.boe.toFixed(1),s:3},{v:+row.water.toFixed(1),s:3},{v:row.wells,s:5}]
+            :[row.label,{v:+row.oil.toFixed(1),s:3},{v:+row.gas.toFixed(1),s:3},{v:+row.boe.toFixed(1),s:3},{v:+row.water.toFixed(1),s:3},{v:row.oilV,s:5},{v:row.gasV,s:5},{v:row.waterV,s:5},{v:row.daysOn,s:5},{v:row.completions,s:5}]);
+          const blob=buildXlsx({sheetName:isPlatform?`Complex ${key}`:`API ${key}`,rows:[...head,columns.map(c=>({v:c,s:4})),...table],colWidths:[26,...columns.slice(1).map(()=>16)],freezeRow:headerRow});
+          const link=document.createElement("a");link.href=URL.createObjectURL(blob);
+          link.download=`${isPlatform?"Platform":"Well"}_${key}_production.xlsx`;
+          document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(link.href),10000);
+        };
+        // Series toggles
+        const legend=document.getElementById("productionSeries");
+        SERIES.forEach(s=>{
+          const row=document.createElement("label");row.className="production-toggle";
+          const box=document.createElement("input");box.type="checkbox";box.checked=true;box.onchange=()=>{shown[s.key]=box.checked;draw();};
+          const sw=document.createElement("i");sw.style.background=s.color;
+          row.append(box,sw,document.createTextNode(`${s.label} (${s.unit})`));legend.append(row);
+        });
+        rangeSel.onchange=draw;exportBtn.onclick=exportExcel;
+        document.getElementById("closeProduction").onclick=close;
+        dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
+        document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!dialog.hidden)close();});
+        return {open};
+      })();
+      window.BluewaterProduction=productionData;
+      reactiveUtils.on(()=>view.popup?.viewModel,"trigger-action",event=>{
+        if(event.action?.id==="show-elevation")showElevationProfile(view.popup.selectedFeature);
+        if(event.action?.id==="production-data")productionData.open(view.popup.selectedFeature);
+      });
       // ---- Depth contours: pre-built local tiles (tools/build_contours.py) drawn on a Canvas 2D layer.
       // Only tiles in view are fetched (bounded cache), lines are cached as Path2D per tile, and labels
       // are placed once the map stops moving. Nothing is requested from BOEM at run time.
       const depthContours=(()=>{
         const ORIGIN=20037508.342789244,WORLD=2*ORIGIN,DEG=Math.PI/180;
         const MAX_TILES=260,MAX_INFLIGHT=6,LABEL_SPACING=420,MAX_LABELS=350;
-        const COLOR="120,200,220",LABEL_FONT="600 10px Inter,ui-sans-serif,system-ui,'Segoe UI',sans-serif";
+        const COLOR="176,182,186",LABEL_FONT="600 10px Inter,ui-sans-serif,system-ui,'Segoe UI',sans-serif";
         const toggle=document.getElementById("contoursToggle"),meta=document.getElementById("contourMeta");
         let index=null,layer=null,loadPromise=null,layerView=null;
         const cache=new window.Map(),inflight=new window.Map(),missing=new Set();
         let labelCache={key:"",labels:[]},textWidths=new window.Map();
         const tierFor=scale=>index.tiers.find(t=>(t.minScale===0||scale<=t.minScale)&&(t.maxScale===0||scale>t.maxScale))||null;
         const tileKey=(tier,key)=>`${tier.id}/${key}`;
+        // ---- Contour smoothing (display only) ----
+        // BOEM contours come from a 40 ft grid and are simplified at build time, so they show stair-steps
+        // and sharp corners. Each line gets a few passes of a [1,2,1] moving average, with every vertex
+        // limited to a small shift (about one screen pixel at the tier's closest zoom, never more than
+        // 12 m in the most detailed tier). Tile-edge end points stay fixed so lines still join across
+        // tiles; closed rings are smoothed all the way round.
+        const SMOOTH_PASSES=3; // 0 turns smoothing off
+        const smoothLimit=tier=>{
+          const unitMeters=WORLD/2**tier.z/tier.extent;
+          const meters=tier.maxScale?Math.max(12,tier.maxScale*.0254/96):12;
+          return meters/unitMeters; // in tile units
+        };
+        const smoothLine=(pts,maxShift)=>{
+          const n=pts.length/2;
+          if(SMOOTH_PASSES<=0||n<3)return pts;
+          const closed=n>3&&pts[0]===pts[n*2-2]&&pts[1]===pts[n*2-1];
+          const m=closed?n-1:n;
+          let a=Float64Array.from(pts.subarray(0,m*2)),b=new Float64Array(m*2);
+          for(let pass=0;pass<SMOOTH_PASSES;pass++){
+            for(let i=0;i<m;i++){
+              if(!closed&&(i===0||i===m-1)){b[i*2]=a[i*2];b[i*2+1]=a[i*2+1];continue;}
+              const h=((i-1+m)%m)*2,j=((i+1)%m)*2;
+              b[i*2]=(a[h]+2*a[i*2]+a[j])/4;b[i*2+1]=(a[h+1]+2*a[i*2+1]+a[j+1])/4;
+            }
+            [a,b]=[b,a];
+          }
+          const out=new Float32Array(pts.length);
+          for(let i=0;i<m;i++){
+            const ox=pts[i*2],oy=pts[i*2+1];let dx=a[i*2]-ox,dy=a[i*2+1]-oy;const d=Math.hypot(dx,dy);
+            if(d>maxShift){dx*=maxShift/d;dy*=maxShift/d;}
+            out[i*2]=ox+dx;out[i*2+1]=oy+dy;
+          }
+          if(closed){out[m*2]=out[0];out[m*2+1]=out[1];}
+          return out;
+        };
         const decodeTile=(tier,json)=>{
           const lines=json.l.map((coords,i)=>{
             const pts=new Int32Array(coords.length);let x=0,y=0;
             for(let k=0;k<coords.length;k+=2){x=k?x+coords[k]:coords[k];y=k?y+coords[k+1]:coords[k+1];pts[k]=x;pts[k+1]=y;}
             return {depth:json.d[i],pts};
           });
-          const minor=new Path2D(),major=new Path2D();
+          const minor=new Path2D(),major=new Path2D(),maxShift=smoothLimit(tier);
           lines.forEach(line=>{
             line.index=line.depth%tier.indexEvery===0;
-            const path=line.index?major:minor,p=line.pts;
-            path.moveTo(p[0],p[1]);for(let k=2;k<p.length;k+=2)path.lineTo(p[k],p[k+1]);
+            line.pts=smoothLine(line.pts,maxShift); // labels follow the smoothed line too
+            const path=line.index?major:minor,p=line.pts,n=p.length/2;
+            path.moveTo(p[0],p[1]);
+            if(SMOOTH_PASSES>0&&n>2){
+              // Quadratic curves through segment midpoints round off the remaining vertex corners.
+              for(let i=1;i<n-1;i++)path.quadraticCurveTo(p[i*2],p[i*2+1],(p[i*2]+p[i*2+2])/2,(p[i*2+1]+p[i*2+3])/2);
+              path.lineTo(p[n*2-2],p[n*2-1]);
+            }else for(let k=2;k<p.length;k+=2)path.lineTo(p[k],p[k+1]);
           });
           return {lines,minor,major,used:performance.now()};
         };
@@ -768,7 +1463,7 @@
             const t=tileTransform(state,tier,tile),scale=Math.hypot(t.a,t.b)||1;
             ctx.setTransform(t.a*pr,t.b*pr,t.c*pr,t.d*pr,t.e*pr,t.f*pr);
             ctx.lineCap="round";ctx.lineJoin="round";
-            ctx.strokeStyle=`rgba(${COLOR},.42)`;ctx.lineWidth=.7/scale;ctx.stroke(data.minor);
+            ctx.strokeStyle=`rgba(${COLOR},.55)`;ctx.lineWidth=.7/scale;ctx.stroke(data.minor);
             ctx.strokeStyle=`rgba(${COLOR},.9)`;ctx.lineWidth=1.25/scale;ctx.stroke(data.major);
           }
           ctx.setTransform(pr,0,0,pr,0,0);
@@ -779,8 +1474,8 @@
           ctx.font=LABEL_FONT;ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineJoin="round";
           for(const label of labelCache.labels){
             ctx.save();ctx.translate(label.x,label.y);ctx.rotate(label.angle);
-            ctx.lineWidth=3;ctx.strokeStyle="rgba(8,24,32,.92)";ctx.strokeText(label.text,0,0);
-            ctx.fillStyle="rgb(190,235,245)";ctx.fillText(label.text,0,0);
+            ctx.lineWidth=3;ctx.strokeStyle="rgba(18,18,18,.9)";ctx.strokeText(label.text,0,0);
+            ctx.fillStyle="rgb(222,226,229)";ctx.fillText(label.text,0,0);
             ctx.restore();
           }
         };
@@ -804,11 +1499,15 @@
           meta.title=`Pre-built contour tiles · ${new Date(index.generated).toLocaleDateString()}`;
           return layer;
         })().catch(error=>{loadPromise=null;throw error;});
+        const contourLegend=[...document.querySelectorAll(".contour-legend")];
+        const setLegend=on=>contourLegend.forEach(item=>item.hidden=!on);
         const update=()=>{
+          setLegend(toggle.checked);
           if(!toggle.checked){if(layer)layer.visible=false;return;}
           ensureLoaded().then(()=>{layer.visible=toggle.checked;})
-            .catch(error=>{meta.textContent="Unavailable";status.textContent=`Depth contours: ${error.message||error}`;console.warn("Depth contours unavailable",error);});
+            .catch(error=>{setLegend(false);meta.textContent="Unavailable";status.textContent=`Depth contours: ${error.message||error}`;console.warn("Depth contours unavailable",error);});
         };
+        setLegend(toggle.checked);
         return {update};
       })();
       const updateContours=depthContours.update;
@@ -833,7 +1532,7 @@
           for(let c=0;c<3;c++)lut[i*4+c]=c0[c]+(c1[c]-c0[c])*t;
           lut[i*4+3]=(c0[3]+(c1[3]-c0[3])*t)*255;
         }
-        let manifest=null,set=null,frames=[],position=0,playing=false,layer=null,loadPromise=null;
+        let manifest=null,set=null,frames=[],position=0,playing=false,layer=null,loadPromise=null,onTimeHook=null;
         let fieldA=null,fieldB=null,mix=0,fieldVersion=0;
         const decoded=new window.Map(),pending=new window.Map(),failed=new Set();
         const sample=new Float64Array(2),lonlat=new Float64Array(2);
@@ -914,6 +1613,7 @@
             ui.rel.textContent=`${utcFormat.format(shown)} UTC · ${hours===0?"now":hours>0?`+${hours} h forecast`:`${hours} h`}`;
           }
           if(document.activeElement!==ui.slider)ui.slider.value=String(Math.round(position));
+          onTimeHook?.();
         };
         const updatePlayButton=()=>{ui.play.textContent=playing?"❚❚":"▶";ui.play.setAttribute("aria-label",playing?"Pause forecast":"Play forecast");};
         let preloadToken=0;
@@ -954,7 +1654,7 @@
           const stepText=set.stepHours?`every ${set.stepHours} h`:"";
           ui.info.textContent=Date.now()>last+3600000
             ?`This forecast ended ${new Date(last).toLocaleString()}. Re-run tools\\build_currents.py for current data.`
-            :`${set.label} · ${frames.length} frames ${stepText}. Hover over the sea for speed and direction.`;
+            :`${set.label} · ${frames.length} frames ${stepText}. Hover over the sea for speed and direction; right-click for a depth graph.`;
           if(playing)preloadAll();
         };
 
@@ -1088,6 +1788,308 @@
         view.on("pointer-move",event=>{lastPointer=event;if(!readoutQueued){readoutQueued=true;requestAnimationFrame(updateReadout);}});
         view.on("pointer-leave",()=>{lastPointer=null;ui.readout.hidden=true;});
 
+        // ---- Depth profile tool (right-click "Show depth graph") ---------------------------------
+        // Uses manifest.profile from tools/build_currents.py: one PNG per time step with every depth
+        // level stacked vertically. A draggable flag marks the location; the floating chart shows
+        // current speed against depth at the forecast time selected in the currents panel.
+        const depthTool=(()=>{
+          const FT_PER_M=3.28084,MAX_CACHE=4;
+          const mapWrap=view.container.closest(".map-wrap")||view.container.parentElement;
+          const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;};
+          // Context menu
+          const menu=el("div","depth-menu");menu.hidden=true;menu.setAttribute("role","menu");
+          const menuItem=el("button","depth-menu-item","Show depth graph");menuItem.type="button";menuItem.setAttribute("role","menuitem");
+          const menuNote=el("div","depth-menu-note");
+          menu.append(menuItem,menuNote);
+          // Floating panel
+          const panel=el("section","depth-panel");panel.hidden=true;panel.setAttribute("role","dialog");panel.setAttribute("aria-label","Current speed versus depth");
+          const header=el("header","depth-panel-header");
+          const heading=el("div","depth-panel-heading");const title=el("h2",null,"Current speed vs. depth");const subtitle=el("p");heading.append(title,subtitle);
+          const closeBtn=el("button","profile-close","Close");closeBtn.type="button";closeBtn.setAttribute("aria-label","Close depth graph");
+          header.append(heading,closeBtn);
+          const statusLine=el("div","depth-panel-status");statusLine.setAttribute("aria-live","polite");
+          const scaleRow=el("label","depth-panel-option");const logToggle=el("input");logToggle.type="checkbox";logToggle.checked=true;scaleRow.append(logToggle,el("span",null,"Log depth scale (expands the upper water column)"));
+          const summary=el("div","profile-summary");
+          const chart=el("div","profile-chart depth-panel-chart");
+          const note=el("p","profile-note","Drag the flag to move the profile; drag this panel by its title to reposition it. The Surface figure (also shown on the flag) is the hourly surface current including tide and wave drift; the depth profile is ocean circulation only (6-hourly model fields, interpolated in time). The deepest point shown is the model's lowest level here, which can differ from the true seabed.");
+          panel.append(header,statusLine,summary,scaleRow,chart,note);
+          mapWrap.append(menu,panel);
+
+          let flag=null,point=null,menuPoint=null,dragging=false,queued=false,lastKey="";
+          const cache=new window.Map(),pendingFrames=new window.Map(),failedFrames=new Set();
+          const profileMeta=()=>manifest?.profile||null;
+          const FLAG_GREEN="#39ff5a";
+          const flagSvg=`<svg xmlns="http://www.w3.org/2000/svg" width="40" height="48" viewBox="0 0 40 48"><rect x="2" y="2" width="3" height="46" rx="1.5" fill="#f2f6f7" stroke="#0b1d27" stroke-width="1"/><path d="M5 3 L37 10 L5 20 Z" fill="${FLAG_GREEN}" stroke="#0b1d27" stroke-width="1.5" stroke-linejoin="round"/><circle cx="3.5" cy="46" r="2.5" fill="${FLAG_GREEN}" stroke="#0b1d27" stroke-width="1"/></svg>`;
+          // 20×24 pt image; offsets put the pole foot (x≈1.75 pt, bottom) on the map point.
+          const flagSymbol={type:"picture-marker",url:`data:image/svg+xml;charset=utf-8,${encodeURIComponent(flagSvg)}`,width:20,height:24,xoffset:8.25,yoffset:11};
+          // Text next to the flag pennant: surface speed (tide + wave drift included) at the flag.
+          const flagTextSymbol=text=>({type:"text",text,color:FLAG_GREEN,haloColor:[8,22,30,240],haloSize:1.6,
+            horizontalAlignment:"left",verticalAlignment:"middle",xoffset:20,yoffset:17,font:{family:"Avenir Next LT Pro",size:10,weight:"bold"}});
+          let flagText=null;
+          const setFlagText=text=>{
+            if(!flag)return;
+            if(!text){if(flagText){view.graphics.remove(flagText);flagText=null;}return;}
+            if(!flagText){flagText=new Graphic({geometry:point,symbol:flagTextSymbol(text)});view.graphics.add(flagText);}
+            else{flagText.geometry=point;if(flagText.symbol?.text!==text)flagText.symbol=flagTextSymbol(text);}
+          };
+          // ---- Surface current at the flag (hourly "surface" set: tide + wave drift when built with --surface total)
+          const surfaceCache=new window.Map(),surfaceFailed=new Set();
+          const surfaceSet=()=>manifest?.sets?.find(item=>item.id==="surface")||null;
+          const surfaceIncludesTides=()=>/^utotal$/i.test(surfaceSet()?.variables?.[0]||"");
+          const surfacePick=t=>{
+            const sset=surfaceSet();if(!sset?.frames?.length)return null;
+            const list=sset.frames.map(frame=>({...frame,t:Date.parse(frame.time)}));
+            if(t<=list[0].t)return {set:sset,a:list[0],b:null,mix:0};
+            const last=list[list.length-1];if(t>=last.t)return {set:sset,a:last,b:null,mix:0};
+            let i=0;while(i<list.length-2&&list[i+1].t<=t)i++;
+            return {set:sset,a:list[i],b:list[i+1],mix:(t-list[i].t)/(list[i+1].t-list[i].t)};
+          };
+          const loadSurfaceFrame=async(sset,frame)=>{
+            if(surfaceCache.has(frame.file))return surfaceCache.get(frame.file);
+            const field=await decodeFrame(sset,frame);
+            surfaceCache.set(frame.file,field);
+            if(surfaceCache.size>6)surfaceCache.delete(surfaceCache.keys().next().value);
+            return field;
+          };
+          const sampleSurface=(lon,lat,sp)=>{
+            const g=sp.set.grid,A=surfaceCache.get(sp.a.file),B=sp.b?surfaceCache.get(sp.b.file):null;
+            if(!A)return null;
+            const fx=(lon-g.lon0)/g.dLon,fy=(g.lat0-lat)/g.dLat;
+            if(!(fx>=0&&fy>=0&&fx<=g.width-1&&fy<=g.height-1))return null;
+            const x0=Math.min(fx|0,g.width-2),y0=Math.min(fy|0,g.height-2),tx=fx-x0,ty=fy-y0;
+            let su=0,sv=0,sw=0;
+            for(let k=0;k<4;k++){
+              const dx=k&1,dy=k>>1,w=(dx?tx:1-tx)*(dy?ty:1-ty);if(w<=0)continue;
+              const i=(y0+dy)*g.width+x0+dx;let u=A.u[i];if(u!==u)continue;let v=A.v[i];
+              if(B&&sp.mix>0){const ub=B.u[i];if(ub===ub){u+=(ub-u)*sp.mix;v+=(B.v[i]-v)*sp.mix;}}
+              su+=u*w;sv+=v*w;sw+=w;
+            }
+            if(sw<.5)return null;
+            const u=su/sw,v=sv/sw;
+            return {ms:Math.hypot(u,v),bearing:(Math.atan2(u,v)/DEG+360)%360};
+          };
+          const onFlag=(x,y)=>{
+            if(!flag||!point)return false;
+            const s=view.toScreen(point);if(!s)return false;
+            return x>=s.x-6&&x<=s.x+28&&y>=s.y-34&&y<=s.y+6;
+          };
+          // ---- Frame loading / sampling ----
+          const loadFrame=frame=>{
+            if(cache.has(frame.file))return Promise.resolve(cache.get(frame.file));
+            if(!pendingFrames.has(frame.file))pendingFrames.set(frame.file,(async()=>{
+              const meta=profileMeta(),g=meta.grid,levels=meta.depths.length;
+              const response=await fetch(`./data/currents/${frame.file}?v=${encodeURIComponent(manifest.version||"")}`);
+              if(!response.ok)throw new Error(`HTTP ${response.status}`);
+              const bitmap=await createImageBitmap(await response.blob(),{colorSpaceConversion:"none",premultiplyAlpha:"none"});
+              if(bitmap.width!==g.width||bitmap.height!==g.height*levels)throw new Error(`profile frame is ${bitmap.width}×${bitmap.height}, expected ${g.width}×${g.height*levels}`);
+              const canvas=document.createElement("canvas");canvas.width=bitmap.width;canvas.height=bitmap.height;
+              const context=canvas.getContext("2d",{willReadFrequently:true});
+              context.drawImage(bitmap,0,0);bitmap.close?.();
+              const data={px:context.getImageData(0,0,canvas.width,canvas.height).data,ranges:frame.ranges,used:performance.now()};
+              cache.set(frame.file,data);
+              if(cache.size>MAX_CACHE)[...cache.entries()].sort((a,b)=>a[1].used-b[1].used).slice(0,cache.size-MAX_CACHE).forEach(([key])=>cache.delete(key));
+              return data;
+            })().catch(error=>{failedFrames.add(frame.file);throw error;}).finally(()=>pendingFrames.delete(frame.file)));
+            return pendingFrames.get(frame.file);
+          };
+          // Bilinear sample of one level; returns [u,v] in m/s or null (land / below model seabed).
+          const sampleLevel=(data,level,fx,fy,g)=>{
+            const x0=Math.min(fx|0,g.width-2),y0=Math.min(fy|0,g.height-2),tx=fx-x0,ty=fy-y0;
+            const S=data.ranges[level],k=2*S/254,rowBase=level*g.height;
+            let su=0,sv=0,sw=0;
+            for(let c=0;c<4;c++){
+              const dx=c&1,dy=c>>1,w=(dx?tx:1-tx)*(dy?ty:1-ty);
+              if(w<=0)continue;
+              const o=((rowBase+y0+dy)*g.width+x0+dx)*4;
+              if(data.px[o+2]<128)continue;
+              su+=((data.px[o]-1)*k-S)*w;sv+=((data.px[o+1]-1)*k-S)*w;sw+=w;
+            }
+            return sw<.5?null:[su/sw,sv/sw];
+          };
+          // Picks the profile frames around the currents panel's time (clamped to the profile range).
+          const framesForTime=t=>{
+            const frames=profileMeta().frames.map(frame=>({...frame,t:Date.parse(frame.time)}));
+            if(t<=frames[0].t)return {a:frames[0],b:null,mix:0,time:frames[0].t,clamped:t<frames[0].t-60000};
+            const last=frames[frames.length-1];
+            if(t>=last.t)return {a:last,b:null,mix:0,time:last.t,clamped:t>last.t+60000};
+            let i=0;while(i<frames.length-2&&frames[i+1].t<=t)i++;
+            const a=frames[i],b=frames[i+1];
+            return {a,b,mix:(t-a.t)/(b.t-a.t),time:t,clamped:false};
+          };
+          const compute=(lon,lat,pick)=>{
+            const meta=profileMeta(),g=meta.grid;
+            const fx=(lon-g.lon0)/g.dLon,fy=(g.lat0-lat)/g.dLat;
+            if(!(fx>=0&&fy>=0&&fx<=g.width-1&&fy<=g.height-1))return {outside:true,levels:[]};
+            const A=cache.get(pick.a.file),B=pick.b?cache.get(pick.b.file):null;
+            A.used=performance.now();if(B)B.used=A.used;
+            const levels=[];
+            meta.depths.forEach((depthM,level)=>{
+              let uv=sampleLevel(A,level,fx,fy,g);
+              if(uv&&B&&pick.mix>0){const ub=sampleLevel(B,level,fx,fy,g);if(ub)uv=[uv[0]+(ub[0]-uv[0])*pick.mix,uv[1]+(ub[1]-uv[1])*pick.mix];}
+              if(uv)levels.push({depthM,u:uv[0],v:uv[1],ms:Math.hypot(uv[0],uv[1]),bearing:(Math.atan2(uv[0],uv[1])/DEG+360)%360});
+            });
+            return {outside:false,levels};
+          };
+          // ---- Chart ----
+          const niceStep=range=>{const raw=range/5,mag=10**Math.floor(Math.log10(raw)),f=raw/mag;return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*mag;};
+          const fmtFt=ft=>`${Math.round(ft).toLocaleString()} ft`;
+          const direction=bearing=>`${compass[Math.round(bearing/22.5)%16]} ${String(Math.round(bearing)%360).padStart(3,"0")}°`;
+          const drawChart=levels=>{
+            const width=440,height=430,left=70,right=64,top=30,bottom=46,pw=width-left-right,ph=height-top-bottom;
+            const maxKn=Math.max(...levels.map(l=>l.ms*MS_TO_KN)),xStep=niceStep(Math.max(maxKn,.2)*1.1),xMax=Math.ceil(Math.max(maxKn,.2)*1.08/xStep)*xStep;
+            const deepestFt=levels[levels.length-1].depthM*FT_PER_M,yStep=niceStep(Math.max(deepestFt,10)*1.04),yMax=Math.ceil(Math.max(deepestFt,10)*1.04/yStep)*yStep;
+            const log=logToggle.checked,L=ft=>Math.log10(1+ft/3);
+            const X=kn=>left+kn/xMax*pw,Y=ft=>top+(log?L(ft)/L(yMax):ft/yMax)*ph;
+            const parts=[];
+            for(let v=0;v<=xMax+1e-9;v+=xStep)parts.push(`<line class="profile-grid" x1="${X(v).toFixed(1)}" y1="${top}" x2="${X(v).toFixed(1)}" y2="${top+ph}"/><text class="profile-axis" x="${X(v).toFixed(1)}" y="${top+ph+16}" text-anchor="middle">${+v.toFixed(2)}</text>`);
+            const yTicks=log?[0,10,30,100,300,1000,3000,10000].filter(v=>v<=yMax*1.0001):Array.from({length:Math.round(yMax/yStep)+1},(_,i)=>i*yStep);
+            for(const v of yTicks)parts.push(`<line class="profile-grid" x1="${left}" y1="${Y(v).toFixed(1)}" x2="${left+pw}" y2="${Y(v).toFixed(1)}"/><text class="profile-axis" x="${left-8}" y="${(Y(v)+4).toFixed(1)}" text-anchor="end">${Math.round(v).toLocaleString()}</text>`);
+            const pts=levels.map(l=>[X(l.ms*MS_TO_KN),Y(l.depthM*FT_PER_M)]);
+            const path=pts.map((p,i)=>`${i?"L":"M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
+            const area=`${path} L${left},${pts[pts.length-1][1].toFixed(1)} L${left},${pts[0][1].toFixed(1)} Z`;
+            // Direction arrows (north up) for up to ~14 evenly spaced levels, in a column right of the plot.
+            // Direction arrows (north up), at least 17 px apart so near-surface levels do not stack.
+            const arrows=[];let lastArrowY=-Infinity;
+            levels.forEach((l,i)=>{const y=Y(l.depthM*FT_PER_M);if(y-lastArrowY<17&&i!==levels.length-1)return;if(i===levels.length-1&&y-lastArrowY<17&&arrows.length)arrows.pop();lastArrowY=y;arrows.push(`<g transform="translate(${left+pw+30},${y.toFixed(1)}) rotate(${l.bearing.toFixed(0)})"><path class="depth-arrow" d="M0,-8 L4,2 L1,1 L1,8 L-1,8 L-1,1 L-4,2 Z"/></g>`);});
+            const dots=levels.map((l,i)=>`<circle class="depth-dot" cx="${pts[i][0].toFixed(1)}" cy="${pts[i][1].toFixed(1)}" r="2.6"><title>${fmtFt(l.depthM*FT_PER_M)} (${l.depthM.toFixed(1)} m): ${(l.ms*MS_TO_KN).toFixed(2)} kn (${l.ms.toFixed(2)} m/s) toward ${direction(l.bearing)}</title></circle>`).join("");
+            const floorY=Y(deepestFt);
+            chart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Current speed versus depth">
+              <text class="profile-axis" x="${left}" y="16">Depth (ft)</text><text class="profile-axis" x="${left+pw+30}" y="16" text-anchor="middle">Dir.</text>
+              ${parts.join("")}
+              <line class="depth-floor" x1="${left}" y1="${floorY.toFixed(1)}" x2="${left+pw}" y2="${floorY.toFixed(1)}"/>
+              <text class="profile-axis" x="${left+pw-4}" y="${(floorY-5).toFixed(1)}" text-anchor="end">Deepest model level ${fmtFt(deepestFt)}</text>
+              <path class="depth-area" d="${area}"/><path class="depth-line" d="${path}"/>${dots}${arrows.join("")}
+              <line class="profile-grid" x1="${left}" y1="${top}" x2="${left}" y2="${top+ph}"/>
+              <text class="profile-axis" x="${left+pw/2}" y="${height-8}" text-anchor="middle">Current speed (knots)</text></svg>`;
+          };
+          const chip=(label,value)=>{const stat=el("div","profile-stat");stat.append(el("span",null,label),el("strong",null,value));return stat;};
+          const fmtLatLon=(lon,lat)=>`${Math.abs(lat).toFixed(4)}°${lat>=0?"N":"S"}, ${Math.abs(lon).toFixed(4)}°${lon>=0?"E":"W"}`;
+          // ---- Update cycle ----
+          const refresh=async()=>{
+            queued=false;
+            if(panel.hidden||!point)return;
+            const meta=profileMeta();
+            if(!meta){statusLine.textContent="No depth profile data. Re-run tools\\build_currents.py (without --no-profile).";return;}
+            const pick=framesForTime(currentTime());
+            const needed=[pick.a,pick.b].filter(Boolean);
+            const missingFrames=needed.filter(frame=>!cache.has(frame.file));
+            if(missingFrames.length){
+              if(missingFrames.some(frame=>failedFrames.has(frame.file))){statusLine.textContent="Depth profile frames could not be loaded. Re-run tools\\build_currents.py.";return;}
+              statusLine.textContent="Loading depth profile…";
+              try{await Promise.all(missingFrames.map(loadFrame));}catch(error){console.warn("Depth profile frame failed",error);statusLine.textContent=`Depth profile could not be loaded: ${error.message||error}`;return;}
+              return schedule();
+            }
+            const sp=surfacePick(currentTime());
+            if(sp){
+              const want=[sp.a,sp.b].filter(frame=>frame&&!surfaceCache.has(frame.file)&&!surfaceFailed.has(frame.file));
+              if(want.length){
+                try{await Promise.all(want.map(frame=>loadSurfaceFrame(sp.set,frame)));}
+                catch(error){want.forEach(frame=>surfaceFailed.add(frame.file));console.warn("Surface current frame failed",error);}
+                return schedule();
+              }
+            }
+            const lon=point.longitude,lat=point.latitude;
+            const key=`${lon.toFixed(5)}|${lat.toFixed(5)}|${pick.a.file}|${pick.b?.file}|${pick.mix.toFixed(3)}|${sp?`${sp.a.file}|${sp.b?.file}|${sp.mix.toFixed(3)}`:""}`;
+            if(key===lastKey)return;
+            lastKey=key;
+            const result=compute(lon,lat,pick);
+            const surf=sp?sampleSurface(lon,lat,sp):null;
+            const surfLabel=surfaceIncludesTides()?"Surface (incl. tide & waves)":"Surface (ocean only)";
+            setFlagText(surf?`${(surf.ms*MS_TO_KN).toFixed(2)} kn · ${compass[Math.round(surf.bearing/22.5)%16]}`:"");
+            subtitle.textContent=`${fmtLatLon(lon,lat)} · ${timeFormat.format(Math.round(pick.time/600000)*600000)}`;
+            summary.replaceChildren();
+            if(result.outside||!result.levels.length){
+              chart.replaceChildren();summary.hidden=true;chart.hidden=true;
+              statusLine.textContent=result.outside?"This point is outside the currents data area.":"No current data here (land or outside the model's ocean).";
+              return;
+            }
+            const levels=result.levels,top=levels[0],max=levels.reduce((a,b)=>b.ms>a.ms?b:a,top),deepest=levels[levels.length-1];
+            summary.append(
+              chip(surfLabel,surf?`${(surf.ms*MS_TO_KN).toFixed(2)} kn → ${direction(surf.bearing)}`:"no data"),
+              chip("Max",`${(max.ms*MS_TO_KN).toFixed(2)} kn at ${fmtFt(max.depthM*FT_PER_M)}`),
+              chip("Deepest level",`${fmtFt(deepest.depthM*FT_PER_M)} · ${(deepest.ms*MS_TO_KN).toFixed(2)} kn`));
+            summary.hidden=false;chart.hidden=false;
+            drawChart(levels);
+            statusLine.textContent=pick.clamped?`Selected time is outside the depth-profile range; showing the nearest profile (${timeFormat.format(pick.time)}).`:`${levels.length} model levels · hover a point for exact values.`;
+          };
+          const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(()=>refresh());}};
+          let lastTimeRefresh=0;
+          const onTime=()=>{if(panel.hidden)return;const now=performance.now();if(now-lastTimeRefresh<250)return;lastTimeRefresh=now;schedule();};
+          const placeFlag=mapPoint=>{
+            point=mapPoint;
+            if(!flag){flag=new Graphic({geometry:mapPoint,symbol:flagSymbol});view.graphics.add(flag);}
+            else flag.geometry=mapPoint;
+            if(flagText)flagText.geometry=mapPoint; // follows the flag while dragging; text updates on refresh
+          };
+          const hideMenu=()=>{menu.hidden=true;menuPoint=null;};
+          const close=()=>{
+            hideMenu();panel.hidden=true;dragging=false;lastKey="";
+            if(flagText){view.graphics.remove(flagText);flagText=null;}
+            if(flag){view.graphics.remove(flag);flag=null;}
+            point=null;view.container.style.cursor="";
+          };
+          const open=mapPoint=>{
+            placeFlag(mapPoint);
+            panel.hidden=false;lastKey="";summary.hidden=true;chart.hidden=true;statusLine.textContent="Loading depth profile…";
+            schedule();
+          };
+          const showMenu=(x,y)=>{
+            const mapPoint=view.toMap({x,y});if(!mapPoint)return;
+            menuPoint=mapPoint;
+            menuNote.textContent=fmtLatLon(mapPoint.longitude,mapPoint.latitude);
+            menuItem.disabled=!profileMeta();
+            if(!profileMeta())menuNote.textContent="Depth profiles not built yet — re-run tools\\build_currents.py";
+            menu.hidden=false;
+            const w=menu.offsetWidth||190,h=menu.offsetHeight||60;
+            menu.style.left=`${Math.min(x+view.container.offsetLeft,mapWrap.clientWidth-w-6)}px`;
+            menu.style.top=`${Math.min(y+view.container.offsetTop,mapWrap.clientHeight-h-6)}px`;
+            menuItem.focus({preventScroll:true});
+          };
+          menuItem.onclick=()=>{const p=menuPoint;hideMenu();if(p)open(p);};
+          closeBtn.onclick=close;
+          logToggle.onchange=()=>{lastKey="";schedule();};
+          // Drag the panel by its header to move it out of the way.
+          header.addEventListener("pointerdown",event=>{
+            if(event.button!==0||event.target.closest("button"))return;
+            const start={x:event.clientX,y:event.clientY,left:panel.offsetLeft,top:panel.offsetTop};
+            header.setPointerCapture(event.pointerId);header.classList.add("dragging");
+            const move=e=>{
+              const left=Math.max(0,Math.min(mapWrap.clientWidth-panel.offsetWidth,start.left+e.clientX-start.x));
+              const top=Math.max(0,Math.min(mapWrap.clientHeight-60,start.top+e.clientY-start.y));
+              panel.style.left=`${left}px`;panel.style.top=`${top}px`;panel.style.right="auto";
+            };
+            const up=()=>{header.removeEventListener("pointermove",move);header.removeEventListener("pointerup",up);header.classList.remove("dragging");};
+            header.addEventListener("pointermove",move);header.addEventListener("pointerup",up);
+          });
+          document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!menu.hidden)hideMenu();});
+          document.addEventListener("pointerdown",event=>{if(!menu.hidden&&!menu.contains(event.target))hideMenu();},true);
+          // Right-click (without dragging, which rotates the map) opens the menu while currents are on.
+          let rightDown=null;
+          view.container.addEventListener("contextmenu",event=>{if(layer?.visible)event.preventDefault();});
+          view.on("pointer-down",event=>{if(event.button===2&&layer?.visible)rightDown={x:event.x,y:event.y};});
+          view.on("pointer-up",event=>{
+            if(event.button!==2||!rightDown)return;
+            const moved=Math.hypot(event.x-rightDown.x,event.y-rightDown.y);rightDown=null;
+            if(moved<6&&layer?.visible)showMenu(event.x,event.y);
+          });
+          view.on("mouse-wheel",hideMenu);
+          // Dragging the flag (instead of panning the map).
+          view.on("drag",event=>{
+            if(event.action==="start"){
+              if(!menu.hidden)hideMenu();
+              if((event.button===0||event.button===undefined)&&onFlag(event.x,event.y)){dragging=true;event.stopPropagation();view.container.style.cursor="grabbing";}
+              return;
+            }
+            if(!dragging)return;
+            event.stopPropagation();
+            const mapPoint=view.toMap({x:event.x,y:event.y});
+            if(mapPoint){placeFlag(mapPoint);schedule();}
+            if(event.action==="end"){dragging=false;view.container.style.cursor="grab";schedule();}
+          });
+          view.on("pointer-move",event=>{if(!dragging&&flag)view.container.style.cursor=onFlag(event.x,event.y)?"grab":"";});
+          return {close,onTime,hideMenu};
+        })();
+        onTimeHook=depthTool.onTime;
         // ---- Loading and controls ---------------------------------------------------------------
         const ensureLoaded=()=>loadPromise??=(async()=>{
           ui.meta.textContent="Loading…";
@@ -1109,7 +2111,7 @@
         const update=()=>{
           const on=ui.toggle.checked;
           ui.panel.hidden=!on;
-          if(!on){playing=false;updatePlayButton();if(layer)layer.visible=false;ui.readout.hidden=true;return;}
+          if(!on){playing=false;updatePlayButton();if(layer)layer.visible=false;ui.readout.hidden=true;depthTool.close();return;}
           ensureLoaded().then(()=>{layer.visible=ui.toggle.checked;ui.meta.textContent="CMEMS";})
             .catch(error=>{
               ui.meta.textContent="Unavailable";
@@ -1130,9 +2132,6 @@
         };
         return {update};
       })();
-      const scaleOutput=document.getElementById("scaleThresholdValue");
-      const formatScale=value=>`1:${(Math.round(value/1000)*1000).toLocaleString("en-US")}`;
-      const thresholdFromSlider=value=>100000*Math.pow(100,Number(value)/100);
       const updateInfrastructureVisibility=()=>{
         Object.values(infra).forEach(config=>{
           const on=document.getElementById(config.toggle).checked;
@@ -1162,16 +2161,12 @@
         updateInfrastructureVisibility();
       };
       const updateBathymetry=()=>{
-        const threshold=thresholdFromSlider(scaleSlider.value);
-        const inRange=view.scale<=threshold;
         const reliefOn=document.getElementById("hillshadeToggle").checked;
-        hillshade.visible=reliefOn&&inRange;
-        document.getElementById("thresholdSection").hidden=!reliefOn;
-        scaleOutput.textContent=formatScale(threshold);
-        document.getElementById("scaleHint").textContent=inRange?`BOEM hillshade is active at ${formatScale(view.scale)}. Drag the slider to tune when they switch on.`:`Zoom in past ${formatScale(threshold)} to load the BOEM hillshade. Infrastructure layers remain available.`;
+        hillshade.visible=reliefOn&&!!localBathymetryInfo?.ready;
       };
       view.when(async()=>{
         updateBathymetry();
+        loadLocalBathymetry().then(updateBathymetry).catch(error=>{updateBathymetry();console.warn("Local bathymetry unavailable",error);});
         const talosEnabled=document.getElementById("talosAssetsToggle").checked;
         status.textContent=talosEnabled?"Map view ready · loading Talos Active Assets…":"Map view ready · loading visible BSEE layers…";
         if(talosEnabled){
@@ -1205,9 +2200,7 @@
         const idle=window.requestIdleCallback||(callback=>setTimeout(callback,500));
         idle(()=>ensurePlatformStructures());
       });
-      reactiveUtils.watch(()=>view.scale,updateBathymetry);
-      scaleSlider.addEventListener("input",updateBathymetry);
-      document.getElementById("hillshadeToggle").onchange=updateBathymetry;
+      document.getElementById("hillshadeToggle").onchange=async()=>{if(document.getElementById("hillshadeToggle").checked){try{await loadLocalBathymetry();}catch(error){status.textContent=error.message||String(error);}}updateBathymetry();};
       document.getElementById("contoursToggle").onchange=updateContours;
       document.getElementById("talosAssetsToggle").onchange=handleTalosAssetsToggle;
       document.getElementById("pipelinesToggle").onchange=handleFullInfrastructureToggle;
@@ -1325,6 +2318,23 @@
           return {name:"Platforms",layer:platforms,features:features.slice(0,30),errors:[]};
         }catch(error){console.warn("Platform lookup failed",error);return {name:"Platforms",layer:platforms,features:[],errors:[{error}]};}
       };
+      const searchKeyField={platforms:"COMPLEX_ID_NUM",pipelines:"SEGMENT_NUM",wells:"API_NUMBER"};
+      const configForLayer=layer=>layer===pipes?infra.pipelines:layer===platforms?infra.platforms:layer===wells?infra.wells:null;
+      const shownByTalosAssets=(config,feature)=>{
+        if(!talosAssetsLayer?.visible||!document.getElementById("talosAssetsToggle").checked||!talosAssetsData)return false;
+        const child=talosAssetsLayer.layers?.find(item=>item.title===config.options.title);
+        if(child&&child.visible===false)return false;
+        const value=String(feature.attributes?.[searchKeyField[config.key]]??"").trim();
+        return !!value&&(talosAssetsData.keys?.[config.key]||[]).some(key=>String(key).trim()===value);
+      };
+      const ensureResultVisible=(layer,feature)=>{
+        const config=configForLayer(layer);
+        if(!config)return;
+        if(layer.visible&&document.getElementById(config.toggle).checked)return;
+        if(shownByTalosAssets(config,feature))return;
+        document.getElementById(config.toggle).checked=true;
+        layer.visible=true;
+      };
       const focusSearchFeature=async(layer,feature)=>{
         closeResults();
         try{
@@ -1336,17 +2346,11 @@
           }
           const geometry=feature.geometry;
           if(!geometry)throw new Error("Feature has no geometry");
-          if(document.getElementById("talosAssetsToggle").checked){
-            document.getElementById("talosAssetsToggle").checked=false;
-            if(talosAssetsLayer)talosAssetsLayer.visible=false;
-            infrastructureToggleIds.forEach(id=>{document.getElementById(id).checked=false;});
-          }
+          // Leave the layer selection alone if the feature is already drawn (full BSEE layer on, or
+          // Talos Active Assets on and this feature is one of them); otherwise turn on its BSEE layer.
+          ensureResultVisible(layer,feature);
           if(geometry.type==="point")await view.goTo({target:geometry,zoom:14});
           else if(geometry.extent)await view.goTo({target:geometry.extent.expand(1.5)});
-          if(!layer.visible)layer.visible=true;
-          if(layer===pipes)document.getElementById("pipelinesToggle").checked=true;
-          if(layer===platforms)document.getElementById("platformsToggle").checked=true;
-          if(layer===wells)document.getElementById("wellsToggle").checked=true;
           view.openPopup({features:[feature],location:geometry.type==="point"?geometry:geometry.extent?.center});
           status.textContent=`Showing ${layer.title} search result.`;
         }catch(error){console.warn("Could not navigate to search feature",error);status.textContent="Found the record, but could not display its map location.";}

@@ -49,6 +49,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from config import data_directory, structures_file
 
 SERVICE = "https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer"
 
@@ -81,7 +82,7 @@ FIELD_TYPES = {
 SKIP_FIELD = re.compile(r"^(shape__|shape\.|st_length|st_area)", re.I)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
+DATA = data_directory()
 UA = "Bluewater-snapshot-builder/1.1"
 
 
@@ -305,7 +306,7 @@ def build_dataset(name, cfg, chunk=None):
 
 
 def build_structures():
-    src = ROOT / "platform-structures.js"
+    src = structures_file()
     if not src.exists():
         print("[platformStructures] platform-structures.js not found; skipped")
         return None
@@ -356,7 +357,7 @@ def main():
     if unknown:
         parser.error(f"unknown dataset(s): {', '.join(unknown)}")
 
-    DATA.mkdir(exist_ok=True)
+    DATA.mkdir(parents=True, exist_ok=True)
     manifest_path = DATA / "manifest.json"
     manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {"datasets": {}}
     manifest.setdefault("datasets", {})

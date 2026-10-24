@@ -1,0 +1,2 @@
+-r requirements-common.txt
+copernicusmarine==2.5.0

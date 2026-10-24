@@ -1,0 +1,79 @@
+name: bluewater
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    image: bluewater-web:local
+    ports:
+      - "127.0.0.1:${BLUEWATER_HTTP_PORT:-8080}:8080"
+    environment:
+      BLUEWATER_RASTER_CONCURRENCY: ${BLUEWATER_RASTER_CONCURRENCY:-4}
+      BLUEWATER_RELEASE: ${BLUEWATER_RELEASE:-local}
+    volumes:
+      - type: bind
+        source: ${BLUEWATER_HOST_DATA:-./data}
+        target: /data
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BLUEWATER_HOST_STRUCTURES:-./platform-structures.js}
+        target: /inputs/platform-structures.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BLUEWATER_HOST_BATHYMETRY:?Run python tools/configure_containers.py first}
+        target: /bathymetry
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=5).close()"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    restart: unless-stopped
+
+  worker:
+    profiles: [jobs]
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    image: bluewater-worker:local
+    environment:
+      BLUEWATER_COPERNICUS_USERNAME: ${BLUEWATER_COPERNICUS_USERNAME:-}
+      BLUEWATER_COPERNICUS_PASSWORD: ${BLUEWATER_COPERNICUS_PASSWORD:-}
+    volumes:
+      - type: bind
+        source: ${BLUEWATER_HOST_DATA:-./data}
+        target: /data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BLUEWATER_HOST_STRUCTURES:-./platform-structures.js}
+        target: /inputs/platform-structures.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BLUEWATER_HOST_BATHYMETRY:?Run python tools/configure_containers.py first}
+        target: /bathymetry
+        bind:
+          create_host_path: false
+      - worker-scratch:/work
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: "no"
+
+volumes:
+  worker-scratch:

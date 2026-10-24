@@ -1,0 +1,40 @@
+# Local, authenticated-GCS preview; no public cloud service is exposed.
+name: bluewater-cloud-preview
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile.web
+    image: bluewater-web:cloud-preview
+    # The operator ADC volume belongs to root. This local-only operator preview
+    # runs as root to read it, with all capabilities dropped and a read-only root.
+    # Cloud Run will use attached service-account credentials and image USER 10001.
+    user: "0:0"
+    ports:
+      - "127.0.0.1:8081:8080"
+    environment:
+      BLUEWATER_STORAGE_BACKEND: gcs
+      GOOGLE_CLOUD_PROJECT: bluewater-512614
+      GOOGLE_APPLICATION_CREDENTIALS: /credentials/application_default_credentials.json
+      BLUEWATER_DATA_BUCKET: bluewater-512614-bw-staging-data
+      BLUEWATER_BATHYMETRY_BUCKET: bluewater-512614-bw-staging-bathymetry
+      BLUEWATER_TILE_BUCKET: bluewater-512614-bw-staging-tiles
+      BLUEWATER_RELEASE: staging-storage-preview
+    volumes:
+      - credentials:/credentials:ro
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=5).close()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  credentials:
+    external: true
+    name: bluewater-gcloud

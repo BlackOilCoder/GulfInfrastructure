@@ -1,0 +1,6 @@
+project_id  = "bluewater-512614"
+region      = "us-south1"
+environment = "staging"
+# Set initial immutable image digests after publishing to Artifact Registry:
+# web_image    = "us-south1-docker.pkg.dev/bluewater-512614/bluewater-staging/web@sha256:..."
+# worker_image = "us-south1-docker.pkg.dev/bluewater-512614/bluewater-staging/worker@sha256:..."
