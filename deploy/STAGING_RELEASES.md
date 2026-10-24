@@ -2,26 +2,35 @@
 
 Cloud Run service: `bw-staging-web`, project `bluewater-512614`, Dallas
 (`us-south1`). This service reads the existing staging cloud datasets and bathymetry.
-App passwords and invitations remain deferred. Cloud Run IAM requires an authorized
-Google identity for every request; the service has no anonymous invocation grant.
+App passwords and invitations remain deferred. Google Identity-Aware Proxy (IAP)
+provides browser sign-in and checks an explicit access list before requests reach
+the service. Cloud Run IAM permits the IAP service agent to invoke the backend;
+there is no anonymous invocation grant.
 
 ## Open the private staging site
 
-Start Docker Desktop, then run in PowerShell from the project folder:
+Open <https://bw-staging-web-yhlumqdgzq-vp.a.run.app/> in a browser and sign in with
+`mjdionne@gmail.com`. A local server, Docker or a proxy is not needed for viewing.
+Only that account is initially authorized. Other Google accounts are denied unless
+added to the IAP access list.
 
-```powershell
-.\tools\staging_proxy.ps1
-```
+Add future staging viewers to `staging_viewers` in Terraform and plan/apply.
+Terraform manages the service-level IAP access list authoritatively, so changes
+made only in Cloud Console can be removed by a later apply. The project has no
+Google organization; its external OAuth client/brand is bootstrapped once in the
+Google console, outside Terraform, without storing client secrets in the repo.
+Keep that OAuth client available for future IAP use. Google sign-in alone does not
+grant application access; the IAP list remains the authorization check.
 
-Leave that terminal open and visit <http://127.0.0.1:8082/>. Ctrl+C stops the proxy.
-Port 8082 serves the actual Cloud Run site through an authenticated local proxy.
+The OAuth application is currently External / Testing, with `mjdionne@gmail.com`
+as its sole test user. When adding another staging viewer, also add their Google
+email under Google Auth Platform > Audience > Test users. OAuth test-user access
+and the IAP authorization list must both allow them. OAuth credentials were
+generated and saved directly by Google IAP; no client secret was downloaded.
+
 The existing ports 8080 and 8081 still serve their separate local containers.
-
-The proxy uses the Google account signed into the `bluewater-gcloud` Docker volume.
-Sign in again using `cloud_infra.ps1 Login` if needed. Only the operator
-`mjdionne@gmail.com` is initially granted invocation. Add future staging viewers
-to `staging_viewers` in Terraform and plan/apply. Each viewer needs their own Google
-login/proxy; the raw Cloud Run URL is not a browser sign-in page or a public demo.
+`staging_proxy.ps1` was used before IAP; its IAM token is no longer sufficient for
+IAP browser access. Use the HTTPS website directly.
 
 Cloud IAM protects access before requests reach the application. Responses use
 `Cache-Control: private, no-store`. The frontend still uses IndexedDB for dataset

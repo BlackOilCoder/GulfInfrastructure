@@ -93,9 +93,9 @@ replacement. No additional schedule was created for these manual inputs.
 
 ## Private web staging
 
-`bw-staging-web` is deployed in Dallas with Cloud Run IAM authentication, the web
-runtime service account and the private cloud buckets. Use `tools/staging_proxy.ps1`
-to open it on port 8082. `feature-experiments` web changes deploy through the GitHub
+`bw-staging-web` is deployed in Dallas with Google IAP browser sign-in, the web
+runtime service account and the private cloud buckets. Open its HTTPS URL directly
+using the authorized Google account. `feature-experiments` web changes deploy through the GitHub
 workflow. See [STAGING_RELEASES.md](STAGING_RELEASES.md) for access and rollback.
 
 App login/invitations and the administration panel are deferred. A public demo,

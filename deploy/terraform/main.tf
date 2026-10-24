@@ -2,7 +2,7 @@ locals {
   services = toset([
     "storage.googleapis.com", "iam.googleapis.com", "run.googleapis.com",
     "artifactregistry.googleapis.com", "secretmanager.googleapis.com", "cloudscheduler.googleapis.com",
-    "iamcredentials.googleapis.com", "sts.googleapis.com"
+    "iamcredentials.googleapis.com", "sts.googleapis.com", "iap.googleapis.com"
   ])
   buckets = toset(["data", "bathymetry", "tiles"])
   labels  = { application = "bluewater", environment = var.environment }

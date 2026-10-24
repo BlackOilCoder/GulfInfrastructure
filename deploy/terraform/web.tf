@@ -5,7 +5,7 @@ variable "web_image" {
 }
 
 variable "staging_viewers" {
-  description = "IAM principals allowed to invoke private staging through an authenticated proxy."
+  description = "Principals allowed to sign in to private staging through Google IAP."
   type        = set(string)
   default     = ["user:mjdionne@gmail.com"]
 }
@@ -17,6 +17,7 @@ resource "google_cloud_run_v2_service" "web" {
   ingress             = "INGRESS_TRAFFIC_ALL"
   deletion_protection = true
   invoker_iam_disabled = false
+  iap_enabled         = true
   labels              = local.labels
   template {
     service_account                  = google_service_account.web.email
@@ -84,4 +85,29 @@ resource "google_cloud_run_v2_service_iam_member" "viewer" {
 
 output "staging_url" {
   value = try(google_cloud_run_v2_service.web[0].uri, null)
+}
+
+data "google_project" "current" {
+  project_id = var.project_id
+}
+
+resource "google_cloud_run_v2_service_iam_member" "iap_invoker" {
+  count    = var.web_image == "" ? 0 : 1
+  project  = var.project_id
+  location = var.region
+  name     = google_cloud_run_v2_service.web[0].name
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:service-${data.google_project.current.number}@gcp-sa-iap.iam.gserviceaccount.com"
+  depends_on = [google_project_service.api]
+}
+
+# A no-organization project's OAuth client must be bootstrapped once in Cloud Console.
+resource "google_iap_web_cloud_run_service_iam_binding" "staging_viewers" {
+  count                  = var.web_image == "" ? 0 : 1
+  project                = var.project_id
+  location               = var.region
+  cloud_run_service_name = google_cloud_run_v2_service.web[0].name
+  role                   = "roles/iap.httpsResourceAccessor"
+  members                = var.staging_viewers
+  depends_on             = [google_cloud_run_v2_service_iam_member.iap_invoker]
 }
