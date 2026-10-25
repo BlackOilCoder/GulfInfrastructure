@@ -55,7 +55,7 @@
           </div>
         </section>
         <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Data notes</h2><div class="info-card" style="margin:0"><h3>Bathymetry coverage</h3><p>BOEM’s deepwater grid is served from a prepared dataset. Depths are in feet; native cells are 40 × 40 ft. Show Elevation reads the depth grid even when hillshade is off. The brown hillshade uses 5× visual exaggeration; depth values are unchanged. The source grid does not cover the entire Gulf.</p></div>
-          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as map tiles. The interval follows map scale: 1,000 ft zoomed out, 500 ft at regional scale, 100 ft zoomed in (heavier, labeled index lines every 5,000 / 2,500 / 500 ft; every 100 ft line is labeled closer than 1:100,000).</p></div>
+          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as map tiles. The visible interval follows map scale: 5,000 ft at Gulf-wide scale, then 2,000, 1,000, 500, 200 and 100 ft as you zoom in. Overview lines are thinner and fainter, with fewer labels. Every 100 ft line is labeled closer than 1:100,000. The layer badge shows the current interval.</p></div>
           <div class="info-card"><h3>Ocean currents</h3><p>Copernicus Marine Service Global Ocean Physics Analysis and Forecast (GLOBAL_ANALYSISFORECAST_PHY_001_024, 1/12° ≈ 9 km, DOI 10.48670/moi-00016). Modelled values for situational awareness only, not for operational or design use. Generated using E.U. Copernicus Marine Service Information.</p></div>
           <div class="info-card"><h3>Platform details</h3><p>Structure names, business associates, coordinates, water depth and related records are joined to map points by Complex ID. This local BSEE dataset snapshot is dated October 19, 2026.</p></div>
           <div class="info-card"><h3>Infrastructure detail</h3><p>BSEE’s pipeline service provides oil &amp; gas pipeline segments. The source schema does not identify a separate umbilical layer; umbilical coverage may therefore be incomplete. GIS locations are approximate, not official records.</p></div>
@@ -1352,6 +1352,15 @@
         const cache=new window.Map(),inflight=new window.Map(),missing=new Set();
         let labelCache={key:"",labels:[]},textWidths=new window.Map();
         const tierFor=scale=>index.tiers.find(t=>(t.minScale===0||scale<=t.minScale)&&(t.maxScale===0||scale>t.maxScale))||null;
+        // Display thinning uses existing tiles; no contour rebuild is needed.
+        const contourStyle=scale=>{
+          if(scale>6000000)return {interval:5000,indexEvery:5000,minorWidth:.25,majorWidth:.45,minorAlpha:.25,majorAlpha:.50,labelSpacing:760,labelAll:false};
+          if(scale>3000000)return {interval:2000,indexEvery:10000,minorWidth:.30,majorWidth:.55,minorAlpha:.35,majorAlpha:.65,labelSpacing:640,labelAll:false};
+          if(scale>800000)return {interval:1000,indexEvery:5000,minorWidth:.35,majorWidth:.70,minorAlpha:.40,majorAlpha:.75,labelSpacing:560,labelAll:false};
+          if(scale>400000)return {interval:500,indexEvery:2500,minorWidth:.40,majorWidth:.80,minorAlpha:.45,majorAlpha:.80,labelSpacing:500,labelAll:false};
+          if(scale>200000)return {interval:200,indexEvery:1000,minorWidth:.45,majorWidth:.90,minorAlpha:.48,majorAlpha:.85,labelSpacing:460,labelAll:false};
+          return {interval:100,indexEvery:500,minorWidth:.55,majorWidth:1,minorAlpha:.55,majorAlpha:.90,labelSpacing:LABEL_SPACING,labelAll:scale<=100000};
+        };
         const tileKey=(tier,key)=>`${tier.id}/${key}`;
         // ---- Contour smoothing (display only) ----
         // BOEM contours come from a 40 ft grid and are simplified at build time, so they show stair-steps
@@ -1394,11 +1403,20 @@
             for(let k=0;k<coords.length;k+=2){x=k?x+coords[k]:coords[k];y=k?y+coords[k+1]:coords[k+1];pts[k]=x;pts[k+1]=y;}
             return {depth:json.d[i],pts};
           });
-          const minor=new Path2D(),major=new Path2D(),maxShift=smoothLimit(tier);
+          const maxShift=smoothLimit(tier);
           lines.forEach(line=>{
-            line.index=line.depth%tier.indexEvery===0;
             line.pts=smoothLine(line.pts,maxShift); // labels follow the smoothed line too
-            const path=line.index?major:minor,p=line.pts,n=p.length/2;
+          });
+          return {lines,paths:null,used:performance.now()};
+        };
+        const pathsFor=(data,style)=>{
+          const key=`${style.interval}/${style.indexEvery}`;
+          if(data.paths?.key===key)return data.paths;
+          const minor=new Path2D(),major=new Path2D();
+          data.lines.forEach(line=>{
+            if(line.depth%style.interval!==0)return;
+            const path=line.depth%style.indexEvery===0?major:minor,p=line.pts,n=p.length/2;
+            if(n<2)return;
             path.moveTo(p[0],p[1]);
             if(SMOOTH_PASSES>0&&n>2){
               // Quadratic curves through segment midpoints round off the remaining vertex corners.
@@ -1406,7 +1424,8 @@
               path.lineTo(p[n*2-2],p[n*2-1]);
             }else for(let k=2;k<p.length;k+=2)path.lineTo(p[k],p[k+1]);
           });
-          return {lines,minor,major,used:performance.now()};
+          // Retain only the current display pair per tile, keeping mobile memory bounded.
+          return data.paths={key,minor,major};
         };
         const fetchTile=(tier,key)=>{
           const id=tileKey(tier,key);
@@ -1441,7 +1460,7 @@
           return {a:(px[0]-o[0])/tier.extent,b:(px[1]-o[1])/tier.extent,c:(py[0]-o[0])/tier.extent,d:(py[1]-o[1])/tier.extent,e:o[0],f:o[1],k};
         };
         const measure=(ctx,text)=>{let w=textWidths.get(text);if(w===undefined){w=ctx.measureText(text).width;textWidths.set(text,w);}return w;};
-        const placeLabels=(ctx,state,tier,tiles)=>{
+        const placeLabels=(ctx,state,tier,tiles,style)=>{
           const [w,h]=state.size,labels=[],boxes=[];
           ctx.font=LABEL_FONT;
           const free=(x0,y0,x1,y1)=>!boxes.some(b=>x0<b[2]&&x1>b[0]&&y0<b[3]&&y1>b[1]);
@@ -1449,14 +1468,14 @@
             const data=cache.get(tileKey(tier,tile.key));if(!data)continue;
             const t=tileTransform(state,tier,tile);
             for(const line of data.lines){
-              if(!tier.labelAll&&!line.index)continue;
+              if(line.depth%style.interval!==0||(!style.labelAll&&line.depth%style.indexEvery!==0))continue;
               const text=`${line.depth.toLocaleString()} ft`,tw=measure(ctx,text),p=line.pts,n=p.length/2;
               if(n<2)continue;
               const sx=new Float32Array(n),sy=new Float32Array(n),cum=new Float32Array(n);
               for(let i=0;i<n;i++){const X=p[i*2],Y=p[i*2+1];sx[i]=t.a*X+t.c*Y+t.e;sy[i]=t.b*X+t.d*Y+t.f;if(i)cum[i]=cum[i-1]+Math.hypot(sx[i]-sx[i-1],sy[i]-sy[i-1]);}
               const total=cum[n-1];if(total<tw*1.6)continue;
               const at=d=>{let i=1;while(i<n-1&&cum[i]<d)i++;const seg=cum[i]-cum[i-1]||1,f=(d-cum[i-1])/seg;return [sx[i-1]+(sx[i]-sx[i-1])*f,sy[i-1]+(sy[i]-sy[i-1])*f];};
-              for(let d=Math.min(LABEL_SPACING/2,total/2);d+tw/2<=total;d+=LABEL_SPACING){
+              for(let d=Math.min(style.labelSpacing/2,total/2);d+tw/2<=total;d+=style.labelSpacing){
                 if(d<tw/2)continue;
                 const [cx,cy]=at(d),[ax,ay]=at(d-tw/2),[bx,by]=at(d+tw/2);
                 if(cx<0||cy<0||cx>w||cy>h)continue;
@@ -1474,6 +1493,8 @@
         const render=({context:ctx,state,stationary})=>{
           if(!index||state.spatialReference&&!state.spatialReference.isWebMercator)return;
           const tier=tierFor(state.scale);if(!tier)return;
+          const style=contourStyle(state.scale),intervalText=`${style.interval.toLocaleString()} ft`;
+          if(meta.textContent!==intervalText)meta.textContent=intervalText;
           const pr=state.pixelRatio||1,tiles=visibleTiles(state,tier),now=performance.now();
           let pending=false;
           for(const tile of tiles){
@@ -1481,15 +1502,16 @@
             if(!data){fetchTile(tier,tile.key);pending=true;continue;}
             data.used=now;
             const t=tileTransform(state,tier,tile),scale=Math.hypot(t.a,t.b)||1;
+            const paths=pathsFor(data,style);
             ctx.setTransform(t.a*pr,t.b*pr,t.c*pr,t.d*pr,t.e*pr,t.f*pr);
             ctx.lineCap="round";ctx.lineJoin="round";
-            ctx.strokeStyle=`rgba(${COLOR},.55)`;ctx.lineWidth=.7/scale;ctx.stroke(data.minor);
-            ctx.strokeStyle=`rgba(${COLOR},.9)`;ctx.lineWidth=1.25/scale;ctx.stroke(data.major);
+            ctx.strokeStyle=`rgba(${COLOR},${style.minorAlpha})`;ctx.lineWidth=style.minorWidth/scale;ctx.stroke(paths.minor);
+            ctx.strokeStyle=`rgba(${COLOR},${style.majorAlpha})`;ctx.lineWidth=style.majorWidth/scale;ctx.stroke(paths.major);
           }
           ctx.setTransform(pr,0,0,pr,0,0);
           if(!stationary)return;
           const key=`${tier.id}|${state.size}|${state.scale}|${state.center}|${state.rotation}`;
-          if(labelCache.key!==key&&!pending){labelCache={key,labels:placeLabels(ctx,state,tier,tiles)};}
+          if(labelCache.key!==key&&!pending){labelCache={key,labels:placeLabels(ctx,state,tier,tiles,style)};}
           if(labelCache.key!==key)return;
           ctx.font=LABEL_FONT;ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineJoin="round";
           for(const label of labelCache.labels){
