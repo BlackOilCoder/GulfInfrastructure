@@ -55,7 +55,7 @@
           </div>
         </section>
         <section class="section"><div class="divider"></div><h2 class="section-title" style="padding:0 9px">Data notes</h2><div class="info-card" style="margin:0"><h3>Bathymetry coverage</h3><p>BOEM’s deepwater grid is served from a prepared dataset. Depths are in feet; native cells are 40 × 40 ft. Show Elevation reads the depth grid even when hillshade is off. The brown hillshade uses 5× visual exaggeration; depth values are unchanged. The source grid does not cover the entire Gulf.</p></div>
-          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as map tiles. The visible interval follows map scale: 5,000 ft at Gulf-wide scale, then 2,000, 1,000, 500, 200 and 100 ft as you zoom in. Overview lines are thinner and fainter, with fewer labels. Every 100 ft line is labeled closer than 1:100,000. The layer badge shows the current interval.</p></div>
+          <div class="info-card"><h3>Depth contours</h3><p>BOEM contours from the same seismic grid, labeled in feet and stored as map tiles. The visible interval follows map scale: at most 2,000 ft, then 1,000, 500, 200 and 100 ft as you zoom in. The 1,000 ft and 2,000 ft views simplify small bends to match screen resolution. Overview lines are thinner and fainter, with fewer labels. Every 100 ft line is labeled closer than 1:100,000. The layer badge shows the current interval.</p></div>
           <div class="info-card"><h3>Ocean currents</h3><p>Copernicus Marine Service Global Ocean Physics Analysis and Forecast (GLOBAL_ANALYSISFORECAST_PHY_001_024, 1/12° ≈ 9 km, DOI 10.48670/moi-00016). Modelled values for situational awareness only, not for operational or design use. Generated using E.U. Copernicus Marine Service Information.</p></div>
           <div class="info-card"><h3>Platform details</h3><p>Structure names, business associates, coordinates, water depth and related records are joined to map points by Complex ID. This local BSEE dataset snapshot is dated October 19, 2026.</p></div>
           <div class="info-card"><h3>Infrastructure detail</h3><p>BSEE’s pipeline service provides oil &amp; gas pipeline segments. The source schema does not identify a separate umbilical layer; umbilical coverage may therefore be incomplete. GIS locations are approximate, not official records.</p></div>
@@ -1354,7 +1354,7 @@
         const tierFor=scale=>index.tiers.find(t=>(t.minScale===0||scale<=t.minScale)&&(t.maxScale===0||scale>t.maxScale))||null;
         // Display thinning uses existing tiles; no contour rebuild is needed.
         const contourStyle=scale=>{
-          if(scale>6000000)return {interval:5000,indexEvery:5000,minorWidth:.25,majorWidth:.45,minorAlpha:.25,majorAlpha:.50,labelSpacing:760,labelAll:false};
+          if(scale>6000000)return {interval:2000,indexEvery:10000,minorWidth:.25,majorWidth:.45,minorAlpha:.30,majorAlpha:.55,labelSpacing:760,labelAll:false};
           if(scale>3000000)return {interval:2000,indexEvery:10000,minorWidth:.30,majorWidth:.55,minorAlpha:.35,majorAlpha:.65,labelSpacing:640,labelAll:false};
           if(scale>800000)return {interval:1000,indexEvery:5000,minorWidth:.35,majorWidth:.70,minorAlpha:.40,majorAlpha:.75,labelSpacing:560,labelAll:false};
           if(scale>400000)return {interval:500,indexEvery:2500,minorWidth:.40,majorWidth:.80,minorAlpha:.45,majorAlpha:.80,labelSpacing:500,labelAll:false};
@@ -1409,14 +1409,44 @@
           });
           return {lines,paths:null,used:performance.now()};
         };
-        const pathsFor=(data,style)=>{
-          const key=`${style.interval}/${style.indexEvery}`;
+        // Douglas-Peucker in tile coordinates, with a tolerance derived from CSS pixels.
+        // Keep tile-edge endpoints fixed; source geometry and numerical depths are unchanged.
+        const simplifyContour=(pts,tolerance)=>{
+          const n=pts.length/2;
+          if(!tolerance||n<3)return pts;
+          const keep=new Uint8Array(n),stack=[0,n-1],limit=tolerance*tolerance;
+          keep[0]=keep[n-1]=1;
+          while(stack.length){
+            const last=stack.pop(),first=stack.pop();
+            const ax=pts[first*2],ay=pts[first*2+1],dx=pts[last*2]-ax,dy=pts[last*2+1]-ay,len=dx*dx+dy*dy;
+            let farthest=-1,maxDistance=limit;
+            for(let i=first+1;i<last;i++){
+              const px=pts[i*2]-ax,py=pts[i*2+1]-ay;
+              const t=len?Math.max(0,Math.min(1,(px*dx+py*dy)/len)):0;
+              const distance=(px-t*dx)**2+(py-t*dy)**2;
+              if(distance>maxDistance){maxDistance=distance;farthest=i;}
+            }
+            if(farthest>=0){keep[farthest]=1;stack.push(first,farthest,farthest,last);}
+          }
+          const reduced=[];
+          for(let i=0;i<n;i++)if(keep[i])reduced.push(pts[i*2],pts[i*2+1]);
+          const closed=pts[0]===pts[pts.length-2]&&pts[1]===pts[pts.length-1];
+          // Rings smaller than the display tolerance should not become double-stroked slivers.
+          if(closed&&reduced.length<8)return new Float32Array(0);
+          return Float32Array.from(reduced);
+        };
+        const pathsFor=(data,style,pixelsPerUnit)=>{
+          const rawTolerance=style.interval>=1000?(style.interval===2000?1.25:.9)/pixelsPerUnit:0;
+          // Half-octave buckets avoid rebuilding paths on every animation frame while zooming.
+          const tolerance=rawTolerance?2**(Math.round(Math.log2(rawTolerance)*2)/2):0;
+          const key=`${style.interval}/${style.indexEvery}/${tolerance}`;
           if(data.paths?.key===key)return data.paths;
-          const minor=new Path2D(),major=new Path2D();
+          const minor=new Path2D(),major=new Path2D(),lines=[];
           data.lines.forEach(line=>{
             if(line.depth%style.interval!==0)return;
-            const path=line.depth%style.indexEvery===0?major:minor,p=line.pts,n=p.length/2;
+            const path=line.depth%style.indexEvery===0?major:minor,p=simplifyContour(line.pts,tolerance),n=p.length/2;
             if(n<2)return;
+            lines.push({depth:line.depth,pts:p});
             path.moveTo(p[0],p[1]);
             if(SMOOTH_PASSES>0&&n>2){
               // Quadratic curves through segment midpoints round off the remaining vertex corners.
@@ -1425,7 +1455,7 @@
             }else for(let k=2;k<p.length;k+=2)path.lineTo(p[k],p[k+1]);
           });
           // Retain only the current display pair per tile, keeping mobile memory bounded.
-          return data.paths={key,minor,major};
+          return data.paths={key,minor,major,lines};
         };
         const fetchTile=(tier,key)=>{
           const id=tileKey(tier,key);
@@ -1467,7 +1497,7 @@
           for(const tile of tiles){
             const data=cache.get(tileKey(tier,tile.key));if(!data)continue;
             const t=tileTransform(state,tier,tile);
-            for(const line of data.lines){
+            for(const line of data.paths?.lines||data.lines){
               if(line.depth%style.interval!==0||(!style.labelAll&&line.depth%style.indexEvery!==0))continue;
               const text=`${line.depth.toLocaleString()} ft`,tw=measure(ctx,text),p=line.pts,n=p.length/2;
               if(n<2)continue;
@@ -1502,7 +1532,7 @@
             if(!data){fetchTile(tier,tile.key);pending=true;continue;}
             data.used=now;
             const t=tileTransform(state,tier,tile),scale=Math.hypot(t.a,t.b)||1;
-            const paths=pathsFor(data,style);
+            const paths=pathsFor(data,style,scale);
             ctx.setTransform(t.a*pr,t.b*pr,t.c*pr,t.d*pr,t.e*pr,t.f*pr);
             ctx.lineCap="round";ctx.lineJoin="round";
             ctx.strokeStyle=`rgba(${COLOR},${style.minorAlpha})`;ctx.lineWidth=style.minorWidth/scale;ctx.stroke(paths.minor);
