@@ -1010,6 +1010,101 @@
         const zoneFor=lon=>lon<-90?15:16;
         return {toWgs84,fromWgs84,zoneFor};
       })();
+      // ---- Coordinate probe: independent of feature popups and seafloor coverage --------------------
+      const coordinateProbe=(()=>{
+        const wrap=view.container.closest(".map-wrap")||view.container.parentElement;
+        const menu=document.createElement("div");menu.className="depth-menu";menu.hidden=true;menu.setAttribute("role","menu");
+        const item=document.createElement("button");item.type="button";item.className="depth-menu-item";
+        item.setAttribute("role","menuitemcheckbox");item.setAttribute("aria-checked","false");item.textContent="Show coordinates";menu.append(item);
+        const panel=document.createElement("section");panel.hidden=true;panel.setAttribute("aria-label","Location coordinates");
+        panel.style.cssText="position:absolute;z-index:5;width:262px;max-width:calc(100% - 12px);padding:11px 13px;border:1px solid #31515e;border-radius:9px;background:#0b202df5;color:#dce9eb;box-shadow:0 8px 24px #0007;font-size:12px;pointer-events:auto;font-variant-numeric:tabular-nums";
+        const heading=document.createElement("div");heading.style.cssText="font-weight:650;margin-bottom:7px";heading.textContent="Location coordinates";
+        const output=document.createElement("div");output.style.cssText="line-height:1.7;white-space:pre-line";
+        const note=document.createElement("p");note.style.cssText="font-size:10px;color:#94aab4;line-height:1.4;margin:7px 0 0";
+        note.textContent="Drag the marker to update. NAD27 conversion uses the same approximate 5–10 m datum shift as Draw Route.";
+        panel.append(heading,output,note);wrap.append(menu,panel);
+        let marker=null,point=null,menuPoint=null,rightDown=null,dragging=false,queued=false,ownsCursor=false;
+        const currentsOn=()=>document.getElementById("currentsToggle").checked;
+        const hideMenu=()=>{menu.hidden=true;menuPoint=null;};
+        const position=()=>{
+          if(!point||panel.hidden)return;
+          const screen=view.toScreen(point);if(!screen)return;
+          const ox=view.container.offsetLeft,oy=view.container.offsetTop;
+          panel.style.visibility=screen.x<0||screen.y<0||screen.x>view.width||screen.y>view.height?"hidden":"visible";
+          const preferred=screen.x+ox+17;
+          const left=preferred+panel.offsetWidth>wrap.clientWidth-6?screen.x+ox-panel.offsetWidth-17:preferred;
+          panel.style.left=`${Math.max(6,Math.min(wrap.clientWidth-panel.offsetWidth-6,left))}px`;
+          panel.style.top=`${Math.max(6,Math.min(wrap.clientHeight-panel.offsetHeight-6,screen.y+oy-panel.offsetHeight/2))}px`;
+        };
+        const refresh=()=>{
+          queued=false;if(!point)return;
+          const lon=point.longitude,lat=point.latitude;
+          if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
+          const ll=`Latitude (WGS 84): ${lat.toFixed(6)}°\nLongitude (WGS 84): ${lon.toFixed(6)}°`;
+          // Natural six-degree UTM zone, including zones 14–17 across the Gulf.
+          const zone=Math.max(1,Math.min(60,Math.floor((lon+180)/6)+1));
+          if(lat>=0&&lat<=84&&zone>=1&&zone<=22){
+            const xy=nad27Utm.fromWgs84(lon,lat,zone,"m");
+            const fmt=value=>value.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1});
+            output.textContent=`${ll}\nNAD 1927 / UTM zone ${zone}N · EPSG:${26700+zone}\nX (Easting): ${fmt(xy.x)} m\nY (Northing): ${fmt(xy.y)} m`;
+          }else output.textContent=`${ll}\nNAD27 UTM is unavailable here. Use this tool in the Gulf region.`;
+          position();
+        };
+        const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(refresh);}};
+        const onMarker=(x,y)=>{
+          if(!marker||!point||currentsOn())return false;
+          const screen=view.toScreen(point);return !!screen&&Math.hypot(screen.x-x,screen.y-y)<=15;
+        };
+        const clear=()=>{
+          hideMenu();if(marker)view.graphics.remove(marker);marker=null;point=null;dragging=false;panel.hidden=true;
+          item.setAttribute("aria-checked","false");item.textContent="Show coordinates";
+          if(ownsCursor){view.container.style.cursor="";ownsCursor=false;}
+        };
+        const place=mapPoint=>{
+          point=mapPoint;
+          if(!marker){marker=new Graphic({geometry:point,symbol:{type:"simple-marker",style:"cross",size:16,color:[255,222,132],outline:{color:[255,222,132],width:2}}});view.graphics.add(marker);}
+          else marker.geometry=point;
+          panel.hidden=false;item.setAttribute("aria-checked","true");item.textContent="✓ Show coordinates";schedule();
+        };
+        const showMenu=(x,y)=>{
+          if(currentsOn())return;
+          menuPoint=view.toMap({x,y});if(!menuPoint)return;
+          menu.hidden=false;
+          menu.style.left=`${Math.max(6,Math.min(x+view.container.offsetLeft,wrap.clientWidth-menu.offsetWidth-6))}px`;
+          menu.style.top=`${Math.max(6,Math.min(y+view.container.offsetTop,wrap.clientHeight-menu.offsetHeight-6))}px`;
+          item.focus({preventScroll:true});
+        };
+        item.onclick=()=>{const selected=menuPoint;hideMenu();if(marker)clear();else if(selected)place(selected);};
+        view.container.addEventListener("contextmenu",event=>{if(!currentsOn())event.preventDefault();});
+        view.on("pointer-down",event=>{if(event.button===2&&!currentsOn())rightDown={x:event.x,y:event.y};});
+        view.on("pointer-up",event=>{
+          if(event.button!==2||!rightDown)return;
+          const moved=Math.hypot(event.x-rightDown.x,event.y-rightDown.y);rightDown=null;
+          if(moved<6)showMenu(event.x,event.y);
+        });
+        view.on("drag",event=>{
+          if(event.action==="start"){
+            hideMenu();
+            if((event.button===0||event.button===undefined)&&onMarker(event.x,event.y)){dragging=true;event.stopPropagation();view.container.style.cursor="grabbing";ownsCursor=true;}
+            return;
+          }
+          if(!dragging)return;
+          event.stopPropagation();const selected=view.toMap({x:event.x,y:event.y});if(selected)place(selected);
+          if(event.action==="end"){dragging=false;view.container.style.cursor="grab";}
+        });
+        view.on("pointer-move",event=>{
+          if(dragging)return;
+          if(onMarker(event.x,event.y)){view.container.style.cursor="grab";ownsCursor=true;}
+          else if(ownsCursor){view.container.style.cursor="";ownsCursor=false;}
+        });
+        view.on("click",event=>{if(onMarker(event.x,event.y))event.stopPropagation();});
+        view.on("mouse-wheel",hideMenu);
+        reactiveUtils.watch(()=>[view.extent,view.width,view.height,view.rotation],()=>{hideMenu();position();});
+        document.addEventListener("pointerdown",event=>{if(!menu.hidden&&!menu.contains(event.target))hideMenu();},true);
+        document.addEventListener("keydown",event=>{if(event.key==="Escape")hideMenu();});
+        document.getElementById("currentsToggle").addEventListener("change",()=>{if(currentsOn())clear();});
+        return {clear};
+      })();
       // ---- Draw Route ---------------------------------------------------------------------------------
       // A straight route between two points, entered as NAD27 UTM coordinates (zone 15N or 16N, US survey
       // feet or metres) or picked with two map clicks. The route is a geodesic line in WGS 84 and supports
