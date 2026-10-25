@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 COPY deploy/requirements-common.txt deploy/requirements-web.txt /app/deploy/
 RUN pip install --no-cache-dir --only-binary=:all: -r deploy/requirements-web.txt
 COPY app/ /app/app/
-COPY tools/bathymetry.py tools/config.py tools/container_entrypoint.py tools/storage.py tools/cloud_bathymetry.py tools/projection.py /app/tools/
+COPY tools/bathymetry.py tools/config.py tools/container_entrypoint.py tools/storage.py tools/cloud_bathymetry.py tools/projection.py tools/infrastructure.py /app/tools/
 COPY index.html /app/index.html
 USER 10001:10001
 EXPOSE 8080

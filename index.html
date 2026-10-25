@@ -146,8 +146,8 @@
       const putCached=(key,value)=>idb("readwrite",store=>store.put(value,key)).catch(error=>console.warn(`Could not cache ${key} snapshot`,error));
       const getManifest=()=>manifestPromise??=fetch("./data/manifest.json",{cache:"no-cache"}).then(response=>response.ok?response.json():null).catch(()=>null);
       // Resolves {data, origin:"snapshot"|"cache"|"stale-cache", captured} or null when nothing is available.
-      const load=async key=>{
-        const [manifest,cached]=await Promise.all([getManifest(),getCached(key)]);
+      const load=async(key,{cache=true}={})=>{
+        const [manifest,cached]=await Promise.all([getManifest(),cache?getCached(key):null]);
         const entry=manifest?.datasets?.[key];
         if(entry&&cached?.sha256===entry.sha256)return {data:cached.data,origin:"cache",captured:entry.captured};
         if(entry){
@@ -155,7 +155,7 @@
             const response=await fetch(`./data/${entry.file}?v=${entry.sha256.slice(0,16)}`);
             if(!response.ok)throw new Error(`HTTP ${response.status}`);
             const data=await response.json();
-            putCached(key,{sha256:entry.sha256,data});
+            if(cache)putCached(key,{sha256:entry.sha256,data});
             return {data,origin:"snapshot",captured:entry.captured};
           }catch(error){console.warn(`Snapshot ${entry.file} could not be fetched`,error);}
         }
@@ -315,6 +315,7 @@
       };
       let definitionExpression=getPipelineDefinitionExpression();
       const serviceUrl="https://gis.boem.gov/server/rest/services/BOEM_BSEE/GOA_Layers/FeatureServer";
+      const mobileMemoryMode=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
       const pipelineOptions={title:"Offshore pipelines",definitionExpression,renderer:pipelineRenderer,popupTemplate:{title:"Pipeline segment {SEGMENT_NUM}",content:[{type:"fields",fieldInfos:[{fieldName:"STATUS_CODE",label:"Status"},{fieldName:"PROD_CODE",label:"Product code"},{fieldName:"PPL_SIZE_CODE",label:"Size"},{fieldName:"SDE_COMPANY_DESG",label:"Company"},{fieldName:"ORIG_ID_NAME",label:"Origin"},{fieldName:"ORIG_BLK_NUM",label:"Origin block"}]}],actions:[{title:"Show Elevation",id:"show-elevation",className:"esri-icon-line-chart"}]}};
       const platformOptions={title:"Platforms",renderer:{type:"simple",visualVariables:[scaledSize(8,3.5)],symbol:{type:"simple-marker",style:"diamond",size:8,color:[102,226,194,235],outline:{color:[7,30,39,255],width:1}}},popupTemplate:{title:"Platform / structure",content:attributePopup,actions:[{title:"Production Data",id:"production-data",className:"esri-icon-chart"}]}};
       const wellOptions={title:"Oil and gas wells",renderer:{type:"simple",visualVariables:[scaledSize(5,2)],symbol:{type:"simple-marker",size:5,color:[113,169,255,180],outline:{color:[12,32,43,220],width:.6}}},popupTemplate:{title:"Oil & gas well",content:attributePopup,actions:[{title:"Production Data",id:"production-data",className:"esri-icon-chart"}]}};
@@ -329,7 +330,7 @@
       const snapshotOrigins={};
       // Keeps pipelines, platforms and wells above every other layer (in that order).
       const raiseInfrastructure=()=>map.layers.toArray().filter(item=>item.bluewaterRank).sort((a,b)=>a.bluewaterRank-b.bluewaterRank).forEach(item=>map.reorder(item,map.layers.length-1));
-      const buildSnapshotLayer=(config,data)=>{
+      const snapshotGraphics=data=>{
         const point=data.geometryType==="point",names=data.fields.map(field=>field.name),spatialReference=data.spatialReference||{wkid:4326};
         const graphics=new Array(data.rows.length);
         for(let i=0;i<data.rows.length;i++){
@@ -338,6 +339,10 @@
           const g=data.geoms[i];
           graphics[i]=new Graphic({attributes,geometry:point?{type:"point",x:g[0],y:g[1],spatialReference}:{type:"polyline",paths:g,spatialReference}});
         }
+        return graphics;
+      };
+      const buildSnapshotLayer=(config,data)=>{
+        const graphics=snapshotGraphics(data),spatialReference=data.spatialReference||{wkid:4326};
         config.index={graphics,fields:data.fields};
         return new FeatureLayer({...config.options,source:graphics,fields:data.fields,objectIdField:data.objectIdField,geometryType:data.geometryType,spatialReference,outFields:["*"]});
       };
@@ -352,7 +357,7 @@
         document.getElementById(config.count).textContent="Loading…";
         let layer=null,label="Live";
         try{
-          const snapshot=await window.BluewaterSnapshots.load(config.key);
+          const snapshot=mobileMemoryMode?null:await window.BluewaterSnapshots.load(config.key);
           if(snapshot?.data?.rows){
             layer=buildSnapshotLayer(config,snapshot.data);
             snapshotOrigins[config.key]=snapshot;
@@ -403,27 +408,41 @@
       let talosAssetsData=null,talosAssetsLayer=null,talosAssetsPromise=null;
       const infrastructureToggleIds=Object.values(infra).map(config=>config.toggle);
       const ensureTalosAssetsLayer=()=>talosAssetsPromise??=(async()=>{
-        const snapshot=await window.BluewaterSnapshots.load("talosAssets");
-        if(!snapshot?.data?.keys)throw new Error("Talos asset list is unavailable. Check data/talos-active-assets.json and data/manifest.json.");
-        talosAssetsData=snapshot.data;
+        // Filter on the server before transfer: no full hidden BSEE layers or duplicated indexes.
+        const response=await fetch("./api/infrastructure/talos",{cache:"no-cache"});
+        let bundle;
+        if(response.ok)bundle=await response.json();
+        else if(response.status===404){
+          // Compatibility with the native server, which predates the subset API.
+          const assets=await window.BluewaterSnapshots.load("talosAssets");
+          if(!assets?.data?.keys)throw new Error("Talos asset list is unavailable.");
+          bundle={assets:assets.data,datasets:{}};
+          for(const config of Object.values(infra)){
+            const snapshot=await window.BluewaterSnapshots.load(config.key,{cache:false});
+            if(!snapshot?.data?.rows)throw new Error(`Talos ${config.key} snapshot is unavailable.`);
+            const data=snapshot.data,field=assets.data.matchFields[config.key];
+            const column=data.fields.findIndex(item=>item.name===field);
+            const wanted=new Set(assets.data.keys[config.key].map(String)),rows=[],geoms=[];
+            data.rows.forEach((row,i)=>{if(wanted.has(String(row[column]).trim())){rows.push(row);geoms.push(data.geoms[i]);}});
+            bundle.datasets[config.key]={...data,rows,geoms};
+          }
+        }else throw new Error(`Talos assets could not be loaded (HTTP ${response.status}).`);
+        talosAssetsData=bundle.assets;
         const childLayers=[],missing={};
         let totalFeatures=0;
         for(const config of Object.values(infra)){
-          const baseLayer=await ensureInfrastructure(config);
-          const fieldName=config.key==="platforms"?"COMPLEX_ID_NUM":config.key==="pipelines"?"SEGMENT_NUM":"API_NUMBER";
           const keys=talosAssetsData.keys[config.key]||[];
-          const field=baseLayer.fields.find(item=>item.name===fieldName);
-          if(!field)throw new Error(`BSEE ${config.key} data does not contain ${fieldName}.`);
-          const values=field.type==="string"?keys.map(value=>`'${String(value).replace(/'/g,"''")}'`):keys.map(value=>String(value)).filter(value=>/^\d+$/.test(value));
-          if(!values.length){missing[config.key]=keys.length;continue;}
-          const result=await baseLayer.queryFeatures({where:`${fieldName} IN (${values.join(",")})`,outFields:["*"],returnGeometry:true});
-          missing[config.key]=Math.max(0,keys.length-result.features.length);
-          totalFeatures+=result.features.length;
+          const data=bundle.datasets[config.key];
+          const source=snapshotGraphics(data).filter(feature=>config.key!=="pipelines"||passesPipelineFilter(feature.attributes));
+          missing[config.key]=Math.max(0,keys.length-source.length);
+          totalFeatures+=source.length;
           const isPlatforms=config.key==="platforms";
           if(isPlatforms)await ensurePlatformStructures();
-          const source=result.features.map(feature=>new Graphic({geometry:feature.geometry,attributes:isPlatforms?{...feature.attributes,BW_LABEL:talosPlatformLabel(feature.attributes)}:{...feature.attributes}}));
-          const fields=isPlatforms?[...baseLayer.fields.filter(item=>item.name!=="BW_LABEL"),{name:"BW_LABEL",alias:"Map label",type:"string",length:120}]:baseLayer.fields;
-          const child=new FeatureLayer({...config.options,title:config.options.title,source,fields,objectIdField:baseLayer.objectIdField,geometryType:baseLayer.geometryType,spatialReference:baseLayer.spatialReference,outFields:["*"]});
+          if(isPlatforms)source.forEach(feature=>feature.attributes.BW_LABEL=talosPlatformLabel(feature.attributes));
+          const fields=isPlatforms?[...data.fields.filter(item=>item.name!=="BW_LABEL"),{name:"BW_LABEL",alias:"Map label",type:"string",length:120}]:data.fields;
+          const child=new FeatureLayer({...config.options,title:config.options.title,source,fields,objectIdField:data.objectIdField,geometryType:data.geometryType,spatialReference:data.spatialReference||{wkid:4326},outFields:["*"]});
+          child.bluewaterSnapshot=true;
+          snapshotOrigins[`talos-${config.key}`]={origin:"snapshot",captured:data.captured};
           if(isPlatforms){child.labelingInfo=[talosPlatformLabelClass];child.labelsVisible=true;}
           childLayers.push(child);
         }
@@ -431,6 +450,7 @@
         talosAssetsLayer.bluewaterRank=40;
         map.add(talosAssetsLayer);
         raiseInfrastructure();
+        updateDataBadge();
         const listed=talosAssetsData.listedCounts||{};
         const countText=`${totalFeatures.toLocaleString()} features`;
         const countDetails=`Workbook lists ${listed.platformComplexes??talosAssetsData.keys.platforms.length} platform complexes, ${talosAssetsData.keys.pipelines.length} pipeline segments and ${talosAssetsData.keys.wells.length} well APIs. ${missing.pipelines||0} listed pipeline segment IDs are absent or excluded by the current BSEE pipeline layer filters.`;
@@ -735,7 +755,7 @@
       // Popup graphics can carry display-generalized geometry; re-query the full-resolution route.
       const fullRouteAttributes=new window.Map();
       const getFullRouteGeometry=async feature=>{
-        const layer=pipes,objectId=feature?.attributes?.[layer?.objectIdField];
+        const layer=feature?.layer||feature?.sourceLayer||pipes,objectId=feature?.attributes?.[layer?.objectIdField];
         if(layer&&objectId!==null&&objectId!==undefined){
           try{
             const result=await layer.queryFeatures({objectIds:[objectId],returnGeometry:true,outFields:["*"],outSpatialReference:{wkid:4326}});

@@ -90,6 +90,18 @@ def create_app():
         return JSONResponse({"status": "ok", "version": os.environ.get("BLUEWATER_RELEASE", "local")},
                             headers={"Cache-Control": "no-store"})
 
+    from tools.infrastructure import TalosSubset
+    talos_subset = TalosSubset(data_root, cloud)
+
+    @application.get("/api/infrastructure/talos")
+    def talos_infrastructure():
+        try:
+            return Response(talos_subset.get(), media_type="application/json",
+                            headers={"Cache-Control": "private, no-cache"})
+        except Exception as error:
+            LOG.exception("Talos subset could not be loaded")
+            raise HTTPException(503, "Talos asset snapshots are temporarily unavailable.") from error
+
     @application.get("/readyz")
     def ready():
         try:
