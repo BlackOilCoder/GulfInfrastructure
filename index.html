@@ -1016,25 +1016,49 @@
         const menu=document.createElement("div");menu.className="depth-menu";menu.hidden=true;menu.setAttribute("role","menu");
         const item=document.createElement("button");item.type="button";item.className="depth-menu-item";
         item.setAttribute("role","menuitemcheckbox");item.setAttribute("aria-checked","false");item.textContent="Show coordinates";menu.append(item);
-        const panel=document.createElement("section");panel.hidden=true;panel.setAttribute("aria-label","Location coordinates");
+        const panel=document.createElement("section");panel.hidden=true;panel.setAttribute("aria-label","Location coordinates");panel.setAttribute("role","dialog");panel.setAttribute("aria-modal","false");
         panel.style.cssText="position:absolute;z-index:5;width:262px;max-width:calc(100% - 12px);padding:11px 13px;border:1px solid #31515e;border-radius:9px;background:#0b202df5;color:#dce9eb;box-shadow:0 8px 24px #0007;font-size:12px;pointer-events:auto;font-variant-numeric:tabular-nums";
-        const heading=document.createElement("div");heading.style.cssText="font-weight:650;margin-bottom:7px";heading.textContent="Location coordinates";
+        const header=document.createElement("header");header.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;cursor:grab;touch-action:none;user-select:none";
+        const heading=document.createElement("div");heading.style.cssText="font-weight:650";heading.textContent="Location coordinates";
+        const closeButton=document.createElement("button");closeButton.type="button";closeButton.className="profile-close";closeButton.textContent="Close";closeButton.setAttribute("aria-label","Close coordinates and remove marker");
+        header.append(heading,closeButton);
         const output=document.createElement("div");output.style.cssText="line-height:1.7;white-space:pre-line";
+        const depthLine=document.createElement("div");depthLine.style.cssText="line-height:1.7;margin-top:5px;color:#39ff5a";
+        depthLine.title="BOEM seafloor depth in feet, positive downward; nearest-cell sampling. Available with hillshade off.";
         const note=document.createElement("p");note.style.cssText="font-size:10px;color:#94aab4;line-height:1.4;margin:7px 0 0";
-        note.textContent="Drag the marker to update. NAD27 conversion uses the same approximate 5–10 m datum shift as Draw Route.";
-        panel.append(heading,output,note);wrap.append(menu,panel);
+        note.textContent="Drag the marker to update; drag this header to move the panel. NAD27 conversion uses the same approximate 5–10 m datum shift as Draw Route.";
+        panel.append(header,output,depthLine,note);wrap.append(menu,panel);
         let marker=null,point=null,menuPoint=null,rightDown=null,dragging=false,queued=false,ownsCursor=false;
+        let depthTimer=null,depthController=null,depthGeneration=0;
         const currentsOn=()=>document.getElementById("currentsToggle").checked;
         const hideMenu=()=>{menu.hidden=true;menuPoint=null;};
         const position=()=>{
-          if(!point||panel.hidden)return;
-          const screen=view.toScreen(point);if(!screen)return;
-          const ox=view.container.offsetLeft,oy=view.container.offsetTop;
-          panel.style.visibility=screen.x<0||screen.y<0||screen.x>view.width||screen.y>view.height?"hidden":"visible";
-          const preferred=screen.x+ox+17;
-          const left=preferred+panel.offsetWidth>wrap.clientWidth-6?screen.x+ox-panel.offsetWidth-17:preferred;
+          if(panel.hidden)return;
+          const left=panel.style.left?panel.offsetLeft:wrap.clientWidth-panel.offsetWidth-16;
+          const top=panel.style.top?panel.offsetTop:16;
           panel.style.left=`${Math.max(6,Math.min(wrap.clientWidth-panel.offsetWidth-6,left))}px`;
-          panel.style.top=`${Math.max(6,Math.min(wrap.clientHeight-panel.offsetHeight-6,screen.y+oy-panel.offsetHeight/2))}px`;
+          panel.style.top=`${Math.max(6,Math.min(wrap.clientHeight-panel.offsetHeight-6,top))}px`;
+        };
+        const scheduleDepth=()=>{
+          clearTimeout(depthTimer);depthController?.abort();const generation=++depthGeneration;
+          depthLine.textContent="Seafloor depth: updating…";
+          // Coordinates refresh every animation frame; debounce the numeric raster request.
+          depthTimer=setTimeout(async()=>{
+            if(!point||generation!==depthGeneration)return;
+            const lon=point.longitude,lat=point.latitude,controller=new AbortController();depthController=controller;
+            const timeout=setTimeout(()=>controller.abort(),20000);
+            try{
+              const response=await fetch(`${bathymetryApiUrl}sample`,{method:"POST",cache:"no-store",signal:controller.signal,
+                headers:{"Content-Type":"application/json"},body:JSON.stringify({points:[[lon,lat]],method:"nearest"})});
+              if(!response.ok)throw new Error(`HTTP ${response.status}`);
+              const result=await response.json();
+              if(result.units!=="feet"||result.samples?.length!==1)throw new Error("Invalid depth response");
+              if(generation!==depthGeneration||!marker)return;
+              const depth=result.samples[0].depthFt;
+              depthLine.textContent=Number.isFinite(depth)&&depth>=0?`Seafloor depth: ${depth.toLocaleString(undefined,{maximumFractionDigits:1})} ft`:"Seafloor depth: no bathymetry coverage";
+            }catch(error){if(generation===depthGeneration&&marker)depthLine.textContent="Seafloor depth: unavailable";}
+            finally{clearTimeout(timeout);if(depthController===controller)depthController=null;}
+          },250);
         };
         const refresh=()=>{
           queued=false;if(!point)return;
@@ -1056,16 +1080,33 @@
           const screen=view.toScreen(point);return !!screen&&Math.hypot(screen.x-x,screen.y-y)<=15;
         };
         const clear=()=>{
+          clearTimeout(depthTimer);depthGeneration++;depthController?.abort();depthController=null;
           hideMenu();if(marker)view.graphics.remove(marker);marker=null;point=null;dragging=false;panel.hidden=true;
           item.setAttribute("aria-checked","false");item.textContent="Show coordinates";
           if(ownsCursor){view.container.style.cursor="";ownsCursor=false;}
         };
         const place=mapPoint=>{
           point=mapPoint;
-          if(!marker){marker=new Graphic({geometry:point,symbol:{type:"simple-marker",style:"cross",size:16,color:[255,222,132],outline:{color:[255,222,132],width:2}}});view.graphics.add(marker);}
+          if(!marker){marker=new Graphic({geometry:point,symbol:{type:"simple-marker",style:"cross",size:16,color:[57,255,90],outline:{color:[57,255,90],width:2}}});view.graphics.add(marker);}
           else marker.geometry=point;
-          panel.hidden=false;item.setAttribute("aria-checked","true");item.textContent="✓ Show coordinates";schedule();
+          panel.hidden=false;item.setAttribute("aria-checked","true");item.textContent="✓ Show coordinates";schedule();scheduleDepth();
         };
+        closeButton.onclick=clear;
+        header.addEventListener("pointerdown",event=>{
+          if(event.button!==0||event.target.closest("button"))return;
+          event.preventDefault();event.stopPropagation();hideMenu();
+          const start={x:event.clientX,y:event.clientY,left:panel.offsetLeft,top:panel.offsetTop};
+          header.setPointerCapture(event.pointerId);header.style.cursor="grabbing";
+          const move=e=>{
+            panel.style.left=`${Math.max(6,Math.min(wrap.clientWidth-panel.offsetWidth-6,start.left+e.clientX-start.x))}px`;
+            panel.style.top=`${Math.max(6,Math.min(wrap.clientHeight-panel.offsetHeight-6,start.top+e.clientY-start.y))}px`;
+          };
+          const up=e=>{
+            header.removeEventListener("pointermove",move);header.removeEventListener("pointerup",up);header.removeEventListener("pointercancel",up);
+            if(header.hasPointerCapture(e.pointerId))header.releasePointerCapture(e.pointerId);header.style.cursor="grab";
+          };
+          header.addEventListener("pointermove",move);header.addEventListener("pointerup",up);header.addEventListener("pointercancel",up);
+        });
         const showMenu=(x,y)=>{
           if(currentsOn())return;
           menuPoint=view.toMap({x,y});if(!menuPoint)return;
@@ -1099,7 +1140,8 @@
         });
         view.on("click",event=>{if(onMarker(event.x,event.y))event.stopPropagation();});
         view.on("mouse-wheel",hideMenu);
-        reactiveUtils.watch(()=>[view.extent,view.width,view.height,view.rotation],()=>{hideMenu();position();});
+        reactiveUtils.watch(()=>[view.extent,view.rotation],hideMenu);
+        reactiveUtils.watch(()=>[view.width,view.height],()=>{hideMenu();position();});
         document.addEventListener("pointerdown",event=>{if(!menu.hidden&&!menu.contains(event.target))hideMenu();},true);
         document.addEventListener("keydown",event=>{if(event.key==="Escape")hideMenu();});
         document.getElementById("currentsToggle").addEventListener("change",()=>{if(currentsOn())clear();});
