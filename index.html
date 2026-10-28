@@ -40,6 +40,14 @@
     .topbar .badge,.topspacer{display:none}.topbar>.search{flex:1;width:auto;max-width:590px;min-width:160px}.topbar>.map-tools{position:static;flex:none;gap:7px}.topbar>.map-tools .map-button{box-shadow:none}#riserToggle[aria-pressed="true"]:hover{background:#205e78;color:white}
     @media(max-width:1100px){.brand{min-width:190px}.topbar{gap:12px;padding:0 16px}.badge{display:none}.search{width:min(480px,55vw)}.topbar>.map-tools{position:absolute;top:76px;right:18px}}
     @media(max-width:760px){.workspace{grid-template-columns:1fr;grid-template-rows:1fr auto}.topbar{padding:0 12px;gap:9px}.brand{min-width:0}.brandname{font-size:20px}.brandmark{width:22px;font-size:25px}.search{width:auto;min-width:0}.sidebar{padding:12px 14px}.sidebar>.section:first-child .section-title{font-family:inherit;font-size:14px;margin-top:0}.layer-label{font-size:11px}.map-tools{gap:5px}.topbar>.map-tools{top:68px;right:10px;gap:5px}.topbar>.search{min-width:0}.map-button{font-size:10px;padding:7px 8px}#elevationDialog{inset:auto 8px 8px 8px}#elevationDialog .profile-dialog{max-height:70vh;padding:12px}.profile-heading h2{font-size:18px}}
+    /* Chartroom layout: grouped layers, quieter supporting information, wide detail docks. */
+    .sidebar{padding:0;display:flex;flex-direction:column;gap:0;--sidebar-width:270px}.chartroom-layers{margin:0;padding:16px}.chartroom-layer-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}.chartroom-layer-heading h2{font:700 21px Georgia,serif;margin:0}.chartroom-collapse{border:0;background:transparent;color:var(--text);font:20px system-ui;cursor:pointer;padding:3px 6px}.chartroom-layer-body[hidden]{display:none}
+    .chartroom-layers .switch-row{display:grid;grid-template-columns:18px 20px minmax(0,1fr);column-gap:10px;row-gap:2px;padding:11px 10px;min-height:45px;align-items:center;margin:2px 0;border-radius:5px}.chartroom-layers .switch-row input{grid-column:1;grid-row:1 / span 2;align-self:center}.layer-symbol{grid-column:2;grid-row:1 / span 2;display:flex;align-items:center;color:var(--text)}.layer-symbol svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.chartroom-layers .layer-label{grid-column:3;font-size:12px;font-weight:600}.chartroom-layers .layer-meta{grid-column:3;line-height:1.2;font-size:10px}.chartroom-layers .switch-row:has(#talosAssetsToggle:checked){background:#eaf3f7}.chartroom-layer-group{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+    .chartroom-inline-legend{padding:5px 9px 12px 59px;display:grid;gap:9px}.chartroom-inline-legend .legend-item{font-size:11px;gap:10px}.chartroom-inline-legend .legend-line{width:25px;height:2px}.chartroom-inline-legend .layer-meta{display:none}.chartroom-inline-legend .legend-item:has(.legend-diamond),.chartroom-inline-legend .legend-item:has(.legend-dot){display:none}.sidebar>.section,.sidebar>.chartroom-notes{padding:14px 16px;margin:0;border-top:1px solid var(--line)}.sidebar>.section .divider{display:none}.chartroom-notes summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--text);padding:3px 0}.chartroom-notes .info-card{margin-top:12px;border:0;background:transparent;padding:0}.chartroom-notes .info-card h3{font-size:11px}.chartroom-notes .attribution{font-size:9px}
+    .esri-popup--is-docked{left:16px!important;right:16px!important;bottom:16px!important;top:auto!important;width:auto!important;margin:0!important}.esri-popup--is-docked .esri-popup__main-container{width:100%!important;max-width:none!important;max-height:310px!important;border:1px solid var(--line);border-radius:8px!important;box-shadow:0 8px 30px #17344b22!important}.esri-popup--is-docked .esri-popup__header{padding:8px 13px;border-bottom:1px solid var(--line)}.esri-popup__header-title{font:700 20px Georgia,serif!important}.esri-popup--is-docked .esri-popup__content{max-height:190px!important;padding:8px 18px!important;margin:0!important;font-size:12px}.esri-popup--is-docked .esri-feature-fields__field-header{font-weight:500;color:var(--muted)}.esri-popup--is-docked .esri-popup__footer{border-top:1px solid var(--line);padding:8px 14px}.esri-popup__action{color:var(--accent)!important}
+    #elevationDialog .profile-dialog{display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-areas:"header header" "status status" "summary chart" "controls chart" "note note";column-gap:22px;row-gap:5px;max-height:min(500px,60vh);background:white;border-radius:8px}#elevationDialog .profile-header{grid-area:header;border-bottom:1px solid var(--line);padding-bottom:12px;align-items:center}#elevationDialog .profile-status{grid-area:status}#elevationSummary{grid-area:summary;display:flex;flex-direction:column;gap:0;margin:0!important}#elevationSummary .profile-stat{border:0;border-bottom:1px solid #edf1f3;border-radius:0;padding:6px 0;background:transparent;display:flex;align-items:baseline;justify-content:space-between;font-size:11px}#elevationSummary .profile-stat strong{font-size:12px}#riserControls{grid-area:controls;align-content:start;gap:8px}#elevationChart{grid-area:chart;align-self:start;border:0;border-left:1px solid var(--line);border-radius:0;padding:0 0 0 14px}#elevationDialog .profile-note{grid-area:note;margin:7px 0 0;border-top:1px solid var(--line);padding-top:8px}#elevationSummary[hidden],#riserControls[hidden],#elevationChart[hidden]{display:none}
+    .coordinate-card{padding:0!important;width:295px!important;border-radius:7px!important;overflow:hidden;background:white!important}.coordinate-card>header{padding:12px 14px!important;margin:0!important;border-bottom:1px solid var(--line);font-size:13px}.coordinate-card>header .profile-close{border:0;background:transparent;padding:0 2px;font-size:19px;line-height:1;color:var(--muted)}.coordinate-values{padding:9px 14px}.coordinate-group-title{font-size:11px;font-weight:700;padding:5px 0 7px;color:var(--text)}.coordinate-group-title:not(:first-child){border-top:1px solid var(--line);margin-top:10px;padding-top:11px}.coordinate-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;line-height:1.8;font-size:11px}.coordinate-row span{color:var(--muted)}.coordinate-row strong{font-weight:500;text-align:right;overflow-wrap:anywhere}.coordinate-card .coordinate-depth{padding:10px 14px;margin:0!important;border-top:1px solid var(--line);font-size:12px;color:var(--text)}.coordinate-card>p{padding:0 14px 11px!important;margin:0!important;font-size:9px!important;line-height:1.5!important}
+    @media(max-width:760px){.sidebar{display:block;max-height:31vh;padding:0}.chartroom-layers{padding:10px 12px}.chartroom-layer-heading{margin-bottom:5px}.chartroom-layer-heading h2{font:700 16px system-ui}.chartroom-layer-body{display:grid;grid-template-columns:1fr 1fr;gap:5px}.chartroom-layers .switch-row{grid-template-columns:18px 16px minmax(0,1fr);gap:3px 6px;padding:7px 5px;min-height:38px;margin:0}.chartroom-inline-legend{display:none}.chartroom-layer-group{margin:0;padding:0;border:0}.chartroom-layer-group{display:contents}.layer-symbol svg{width:16px;height:16px}.chartroom-notes[open] .info-card,.chartroom-notes[open] .attribution{display:block}.chartroom-layers .layer-label{font-size:10px}.chartroom-layers .layer-meta{font-size:9px}.sidebar>.section,.sidebar>.chartroom-notes{padding:10px 14px}.esri-popup--is-docked{left:8px!important;right:8px!important;bottom:8px!important}.esri-popup--is-docked .esri-popup__main-container{max-height:40vh!important}#elevationDialog .profile-dialog{display:block;max-height:65vh}#elevationSummary{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin:7px 0!important}#elevationSummary .profile-stat{font-size:10px;gap:5px;padding:3px 6px}#elevationChart{padding:6px 0 0;border-left:0;border-top:1px solid var(--line)}.coordinate-card{width:280px!important}}
   </style>
 </head>
 <body>
@@ -117,6 +125,27 @@
   </div>
   <script>
     (()=>{
+      // Reorganize the existing controls rather than duplicating their IDs or handlers.
+      const sidebar=document.querySelector(".sidebar"),originalLayers=sidebar.querySelector(".section");
+      const originalLegend=sidebar.querySelector(".legend"),legendSection=originalLegend.closest(".section");
+      const layerSection=document.createElement("section");layerSection.className="chartroom-layers";
+      const layerHeader=document.createElement("header");layerHeader.className="chartroom-layer-heading";
+      const layerTitle=document.createElement("h2");layerTitle.textContent="Layers";
+      const collapseLayers=document.createElement("button");collapseLayers.type="button";collapseLayers.className="chartroom-collapse";collapseLayers.textContent="⌃";collapseLayers.setAttribute("aria-label","Collapse layer list");collapseLayers.setAttribute("aria-expanded","true");
+      const layerBody=document.createElement("div");layerBody.className="chartroom-layer-body";layerBody.id="chartroomLayerList";collapseLayers.setAttribute("aria-controls",layerBody.id);
+      const icons={talosAssetsToggle:'<path d="m2 7 8-4 8 4-8 4Z M2 11l8 4 8-4 M2 15l8 4 8-4"/>',pipelinesToggle:'<path d="m4 15 5-9 7 2"/><circle cx="3" cy="16" r="2"/><circle cx="10" cy="5" r="2"/><circle cx="17" cy="8" r="2"/>',platformsToggle:'<path d="M3 11h14v3H3z M5 14l-2 5 M15 14l2 5 M7 11V5h6v6 M10 5V1 M6 5h8 M5 18h10"/>',wellsToggle:'<path d="M10 2C7 6 4 9 4 12a6 6 0 0 0 12 0c0-3-3-6-6-10Z"/>',hillshadeToggle:'<path d="m1 17 6-12 5 8 3-5 4 9Z M5 9l2 2 2-2"/>',contoursToggle:'<path d="M1 5c5-5 12 5 18 0 M1 10c5-5 12 5 18 0 M1 15c5-5 12 5 18 0"/>',currentsToggle:'<path d="M1 6h12c5 0 5-5 1-5 M1 10h16 M1 14h10c5 0 5 5 1 5"/>'};
+      const moveLayer=id=>{
+        const row=document.getElementById(id).closest("label"),symbol=document.createElement("span");symbol.className="layer-symbol";symbol.setAttribute("aria-hidden","true");symbol.innerHTML=`<svg viewBox="0 0 20 22">${icons[id]}</svg>`;row.querySelector(".layer-dot").replaceWith(symbol);return row;
+      };
+      layerBody.append(moveLayer("talosAssetsToggle"));
+      const infrastructureGroup=document.createElement("div");infrastructureGroup.className="chartroom-layer-group";
+      originalLegend.className="chartroom-inline-legend";
+      infrastructureGroup.append(moveLayer("pipelinesToggle"),originalLegend,moveLayer("platformsToggle"),moveLayer("wellsToggle"));
+      const terrainGroup=document.createElement("div");terrainGroup.className="chartroom-layer-group";terrainGroup.append(moveLayer("hillshadeToggle"),moveLayer("contoursToggle"),moveLayer("currentsToggle"));
+      layerBody.append(infrastructureGroup,terrainGroup);layerHeader.append(layerTitle,collapseLayers);layerSection.append(layerHeader,layerBody);originalLayers.replaceWith(layerSection);legendSection.remove();
+      collapseLayers.onclick=()=>{layerBody.hidden=!layerBody.hidden;collapseLayers.textContent=layerBody.hidden?"⌄":"⌃";collapseLayers.setAttribute("aria-expanded",String(!layerBody.hidden));collapseLayers.setAttribute("aria-label",layerBody.hidden?"Expand layer list":"Collapse layer list");};
+      const oldNotes=[...sidebar.querySelectorAll(".section")].find(section=>section.querySelector(".info-card"));
+      if(oldNotes){const notes=document.createElement("details"),summary=document.createElement("summary");notes.className="chartroom-notes";summary.textContent="Data notes & sources";notes.append(summary);oldNotes.querySelector(".divider")?.remove();oldNotes.querySelector(".section-title")?.remove();while(oldNotes.firstChild)notes.append(oldNotes.firstChild);oldNotes.replaceWith(notes);}
       const status=document.getElementById("status");
       const searchInput=document.getElementById("searchInput");
       window.offshoreMapStarted=false;
@@ -485,7 +514,7 @@
       };
       window.offshoreStartupStage="creating map view";
       const map=new Map({basemap:"gray-vector",layers:[hillshade]});
-      const popup=new Popup({dockEnabled:true,dockOptions:{position:"bottom-right",breakpoint:false}});
+      const popup=new Popup({dockEnabled:true,dockOptions:{position:"bottom-center",breakpoint:false}});
       const view=new MapView({container:"map",map,extent,constraints:{minZoom:4},popup});
       window.offshoreStartupStage="setting up map controls";
       // Basemap gallery is created on first open (it fetches a portal basemap group and thumbnails).
@@ -961,8 +990,10 @@
       riserUi.end.onchange=()=>redrawElevation();
       riserUi.angle.oninput=()=>{riserUi.angleValue.textContent=`${riserUi.angle.value}°`;redrawElevation();};
       const showElevationProfile=async feature=>{
+        view.closePopup?.();
         const drawn=!!feature?.attributes?.BW_DRAWN_ROUTE;
         const segment=drawn?(feature.attributes.ROUTE_NAME||"Drawn route"):feature?.attributes?.SEGMENT_NUM??"Unknown";
+        document.getElementById("elevationTitle").textContent=drawn?segment:`Pipeline segment ${segment}`;
         previousFocus=document.activeElement;
         currentProfileExport=null;exportButton.disabled=true;resetRiserUi();
         elevationDialog.hidden=false;elevationSummary.hidden=true;elevationChart.hidden=true;elevationSummary.replaceChildren();elevationChart.replaceChildren();
@@ -1032,14 +1063,14 @@
         const menu=document.createElement("div");menu.className="depth-menu";menu.hidden=true;menu.setAttribute("role","menu");
         const item=document.createElement("button");item.type="button";item.className="depth-menu-item";
         item.setAttribute("role","menuitemcheckbox");item.setAttribute("aria-checked","false");item.textContent="Show coordinates";menu.append(item);
-        const panel=document.createElement("section");panel.hidden=true;panel.setAttribute("aria-label","Location coordinates");panel.setAttribute("role","dialog");panel.setAttribute("aria-modal","false");
+        const panel=document.createElement("section");panel.className="coordinate-card";panel.hidden=true;panel.setAttribute("aria-label","Location coordinates");panel.setAttribute("role","dialog");panel.setAttribute("aria-modal","false");
         panel.style.cssText="position:absolute;z-index:5;width:262px;max-width:calc(100% - 12px);padding:11px 13px;border:1px solid #cedbe1;border-radius:9px;background:#fffffff5;color:#17344b;box-shadow:0 8px 24px #17344b24;font-size:12px;pointer-events:auto;font-variant-numeric:tabular-nums";
         const header=document.createElement("header");header.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;cursor:grab;touch-action:none;user-select:none";
         const heading=document.createElement("div");heading.style.cssText="font-weight:650";heading.textContent="Location coordinates";
-        const closeButton=document.createElement("button");closeButton.type="button";closeButton.className="profile-close";closeButton.textContent="Close";closeButton.setAttribute("aria-label","Close coordinates and remove marker");
+        const closeButton=document.createElement("button");closeButton.type="button";closeButton.className="profile-close";closeButton.textContent="×";closeButton.setAttribute("aria-label","Close coordinates and remove marker");
         header.append(heading,closeButton);
-        const output=document.createElement("div");output.style.cssText="line-height:1.7;white-space:pre-line";
-        const depthLine=document.createElement("div");depthLine.style.cssText="line-height:1.7;margin-top:5px";
+        const output=document.createElement("div");output.className="coordinate-values";
+        const depthLine=document.createElement("div");depthLine.className="coordinate-depth";
         depthLine.title="BOEM seafloor depth in feet, positive downward; nearest-cell sampling. Available with hillshade off.";
         const note=document.createElement("p");note.style.cssText="font-size:10px;color:#617786;line-height:1.4;margin:7px 0 0";
         note.textContent="Drag the marker to update; drag this header to move the panel. NAD27 conversion uses the same approximate 5–10 m datum shift as Draw Route.";
@@ -1080,14 +1111,17 @@
           queued=false;if(!point)return;
           const lon=point.longitude,lat=point.latitude;
           if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
-          const ll=`Latitude (WGS 84): ${lat.toFixed(6)}°\nLongitude (WGS 84): ${lon.toFixed(6)}°`;
+          output.replaceChildren();
+          const group=text=>{const node=document.createElement("div");node.className="coordinate-group-title";node.textContent=text;output.append(node);};
+          const row=(label,value)=>{const node=document.createElement("div"),name=document.createElement("span"),detail=document.createElement("strong");node.className="coordinate-row";name.textContent=label;detail.textContent=value;node.append(name,detail);output.append(node);};
+          group("WGS 84");row("Latitude",`${Math.abs(lat).toFixed(6)}° ${lat>=0?"N":"S"}`);row("Longitude",`${Math.abs(lon).toFixed(6)}° ${lon>=0?"E":"W"}`);
           // Natural six-degree UTM zone, including zones 14–17 across the Gulf.
           const zone=Math.max(1,Math.min(60,Math.floor((lon+180)/6)+1));
           if(lat>=0&&lat<=84&&zone>=1&&zone<=22){
             const xy=nad27Utm.fromWgs84(lon,lat,zone,"ft");
             const fmt=value=>value.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1});
-            output.textContent=`${ll}\nNAD 1927 / UTM zone ${zone}N · EPSG:${26700+zone}\nX (Easting): ${fmt(xy.x)} US survey ft\nY (Northing): ${fmt(xy.y)} US survey ft`;
-          }else output.textContent=`${ll}\nNAD27 UTM is unavailable here. Use this tool in the Gulf region.`;
+            group(`NAD27 UTM · Zone ${zone}N`);output.title=`EPSG:${26700+zone}; X/Y displayed in US survey feet`;row("X (US survey ft)",fmt(xy.x));row("Y (US survey ft)",fmt(xy.y));
+          }else{output.removeAttribute("title");group("NAD27 UTM unavailable outside this region");}
           position();
         };
         const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(refresh);}};
