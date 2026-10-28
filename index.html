@@ -1023,7 +1023,7 @@
         const closeButton=document.createElement("button");closeButton.type="button";closeButton.className="profile-close";closeButton.textContent="Close";closeButton.setAttribute("aria-label","Close coordinates and remove marker");
         header.append(heading,closeButton);
         const output=document.createElement("div");output.style.cssText="line-height:1.7;white-space:pre-line";
-        const depthLine=document.createElement("div");depthLine.style.cssText="line-height:1.7;margin-top:5px;color:#39ff5a";
+        const depthLine=document.createElement("div");depthLine.style.cssText="line-height:1.7;margin-top:5px";
         depthLine.title="BOEM seafloor depth in feet, positive downward; nearest-cell sampling. Available with hillshade off.";
         const note=document.createElement("p");note.style.cssText="font-size:10px;color:#94aab4;line-height:1.4;margin:7px 0 0";
         note.textContent="Drag the marker to update; drag this header to move the panel. NAD27 conversion uses the same approximate 5–10 m datum shift as Draw Route.";
@@ -1068,9 +1068,9 @@
           // Natural six-degree UTM zone, including zones 14–17 across the Gulf.
           const zone=Math.max(1,Math.min(60,Math.floor((lon+180)/6)+1));
           if(lat>=0&&lat<=84&&zone>=1&&zone<=22){
-            const xy=nad27Utm.fromWgs84(lon,lat,zone,"m");
+            const xy=nad27Utm.fromWgs84(lon,lat,zone,"ft");
             const fmt=value=>value.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1});
-            output.textContent=`${ll}\nNAD 1927 / UTM zone ${zone}N · EPSG:${26700+zone}\nX (Easting): ${fmt(xy.x)} m\nY (Northing): ${fmt(xy.y)} m`;
+            output.textContent=`${ll}\nNAD 1927 / UTM zone ${zone}N · EPSG:${26700+zone}\nX (Easting): ${fmt(xy.x)} US survey ft\nY (Northing): ${fmt(xy.y)} US survey ft`;
           }else output.textContent=`${ll}\nNAD27 UTM is unavailable here. Use this tool in the Gulf region.`;
           position();
         };
