@@ -48,6 +48,16 @@
     #elevationDialog .profile-dialog{display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-areas:"header header" "status status" "summary chart" "controls chart" "note note";column-gap:22px;row-gap:5px;max-height:min(500px,60vh);background:white;border-radius:8px}#elevationDialog .profile-header{grid-area:header;border-bottom:1px solid var(--line);padding-bottom:12px;align-items:center}#elevationDialog .profile-status{grid-area:status}#elevationSummary{grid-area:summary;display:flex;flex-direction:column;gap:0;margin:0!important}#elevationSummary .profile-stat{border:0;border-bottom:1px solid #edf1f3;border-radius:0;padding:6px 0;background:transparent;display:flex;align-items:baseline;justify-content:space-between;font-size:11px}#elevationSummary .profile-stat strong{font-size:12px}#riserControls{grid-area:controls;align-content:start;gap:8px}#elevationChart{grid-area:chart;align-self:start;border:0;border-left:1px solid var(--line);border-radius:0;padding:0 0 0 14px}#elevationDialog .profile-note{grid-area:note;margin:7px 0 0;border-top:1px solid var(--line);padding-top:8px}#elevationSummary[hidden],#riserControls[hidden],#elevationChart[hidden]{display:none}
     .coordinate-card{padding:0!important;width:295px!important;border-radius:7px!important;overflow:hidden;background:white!important}.coordinate-card>header{padding:12px 14px!important;margin:0!important;border-bottom:1px solid var(--line);font-size:13px}.coordinate-card>header .profile-close{border:0;background:transparent;padding:0 2px;font-size:19px;line-height:1;color:var(--muted)}.coordinate-values{padding:9px 14px}.coordinate-group-title{font-size:11px;font-weight:700;padding:5px 0 7px;color:var(--text)}.coordinate-group-title:not(:first-child){border-top:1px solid var(--line);margin-top:10px;padding-top:11px}.coordinate-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;line-height:1.8;font-size:11px}.coordinate-row span{color:var(--muted)}.coordinate-row strong{font-weight:500;text-align:right;overflow-wrap:anywhere}.coordinate-card .coordinate-depth{padding:10px 14px;margin:0!important;border-top:1px solid var(--line);font-size:12px;color:var(--text)}.coordinate-card>p{padding:0 14px 11px!important;margin:0!important;font-size:9px!important;line-height:1.5!important}
     @media(max-width:760px){.sidebar{display:block;max-height:31vh;padding:0}.chartroom-layers{padding:10px 12px}.chartroom-layer-heading{margin-bottom:5px}.chartroom-layer-heading h2{font:700 16px system-ui}.chartroom-layer-body{display:grid;grid-template-columns:1fr 1fr;gap:5px}.chartroom-layers .switch-row{grid-template-columns:18px 16px minmax(0,1fr);gap:3px 6px;padding:7px 5px;min-height:38px;margin:0}.chartroom-inline-legend{display:none}.chartroom-layer-group{margin:0;padding:0;border:0}.chartroom-layer-group{display:contents}.layer-symbol svg{width:16px;height:16px}.chartroom-notes[open] .info-card,.chartroom-notes[open] .attribution{display:block}.chartroom-layers .layer-label{font-size:10px}.chartroom-layers .layer-meta{font-size:9px}.sidebar>.section,.sidebar>.chartroom-notes{padding:10px 14px}.esri-popup--is-docked{left:8px!important;right:8px!important;bottom:8px!important}.esri-popup--is-docked .esri-popup__main-container{max-height:40vh!important}#elevationDialog .profile-dialog{display:block;max-height:65vh}#elevationSummary{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin:7px 0!important}#elevationSummary .profile-stat{font-size:10px;gap:5px;padding:3px 6px}#elevationChart{padding:6px 0 0;border-left:0;border-top:1px solid var(--line)}.coordinate-card{width:280px!important}}
+    /* Nonmodal analysis windows. Only the window surface intercepts map input. */
+    #elevationDialog,#productionDialog{position:fixed;inset:0;display:block;padding:0;background:transparent;backdrop-filter:none;pointer-events:none}
+    #elevationDialog[hidden],#productionDialog[hidden]{display:none!important}
+    #elevationDialog .profile-dialog,#productionDialog .profile-dialog{position:fixed;pointer-events:auto;max-width:calc(100vw - 16px);max-height:none;min-width:min(480px,calc(100vw - 16px));min-height:160px;overflow:auto;padding:16px 18px 23px;background:white;box-shadow:0 12px 48px #17344b30;resize:none}
+    #elevationDialog .profile-header,#productionDialog .profile-header{cursor:grab;touch-action:none;user-select:none;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:4px;align-items:center}#elevationDialog .profile-header.dragging,#productionDialog .profile-header.dragging{cursor:grabbing}.profile-header button{cursor:pointer}
+    #elevationDialog .profile-dialog{grid-template-areas:"header header" "status status" "summary chart" "controls controls" "note note";grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto auto auto auto auto;align-content:start;gap:8px 20px}
+    #riserControls{padding:9px 0 2px;border-top:1px solid var(--line);flex-wrap:wrap;align-items:center;gap:8px 18px}#riserControls .riser-note{margin:0;font-size:10px;line-height:1.45}#elevationChart{min-width:0}#elevationDialog .profile-chart svg{height:auto;min-height:160px;max-height:30vh}#elevationSummary .profile-stat{padding:4px 0}
+    #productionDialog .profile-chart svg{min-height:160px;max-height:34vh;height:auto}
+    .profile-resize-handle{position:absolute;right:1px;bottom:1px;width:22px;height:22px;border:0;border-radius:0 0 7px 0;background:linear-gradient(135deg,transparent 45%,#9cb3c0 46%,#9cb3c0 51%,transparent 52%,transparent 63%,#9cb3c0 64%,#9cb3c0 69%,transparent 70%);cursor:nwse-resize;touch-action:none}.profile-resize-handle:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+    @media(max-width:760px){#elevationDialog .profile-dialog,#productionDialog .profile-dialog{padding:12px 12px 24px;min-width:min(300px,calc(100vw - 16px))}#elevationDialog .profile-dialog{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"header" "status" "summary" "controls" "chart" "note";gap:7px}#elevationSummary{flex-direction:row;flex-wrap:wrap}#elevationChart{border-left:0;border-top:1px solid var(--line);padding:6px 0 0}#elevationDialog .profile-chart svg{min-height:140px;max-height:26vh}.profile-header{gap:8px}.profile-header .profile-close+.profile-close{margin-left:0}.profile-heading h2{font-size:17px}}
   </style>
 </head>
 <body>
@@ -104,7 +114,7 @@
     </main>
   </div>
   <div id="elevationDialog" class="profile-backdrop" hidden>
-    <section class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="elevationTitle">
+    <section class="profile-dialog" role="dialog" aria-modal="false" aria-labelledby="elevationTitle">
       <header class="profile-header"><div class="profile-heading"><h2 id="elevationTitle">Pipeline elevation profile</h2><p id="elevationSubtitle">Bathymetry sampled along the selected route</p></div><button id="exportElevation" class="profile-close" type="button" aria-label="Download elevation profile as Excel" disabled>⤓ Excel</button><button id="closeElevation" class="profile-close" type="button" aria-label="Close elevation profile">Close</button></header>
       <div id="elevationStatus" class="profile-status" role="status" aria-live="polite">Preparing profile…</div>
       <div id="elevationSummary" class="profile-summary" hidden></div>
@@ -114,7 +124,7 @@
     </section>
   </div>
   <div id="productionDialog" class="profile-backdrop" hidden>
-    <section class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="productionTitle">
+    <section class="profile-dialog" role="dialog" aria-modal="false" aria-labelledby="productionTitle">
       <header class="profile-header"><div class="profile-heading"><h2 id="productionTitle">Production</h2><p id="productionSubtitle"></p></div><button id="exportProduction" class="profile-close" type="button" aria-label="Download production data as Excel" disabled>⤓ Excel</button><button id="closeProduction" class="profile-close" type="button" aria-label="Close production data">Close</button></header>
       <div id="productionStatus" class="profile-status" role="status" aria-live="polite">Loading production data…</div>
       <div id="productionSummary" class="profile-summary" hidden></div>
@@ -526,6 +536,80 @@
       const elevationSubtitle=document.getElementById("elevationSubtitle");
       const elevationSummary=document.getElementById("elevationSummary");
       const elevationChart=document.getElementById("elevationChart");
+      // Shared move/resize behavior; content changes auto-fit until the user selects a size.
+      let analysisWindowZ=20,activeAnalysisWindow=null;
+      const makeAnalysisWindow=(id,anchor)=>{
+        const root=document.getElementById(id),panel=root.querySelector(".profile-dialog"),header=panel.querySelector(".profile-header");
+        const handle=document.createElement("button");handle.type="button";handle.className="profile-resize-handle";
+        handle.setAttribute("aria-label","Resize window; use arrow keys to adjust size");handle.title="Drag to resize; arrow keys resize when focused";panel.append(handle);
+        const fitButton=document.createElement("button");fitButton.type="button";fitButton.className="profile-close";fitButton.textContent="Fit";fitButton.title="Automatically size this window to fit its contents";header.insertBefore(fitButton,header.querySelector("button"));
+        let manualSize=false,manualPosition=false,queued=false,initialized=false;
+        const available=()=>({left:8,top:Math.max(8,Math.min(document.querySelector(".topbar").getBoundingClientRect().bottom+8,innerHeight-180)),width:Math.max(0,innerWidth-16),height:Math.max(0,innerHeight-Math.max(8,Math.min(document.querySelector(".topbar").getBoundingClientRect().bottom+8,innerHeight-180))-8)});
+        const raise=()=>{root.style.zIndex=String(++analysisWindowZ);activeAnalysisWindow=root;};
+        const clampPosition=()=>{
+          const area=available(),r=panel.getBoundingClientRect();
+          panel.style.left=`${Math.max(area.left,Math.min(innerWidth-r.width-8,r.left))}px`;
+          panel.style.top=`${Math.max(area.top,Math.min(innerHeight-r.height-8,r.top))}px`;
+        };
+        const fit=()=>{
+          queued=false;if(root.hidden)return;
+          const area=available(),mapRect=view.container.getBoundingClientRect();
+          if(!initialized){panel.style.width=`${Math.min(area.width,Math.max(Math.min(640,area.width),Math.min(anchor==="bottom"?1060:980,mapRect.width-32)))}px`;initialized=true;}
+          if(panel.offsetWidth>area.width)panel.style.width=`${area.width}px`;
+          if(!manualSize){
+            panel.style.height="auto";
+            panel.style.height=`${Math.min(area.height,panel.scrollHeight+2)}px`;
+          }else if(panel.offsetHeight>area.height)panel.style.height=`${area.height}px`;
+          if(!manualPosition){
+            const r=panel.getBoundingClientRect();
+            panel.style.left=`${Math.max(8,Math.min(innerWidth-r.width-8,mapRect.left+(mapRect.width-r.width)/2))}px`;
+            panel.style.top=`${anchor==="bottom"?innerHeight-r.height-8:area.top+Math.max(0,(area.height-r.height)/3)}px`;
+          }
+          clampPosition();
+        };
+        const scheduleFit=()=>{if(!queued){queued=true;requestAnimationFrame(fit);}};
+        fitButton.onclick=()=>{manualSize=false;raise();scheduleFit();};
+        const resizeTo=(width,height)=>{
+          const area=available(),minWidth=Math.min(480,area.width);
+          manualSize=true;
+          panel.style.width=`${Math.max(minWidth,Math.min(area.width,width))}px`;
+          panel.style.height=`${Math.max(Math.min(180,area.height),Math.min(area.height,height))}px`;
+          clampPosition();
+        };
+        const gesture=(element,event,resize)=>{
+          if(event.button!==0||(!resize&&event.target.closest("button,input,select,a")))return;
+          event.preventDefault();event.stopPropagation();raise();
+          const r=panel.getBoundingClientRect(),start={x:event.clientX,y:event.clientY};
+          if(resize)manualSize=true;else{manualPosition=true;header.classList.add("dragging");}
+          element.setPointerCapture(event.pointerId);
+          const move=e=>{
+            if(resize)resizeTo(r.width+e.clientX-start.x,r.height+e.clientY-start.y);
+            else{panel.style.left=`${r.left+e.clientX-start.x}px`;panel.style.top=`${r.top+e.clientY-start.y}px`;clampPosition();}
+          };
+          const end=e=>{
+            element.removeEventListener("pointermove",move);element.removeEventListener("pointerup",end);element.removeEventListener("pointercancel",end);
+            if(element.hasPointerCapture(e.pointerId))element.releasePointerCapture(e.pointerId);header.classList.remove("dragging");
+          };
+          element.addEventListener("pointermove",move);element.addEventListener("pointerup",end);element.addEventListener("pointercancel",end);
+        };
+        header.addEventListener("pointerdown",event=>gesture(header,event,false));handle.addEventListener("pointerdown",event=>gesture(handle,event,true));
+        handle.addEventListener("keydown",event=>{
+          if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key))return;
+          event.preventDefault();raise();const step=event.shiftKey?50:20,r=panel.getBoundingClientRect();
+          resizeTo(r.width+(event.key==="ArrowRight"?step:event.key==="ArrowLeft"?-step:0),r.height+(event.key==="ArrowDown"?step:event.key==="ArrowUp"?-step:0));
+        });
+        panel.addEventListener("pointerdown",raise);
+        new MutationObserver(changes=>{
+          if(changes.some(change=>change.target===root)){
+            if(!root.hidden)raise();
+            else if(activeAnalysisWindow===root)activeAnalysisWindow=[...document.querySelectorAll("#elevationDialog,#productionDialog")].filter(dialog=>!dialog.hidden).sort((a,b)=>Number(b.style.zIndex)-Number(a.style.zIndex))[0]||null;
+          }
+          scheduleFit();
+        }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:["hidden"]});
+        window.addEventListener("resize",scheduleFit);
+        return {fit:scheduleFit,isActive:()=>activeAnalysisWindow===root};
+      };
+      const elevationWindow=makeAnalysisWindow("elevationDialog","bottom"),productionWindow=makeAnalysisWindow("productionDialog","center");
       const elevationProfileCache=new window.Map();
       const profileSampleLimit=500;
       let elevationModulesPromise;
@@ -720,7 +804,7 @@
       const closeElevation=()=>{elevationDialog.hidden=true;if(previousFocus?.focus)previousFocus.focus();};
       document.getElementById("closeElevation").onclick=closeElevation;
       elevationDialog.addEventListener("click",event=>{if(event.target===elevationDialog)closeElevation();});
-      document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!elevationDialog.hidden)closeElevation();});
+      document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!elevationDialog.hidden&&elevationWindow.isActive())closeElevation();});
       const sampleRouteGeometry=async route=>{
         const {Polyline,SpatialReference,geometryEngine,projection}=await getElevationModules();
         await projection.load();
@@ -1519,7 +1603,7 @@
         rangeSel.onchange=draw;exportBtn.onclick=exportExcel;
         document.getElementById("closeProduction").onclick=close;
         dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
-        document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!dialog.hidden)close();});
+        document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!dialog.hidden&&productionWindow.isActive())close();});
         return {open};
       })();
       window.BluewaterProduction=productionData;
